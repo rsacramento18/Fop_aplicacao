@@ -1,0 +1,1737 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+
+/* Table of Content
+==================================================
+	#Reset & Basics
+	#Basic Styles
+	#Site Styles
+	#Typography
+	#Links
+	#Lists
+	#Images
+	#Buttons
+	#Forms
+	#Misc */
+
+
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+
+
+html{
+	font-family:'Exo', Arial, sans-serif;
+}
+
+body{
+	background: #FFFFFF;
+}
+
+.clearfix:after {
+    	display:block;
+    	clear:both;
+}
+
+/*=============HEADING AND PARAGRAFOS==========*/
+h1{
+	font-size: 30pt;
+	padding: 20px 20px 20px 15px;
+}
+h2,h3,h4,h5 {
+	padding-bottom: 20px;
+}
+h2{
+	font-size: 17pt;
+}
+
+b{
+	font-weight: bold;
+}
+
+/*=============INPUT STYLES==========*/
+
+input[type=text], 
+input[type=date],
+input[type=datetime],
+input[type=number],
+input[type=search],
+input[type=time],
+input[type=url],
+input[type=email],
+input[type=password],
+textarea{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 6px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;  
+}
+
+select{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 5px;
+    width: 120px;
+    margin:0px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;  
+}
+
+input[type=text]:focus, 
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=number]:focus,
+input[type=search]:focus,
+input[type=time]:focus,
+input[type=url]:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+textarea:focus, 
+select:focus{
+    -moz-box-shadow: 0 0 8px #840101;
+    -webkit-box-shadow: 0 0 8px #840101;
+    box-shadow: 0 0 8px #840101;
+    border: 1px solid #840101;
+}
+
+input[type=submit], input[type=button]{
+    background: #840101;
+    padding: 7px 15px 7px 15px;
+    border: none;
+    color: #fff;
+}
+input[type=submit]:hover, input[type=button]:hover{
+	background: #2d2d2d;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+	border-color: #840101;
+
+    background-image: none;
+  	outline: 0;
+}
+
+input[type=submit]:focus, input[type=submit]:active, input[type=submit].active, input[type=submit]:focus:active,
+input[type=button]:focus, input[type=button]:active, input[type=button].active, input[type=button]:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* SQUARED TWO */
+.squaredTwo {
+	width: 160px;
+	height: 36px;
+	background: #810101;
+	position: relative;
+	float: right;
+	margin: 20px 26px 25px 0;
+
+}
+
+.squaredTwo span{
+	color: #FFFFFF;
+	font-size: 1em;
+	position: absolute;
+	top: 10px;
+	left: 7px;
+}
+
+.squaredTwo label {
+	cursor: pointer;
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	left: 130px;
+	top: 6px;
+
+	border: 3px solid #FFF;
+
+	background: -webkit-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -moz-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -o-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -ms-linear-gradient(top, #222 0%, #45484d 100%);
+	background: linear-gradient(top, #222 0%, #45484d 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 );
+}
+
+.squaredTwo label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 12px;
+	height: 6px;
+	background: transparent;
+	top: 3px;
+	left: 1px;
+	border: 3px solid #fcfff4;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.squaredTwo label:hover::after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+
+.squaredTwo input[type=checkbox]{
+	display:none;
+}
+
+.squaredTwo input[type=checkbox]:checked + label:after {
+	-webkit-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-moz-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-o-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+
+/* SQUARED TWO 2 */
+.squaredTwo2 {
+	width: 160px;
+	height: 36px;
+	background: #810101;
+	position: relative;
+	float: left;
+	margin: 10px 0;
+	
+
+}
+
+.squaredTwo2 span{
+	color: #FFFFFF;
+	font-size: 1em;
+	position: absolute;
+	top: 10px;
+	left: 7px;
+}
+
+.squaredTwo2 label {
+	cursor: pointer;
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	left: 130px;
+	top: 6px;
+
+	border: 3px solid #FFF;
+
+	background: -webkit-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -moz-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -o-linear-gradient(top, #222 0%, #45484d 100%);
+	background: -ms-linear-gradient(top, #222 0%, #45484d 100%);
+	background: linear-gradient(top, #222 0%, #45484d 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 );
+}
+
+.squaredTwo2 label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 12px;
+	height: 6px;
+	background: transparent;
+	top: 3px;
+	left: 1px;
+	border: 3px solid #fcfff4;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.squaredTwo2 label:hover::after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+
+.squaredTwo2 input[type=checkbox]{
+	display:none;
+}
+
+.squaredTwo2 input[type=checkbox]:checked + label:after {
+	-webkit-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-moz-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-o-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+
+
+
+/*================TABLES==========*/
+table { 	
+	border-collapse: collapse;
+	width: 90%;
+}
+
+tr:nth-of-type(odd) { 
+	background: #eeeeee; 
+	border: none;
+}
+
+th { 
+	background: #FFFFFF; 
+	color: #000; 
+	border: none;
+	text-align: right;
+	width: 15%;
+}
+
+td, th { 
+	padding: 8px; 
+	border: none;
+}
+
+
+/*=============ERROR MENSAGE============*/
+
+.error{
+	background-color: #ffffff;
+	text-align: center;
+	text-transform: uppercase;
+
+}
+
+/*===========LOGIN PAGE============*/
+
+#login {
+	width: 780px;
+	background: #FFFFFF;
+	border: 2px solid #a71717;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+	margin: 15% auto 0;
+}
+
+.logo{
+	margin: 75px 0;
+	padding: 5px 50px;
+	float: left;
+	
+}
+
+.logo a{
+	width:300px;
+	height: 55px;
+	display: block;
+	background: url(../img/logo300.png) no-repeat 0 0;
+
+	font-size: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+}
+.logo h3{
+	padding-top: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 16px;
+	font-size: 0.7em
+}
+
+/*============LOGIN FORM=============*/
+
+#login_form{
+	overflow: auto;
+	background: url("../img/divisor1.png") no-repeat 0 43px;
+	padding: 25px 50px;
+}
+
+#login_form h3{
+	padding-top: 25px;
+	text-align: center;
+}
+
+#login_form form{
+	margin-top: 30px;
+}
+
+#login_form form input {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 1px solid #e0ded8;
+  	width: 240px;
+  	border-radius: 3px;
+  	margin: 7px auto;
+  	padding: 3px 5px;
+  	display: block;
+  	font-size: 16px;
+}
+
+#login_form form input:focus {
+  border: 1px solid #a71717;
+}
+
+#login_form form input[type="button"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: 0;
+	background-color: #212121;
+	margin: 20px auto 40px auto; 
+	padding: 5px 15px;
+	border-radius: 3px;
+	border: none;
+	box-shadow: 1px 1px grey;
+	width: 250px;
+	cursor: pointer;
+	font-size: 18px;
+	
+    transition: all 0.3s ease-in-out;
+}
+
+
+#login_form form input[type="button"]:hover {
+	background-color: #810101;
+
+}
+
+/*=================LOGADO===============*/
+#loggado {
+	float: right;
+	text-align: right;
+	font-size: 16px;
+	padding-top: 30px;
+}
+
+/*=================HEADER LOGO===============*/
+
+header{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.logo-div{
+	width: 85%;
+	margin: 50px auto 34px auto;
+	background: url(../img/backgroundLogo.png) no-repeat 0 30px;
+}
+
+.logo_header{
+	padding: 0 250px;
+}
+
+header div.logo-div h3{
+	margin: 0 280px;
+}
+
+.logo_header a{
+	width:320px;
+	height: 60px;
+	display: block;
+
+	background: url(../img/logo300.png) no-repeat 10px 0, #FFFFFF;
+
+	font-size: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+}
+
+/*=================PRIMARY NAVIGATION MENU==============*/
+
+/*----- Menu Outline -----*/
+.menu-wrap {
+    width:100%;
+    box-shadow:0px 1px 3px rgba(0,0,0,0.2);
+    background:url(../img/backpaneGrey.png) repeat-x 0 0;
+    margin: 0 auto;
+}
+ 
+.menu {
+    width:1050px;
+    margin:0px auto;
+    height: 40px;
+}
+ 
+.menu li {
+    margin:0px;
+    list-style:none;
+}
+ 
+.menu a {
+    color:#919191;
+}
+ 
+.menu li:hover > a, 
+.menu .current-item > a {
+    text-decoration:none;
+    color:#FFFFFF;
+}
+ 
+.menu .arrow {
+    font-size:11px;
+    line-height:0%;
+}
+ 
+/*----- Top Level -----*/
+.menu > ul > li {
+    float:left;
+    display:inline-block;
+    position:relative;
+    font-size:19px;
+}
+ 
+.menu > ul > li > a {
+    padding:10px 44px;
+    display:inline-block;
+    text-shadow:0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+ 
+.menu > ul > li:hover > a, 
+.menu > ul > .current-item > a {
+    background:#810101;
+}
+ 
+/*----- Bottom Level -----*/
+.menu li:hover .sub-menu {
+    z-index:1;
+    opacity:1;
+}
+ 
+.sub-menu {
+    width:125%;
+    padding:0px;
+    position:absolute;
+    top:102%;
+    left:0px;
+    z-index:-1;
+    opacity:0;
+    box-shadow:0px 2px 3px rgba(0,0,0,0.2);
+    background:#2d2d2d;
+}
+ 
+.sub-menu li {
+    display:block;
+    font-size:16px;
+    border-bottom: 2px solid #2d2d2d;
+}
+ 
+.sub-menu li a {
+    padding:10px 40px;
+    display:block;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+ 
+.sub-menu li a:hover, 
+.sub-menu .current-item a {
+    background:#810101;
+}
+
+/*----- Sub Bottom Level -----*/
+.sub-menu li:hover .sub-sub-menu {
+    z-index:1;
+    opacity:1;
+}
+ 
+.sub-sub-menu {
+    width:125%;
+    padding:0px;
+    position:absolute;
+    top:29%;
+    left:100%;
+    z-index:-1;
+    opacity:0;
+    box-shadow:0px 2px 3px rgba(0,0,0,0.2);
+    background:#2d2d2d;
+}
+ 
+.sub-sub-menu li {
+    display:block;
+    font-size:16px;
+    border-bottom: 2px solid #2d2d2d;
+}
+ 
+.sub-sub-menu li a {
+    padding:10px 40px;
+    display:block;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+ 
+.sub-sub-menu li a:hover, 
+.sub-sub-menu .current-item a {
+    background:#810101;
+}
+
+/*============LOGIN ID==========*/
+.loginID{
+	position: relative;
+	bottom: 50px;
+	float: right;
+}
+
+.loginID p{
+	z-index: 1;
+	line-height: 40px;
+	padding: 0 14px;
+	color: #ffffff;
+	text-decoration: none;
+	letter-spacing: 0.08em;
+}
+
+/*============WRAPPER-CONTENT===========*/
+.wrapper-content{
+	width: 1000px;
+	margin: 30px auto;
+	background:url(../img/highlight.png) no-repeat 0 30px;
+}
+
+
+/*============CONTENT===========*/
+
+/*==============SOCIOS DIV==============*/
+#sociosDiv{
+	width: 100%;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #a71717;
+	overflow: hidden; 
+}
+
+#sociosDiv form{
+	width:80%;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+#sociosDiv form #alterarSocioBt{
+	margin: 10px;
+	margin-right: 153px;
+	float:right;
+}
+
+#sociosDisplay{
+	max-height: 500px;
+	overflow: hidden;
+}
+
+#sociosDisplay:hover{
+	overflow-y: auto; 
+}
+
+.socioView{
+	padding: 25px 0;
+	border-bottom: 1px solid #2d2d2d;
+	 
+}
+
+#sociosDiv form #todos{
+	margin-top: 20px;
+}
+
+#sociosDisplay table tr:hover {
+	background: #212121; 
+	color: #FFF;
+}
+
+#sociosDisplay #tableCartaoFop tr th{
+	width:25%;
+	border:none;
+}
+
+#sociosDisplay #tableCartaoFop tr td{
+	background: #212121;
+	color: #fff;
+}
+
+#sociosDiv #btRetroceder{
+	margin-left: 30px; 
+}
+
+#sociosClubeDisplay{
+	padding-top: 20px;
+}
+
+/*==============PESQUISAR POR CLUBE DIV==============*/
+
+#campoClube{
+	width: 360px;
+}
+
+/*=================== TABS ========================*/
+.tabs {
+    	width:100%;
+    	display:inline-block;
+}
+ 
+/*----- Tab Links -----*/
+/* Clearfix */
+.tab-links:after {
+    	display:block;
+    	clear:both;
+    	content:'';
+}
+
+.tab-links li {
+    	margin:0px 5px;
+    	float:left;
+    	list-style:none;
+}
+
+.tab-links a {
+	padding:9px 15px;
+	display:inline-block;
+	border-radius:3px 3px 0px 0px;
+   -moz-border-radius: 3px 3px 0px 0px;
+   -webkit-border-radius: 3px 3px 0px 0px;
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.30);
+   -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.30);
+   -moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.30);
+	background:#FFF;
+	font-size:16px;
+	font-weight:600;
+	color:#4c4c4c;
+	transition:all linear 0.15s;
+	text-decoration: none;
+}
+
+.tab-links a:hover {
+	background:#2d2d2d;
+	color: #FFF;
+	text-decoration:none;
+}
+
+li.active a, li.active a:hover {
+	background:#810101;
+	color:#FFF;
+}
+
+/*----- Content of Tabs -----*/
+.tab-content {
+	padding:50px 50px 50px 150px;
+	border-radius:3px;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+	background:#fff;
+}
+
+.tab {
+	display:none;
+}
+
+.tab.active {
+	display:block;
+}
+
+/*=============GESTAO DE CONTAS============*/
+
+#tab1 table {
+	margin-bottom: 50px;
+	border-collapse: collapse;
+}
+
+#tab1 table th{
+	color: #000;
+	text-align: left;
+	border-bottom: 1px solid #212121;
+
+}
+
+#tab1 table tr:hover{
+	background: #212121; 
+	color: #FFF;
+}
+
+#tab2 form input,
+#tab2 form select{
+	margin: 10px 10px 10px 0;
+}
+
+.labels{
+	display:none;
+	background: #840101;
+	color: #fff;
+	margin-left: 10px;
+	padding: 3px;
+	font-size: 14px;
+}
+
+#tab1 #btEliminarConta:hover + .labels{
+	display: inline;
+}
+
+#registration_form #selectClube{
+	width: 350px;
+}
+
+form#registration_form select#privilegio {
+	width: 268px;
+}
+
+#registration_form input[type="text"]:focus + .labels,
+#registration_form input[type="password"]:focus + .labels,
+#registration_form select:focus + .labels{
+	display: inline;
+}
+
+/*=========GESTÃO DE CLUBES===========*/
+
+
+#gestaoClube{
+	padding-bottom: 20px;
+}
+
+#buttons{
+	margin: 0 auto;
+	width: 500px;
+	text-align: center;
+	padding: 10px 0
+}
+
+#divAssociados{
+	height: 500px;
+	padding: 10px 35px;
+	margin: 0 auto;
+}
+
+.associadoQuadrado{
+	border: 1px solid #212121;
+	float: left;
+	padding: 10px 0 0 10px;
+	padding-right: 10px;
+	margin: 5px;
+	width: 200px;
+	height: 75px;
+}
+
+.associadoQuadrado .num_membro{
+	text-align: right;
+}
+
+.associadoQuadrado:hover {
+	background-color: #212121;
+	color: #ffffff;
+}
+
+.associadoQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+.associadoQuadrado:hover li:before{
+
+    color: #ffffff;
+}
+
+.associadoQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+#membroDetalhado{
+	padding: 20px;
+	margin: 10px;
+}
+
+#headerClube{
+	margin-top: 20px;
+}
+
+#membroDetalhadoTable{
+
+	margin: 0 auto;
+	border: none;
+}
+
+#membroDetalhadoTable th {
+	border-bottom: 1px solid #212121;
+	text-align: left;
+}
+
+#membroDetalhadoTable tr {
+	border: none;
+}
+
+
+#membroDetalhadoTable tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
+
+/*=========QUOTAS===========*/
+
+#dadosMembro{
+	height:420px;
+}
+
+#divQuotas{
+	width: 425px;
+	height: 300px;
+	text-align: center;
+	float: left;
+
+}
+
+#formAlterarDadosAssociadoClube,
+#formAlterarNumeroAssociadoClube{
+	margin: 20px;
+	width: 250px;
+	float: left;
+}
+
+#formEliminarAssociadoClube{
+	margin: 20px;
+}
+
+
+#clubeDiv{
+	margin: 10px;
+	max-height: 200px;
+	overflow: hidden;
+}
+
+#clubeDiv:hover{
+	overflow-y: auto; 
+}
+
+#pagarQuotas{
+	width: 450px;
+	height: 350px;
+	float: right;
+}
+
+#pagarQuotas #headerClube input[type='button']{
+	margin: 0 10px;
+	padding: 0 10px;
+	font-size: 0.7em;
+}
+
+#verQuotasAnteriores{
+	display: block;
+	max-height: 240px;
+	width:1000px;
+	overflow-y: hidden;
+	margin: 10px 0;
+}
+
+#verQuotasAnteriores:hover{
+	overflow-y: auto;
+}
+
+#verQuotasAnteriores #headerClube input[type='button']{
+	margin: 0 10px;
+	padding: 0 10px;
+	font-size: 0.7em;
+}
+
+#verQuotasAnteriores table{
+	padding:10px;
+}
+
+#tableQuotasAnteriores{
+
+	margin: 0 auto;
+	border: none;
+}
+
+#tableQuotasAnteriores th {
+	border-bottom: 1px solid #212121;
+	text-align: left;
+}
+
+#tableQuotasAnteriores tr {
+	border: none;
+}
+
+
+#tableQuotasAnteriores tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
+
+#verQuotaForm{
+	margin: 20px;
+}
+
+#pagarQuotasForm{
+	padding: 50px 0 0 0;
+}
+
+#pagarQuotasForm input[type=text],
+#pagarQuotasForm input[type=number],
+#pagarQuotasForm input[type=submit]{
+	margin: 5px 0;
+}
+
+#pagarQuotasForm #quotaPagarAte{
+	margin: 25px 0 0 0;
+}
+
+#pagarQuotasFormPrimeiraVez{
+	padding: 15px 0;
+}
+
+#pagarQuotasFormPrimeiraVez input[type=text],
+#pagarQuotasFormPrimeiraVez input[type=number],
+#pagarQuotasFormPrimeiraVez input[type=submit]{
+	margin: 5px 0;
+}
+
+#pagarQuotasFormPrimeiraVez #quotaPagarDe{
+	margin: 25px 0 0 0;
+}
+
+#divQuotas #buttonsQuotas{
+
+	margin: 0 auto;
+	width: 130px;
+	padding: 20px 0;
+}
+
+#divQuotas #buttonsQuotas span{
+	background-color: #810101;
+	color: white;
+	padding: 7px 7px 7px 7px;
+	position: relative;
+	top: 1px;
+	line-height: 1.1em;
+}
+
+
+
+.quadradoMesQuota{
+	width: 75px;
+	padding:10px 0;
+	margin: 2px;
+	float: left;
+	border: 1px solid #212121;
+}
+
+#headerClube{
+	text-align: left;
+	padding: 0;
+}
+
+/*=========PAGAR QUOTAS===========*/
+
+#aPagarQuotas{
+	height: 500px;
+	padding: 10px 35px;
+	margin: 0 auto;
+}
+
+#confirmarPagamentoQuota{
+	text-align: left;
+}
+
+#confirmarPagamentoQuota h3{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#confirmarPagamentoQuota input[type = "submit"]{
+	margin: 30px 20px;
+}
+
+/*=========LISTAGENS DE CLUBE===========*/
+
+#listagensClube{
+	margin: 20px 0;
+	padding: 20px 0;
+	border-bottom: 1px solid #810101;
+}
+
+#formListagensClube select{
+	width: 700px;
+	padding-right: 10px;
+}
+
+#listagensClubeTable{
+	margin: 0 auto;
+	border: none;
+}
+
+#listagensClubeTable th {
+	border-bottom: 1px solid #212121;
+	text-align: left;
+}
+
+#listagensClubeTable tr {
+	border: none;
+}
+
+
+#listagensClubeTable tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
+
+#displayListagem{
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+#formListagemParaPdf{
+	margin: 30px;
+}
+
+
+/*=========ANILHAS===========*/
+
+#divDadosSocio {
+	padding: 25px;
+	border-bottom: 1px solid #212121;
+}
+
+#divDadosSocio table{
+	border-collapse: collapse;
+	border:none;
+}
+
+#divDadosSocio table tr{
+	border:none;
+}
+
+#divDadosSocio table tr:hover{
+	background: #212121; 
+	color: #FFF;
+}
+
+#divDadosSocio input[type="button"]{
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+#divDadosSocio #tableCartaoFop tr th{
+	width:25%;
+	border:none;
+}
+
+#divDadosSocio #tableCartaoFop tr td{
+	background: #212121;
+	color: #fff;
+}
+
+#divEncomendasSocio {
+	padding: 25px;
+	border-bottom: 1px solid #212121;
+}
+
+#divEncomendasSocio table{
+	margin: 0 auto;
+	border: none;
+}
+
+#divEncomendasSocio table th {
+	border-bottom: 1px solid #212121;
+	text-align: left;
+}
+
+#divEncomendasSocio table tr {
+	border: none;
+}
+
+
+#divEncomendasSocio table tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
+
+#divEncomendasSocio #tableTotalCustos tr th{
+	width:25%;
+	border:none;
+}
+
+#divEncomendasSocio #tableTotalCustos tr td{
+	background: #212121;
+	color: #fff;
+}
+
+#divEncomendasSocio input[type="button"]{
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+
+
+#divNovaEncomenda {
+	padding: 25px;
+	min-height: 500px;
+}
+
+#divNovaEncomenda #anilhasForm{
+	width: 400px;
+	margin: 0 25px 0 50px;
+	float: left;
+	min-height: 350px;
+}
+
+#divNovaEncomenda #anilhasForm #calcularCusto{
+	margin: 20px 0 50px 0;
+}
+
+.inputClass2{
+	margin-right: 5px;
+}
+
+input[type="button"].inputClass3{
+	margin-left: 4px;
+	padding-left: 17px;
+}
+
+.inputClass{
+	margin-right: 9px;
+	margin-top: 10px;
+}
+
+#divNovaEncomenda input[type="submit"]{
+	margin-top: 10px;
+}
+
+#divNovaEncomenda #mensagemCartaoFop{
+	width: 400px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	float: right;
+	padding: 20px;
+	border: 5px double #810101;
+}
+
+#divNovaEncomenda #mostrarPortesClube{
+	margin: 0 160px 20px;
+}
+
+#divNovaEncomenda #formPortesClubes{
+	float: right;
+	width: 400px;
+	margin-right:20px;
+	padding: 20px;
+	border: 5px double #810101;
+	display: none;
+
+
+}
+
+#divNovaEncomenda #formPortesClubes input[type="text"]{
+	margin: 10px 5px 10px 50px;
+	width: 200px;
+	text-align: center;
+}
+
+#divNovaEncomenda #formPortesClubes span{
+	width: 300px;
+	margin: 0 30px;
+}
+
+/*=========PORTES===========*/
+#divPortes {
+	text-align: center;
+}
+
+#divPortes h2 {
+	width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: center;
+	font-size: 2.1em;
+	border: 5px double #810101;
+}
+
+#mostrarPortesClube{
+	font-size: 1.0em;
+	margin: 20px;
+}
+
+/*====================*/
+
+#encomendarAnilhasBt {
+	width: 185px;
+	margin: 50px auto;
+}
+
+#encomendaEfectuada {
+	text-align: center;
+}
+
+#encomendaEfectuada h2 {
+	width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: center;
+	font-size: 2.1em;
+	border: 5px double #810101;
+}
+
+#encomendaEfectuada input[type="button"]{
+	font-size: 1.3em;
+	margin: 20px;
+}
+
+
+/*=========OPCOES ANILHAS===========*/
+#opcoesAnilhas form{
+	width: 240px;
+	display: inline-block;
+	margin: 20px;
+	padding: 20px;
+	border: 5px double #810101;
+}
+
+#opcoesAnilhas form h2 {
+	text-align: center;
+	font-size: 1.1em;
+	padding: 0px;
+}
+
+#opcoesAnilhas form input[type="text"]{
+	width: 200px;
+	margin: 20px;
+	text-align: center;
+}
+
+#opcoesAnilhas form input[type="button"]{
+	width:120px;
+	margin: 0 60px;
+}
+
+tr.selected {
+    	background: #810101;
+    	color: #FFF;
+}
+
+/*=========PRECOS ANILHAS===========*/
+#precosAnilhas form{
+	width: 240px;
+	display: inline-block;
+	margin: 20px;
+	padding: 20px;
+	border: 5px double #810101;
+}
+
+#precosAnilhas form h2 {
+	text-align: center;
+	font-size: 1.1em;
+	padding: 0px;
+}
+
+#precosAnilhas form input[type="text"]{
+	width: 200px;
+	margin: 20px;
+	text-align: center;
+}
+
+#precosAnilhas form input[type="button"]{
+	width:100px;
+	margin: 0 70px;
+}
+
+/*=========LISTAGENS PEDIDOS===========*/
+
+#listagensPedidos form{
+	width: 240px;
+	display: inline-block;
+	margin: 20px;
+	padding: 20px;
+	border: 5px double #810101;
+}
+
+#listagensPedidos form h2 {
+	text-align: center;
+	font-size: 1.1em;
+	padding: 0px;
+}
+
+#listagensPedidos form select{
+	width: 200px;
+	margin: 20px;
+	text-align: center;
+}
+
+#listagensPedidos form input[type="submit"]{
+	width:130px;
+	margin: 0 55px; 
+}
+
+/*=========Editar Registo Socio===========*/
+
+#editarRegisto_socio input[type="text"],
+#editarRegisto_socio input[type="email"],
+#editarRegisto_socio input[type="submit"]{
+	margin: 5px;
+}
+
+.input {
+   position: relative;
+    width: 150px;
+}
+.input .label3 {
+    width: 100%;
+}
+
+
+.labels2{
+	display: none;
+	background: #840101;
+	color: #fff;
+	margin-left: 10px;
+	padding: 3px;
+	font-size: 14px;
+}
+
+#editarRegisto_socio input[type="text"]:focus + .labels2,
+#editarRegisto_socio input[type="email"]:focus + .labels2,
+#alterarDadosClubeForm2 input[type="text"]:focus + .labels2,
+#alterarDadosClubeForm2 input[type="email"]:focus + .labels2{
+	display: inline;
+}
+
+/*==============LOG================*/
+
+#logDiv table { 	
+	border-collapse: collapse;
+	width: 90%;
+	border: none;
+}
+
+#logDiv table tr:nth-of-type(odd) { 
+	background: #eeeeee; 
+	border: none;
+}
+
+#logDiv th { 
+	background: #FFFFFF; 
+	color: #000; 
+	border: none;
+	text-align: left;
+	width: 15%;
+}
+
+#logDiv td, #logDiv th { 
+	padding: 8px; 
+	border: none;
+}
+
+#logDiv table tr:hover{
+	background: #212121; 
+	color: #FFF;
+}
+
+
+/*=========Editar Clube===========*/
+
+#divEditarClube{
+	padding: 30px;
+	float: right;
+	width: 750px;
+}
+
+#editarClubeTable{
+	width: 100%;
+
+}
+
+/*=================================Exposições========================================*/
+
+/*=========Todas Exposições===========*/
+
+#todasExposicoes{
+	height: 700px;
+}
+
+
+#todasExposicoes .exposicaoQuadrado{
+	border: 1px solid #810101;
+	/*padding: 10px 0 0 10px;
+	padding-right: 10px;*/
+	float: left;
+	margin: 5px;
+	width:470px;
+	height: 135px;
+}
+
+#todasExposicoes .exposicaoQuadrado #imgExposicao{
+	width: 120px;
+	float: left;
+	padding-top: 15px;
+}
+
+#todasExposicoes .exposicaoQuadrado #conteudoExposicao{
+	width: 330px;
+	float: right;
+	padding: 10px 10px 0 10px;
+
+}
+
+#todasExposicoes .exposicaoQuadrado #conteudoExposicao .titulo{
+	text-align: right;
+	font-size: 1.2em;
+}
+
+#todasExposicoes .exposicaoQuadrado:hover {
+	background-color: #212121;
+	color: #ffffff;
+}
+
+#todasExposicoes .exposicaoQuadrado #conteudoExposicao li{
+
+	margin: 5px;
+}
+
+#todasExposicoes .exposicaoQuadrado #conteudoExposicao li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+#todasExposicoes .exposicaoQuadrado:hover  #conteudoExposicao li:before{
+
+    color: #ffffff;
+}
+
+#todasExposicoes .exposicaoQuadrado #conteudoExposicao li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+/*=========Exposição Detalhada===========*/
+
+#exposicaoSelecionada{
+	margin-bottom: 20px;
+}
+
+#exposicaoSelecionada #exposicaoFormDiv{	
+
+	margin:0px;
+	height: 750px;	
+}
+
+form#formAlterarExposicao {
+	padding: 20px;
+	float: left;
+}
+
+form#formAlterarExposicao input[type="text"],
+form#formAlterarExposicao select {
+	margin: 10px 0;
+	margin-left: 70px;
+	width: 435px;
+}
+
+form#formAlterarExposicao input[type='file']{
+	margin: 20px 0;
+	margin-left: 50px;
+}
+
+form#formAlterarExposicao #morada{
+	margin-left: 55px;
+}
+
+form#formAlterarExposicao #dataInicio,
+form#formAlterarExposicao #dataFim {
+	width: 100px;
+	margin-left: 39px;
+}
+
+form#formAlterarExposicao #dataFimSpan{
+	margin-left: 125px;
+}
+
+form#formAlterarExposicao #selectCriarExposicao{
+	margin-left: 5px;
+}
+
+
+form#formAlterarExposicao select.clubesSelect{
+	width: 390px;
+	margin: 10px 6px 10px 55px;
+}
+form#formAlterarExposicao #selectClubeCriarExposicao{
+	width: 390px;
+}
+
+form#formAlterarExposicao #addBtExposicao{
+
+	margin: 0 2px;
+}
+form#formAlterarExposicao #removeBtExposicao{
+
+	margin: 0 2px;
+	padding: 7px 16px;
+}
+
+form#formAlterarExposicao #spanDescricao{
+	position: relative;
+	bottom: 50px;
+}
+
+form#formAlterarExposicao #descricao{
+	margin: 20px 0;
+	margin-left: 40px;
+	width: 435px;
+
+}
+
+#exposicaoSelecionada #imgExposicaoDetalhada{
+	width: 300px;
+	margin:50px;	
+	float: right;
+
+}
+
+/*=========Criar Exposição===========*/
+
+form#formCriarExposicao {
+	padding: 20px;
+}
+
+form#formCriarExposicao input[type="text"],
+form#formCriarExposicao select {
+	margin: 10px 0;
+	margin-left: 70px;
+	width: 435px;
+}
+
+form#formCriarExposicao input[type='file']{
+	margin: 20px 0;
+	margin-left: 50px;
+}
+
+form#formCriarExposicao #morada{
+	margin-left: 55px;
+}
+
+form#formCriarExposicao #dataInicio,
+form#formCriarExposicao #dataFim {
+	width: 100px;
+	margin-left: 39px;
+}
+
+form#formCriarExposicao #dataFimSpan{
+	margin-left: 125px;
+}
+
+form#formCriarExposicao #selectCriarExposicao{
+	margin-left: 5px;
+}
+
+
+form#formCriarExposicao select.clubesSelect{
+	width: 390px;
+	margin: 10px 6px 10px 55px;
+}
+
+form#formCriarExposicao #selectClubeCriarExposicao{
+	width: 390px;
+}
+
+form#formCriarExposicao #addBtExposicao{
+
+	margin: 0 2px;
+}
+form#formCriarExposicao #removeBtExposicao{
+
+	margin: 0 2px;
+	padding: 7px 16px;
+}
+
+form#formCriarExposicao #spanDescricao{
+	position: relative;
+	bottom: 50px;
+}
+
+form#formCriarExposicao #descricao{
+	margin: 20px 0;
+	margin-left: 40px;
+	width: 435px;
+
+}
+
+
+/*=========FOOTER===========*/
+
+
+footer{
+    height:50px;
+	background: #2d2d2d;
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}

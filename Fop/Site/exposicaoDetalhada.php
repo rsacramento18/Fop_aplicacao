@@ -1,0 +1,140 @@
+<?php
+
+require_once('../mysql_config.php');
+require_once('functions.php');
+sec_session_start();
+if(isset($_POST['source1'])){
+	$idExposicao= $_POST['source1'];
+}
+
+
+$query = "SELECT * from exposicoes where idExposicao = '$idExposicao'";
+
+$stmt = @mysqli_query($dbc, $query);
+if($stmt) {
+
+	$dadosExposicao= mysqli_fetch_array($stmt);
+
+
+	echo "<div id='exposicaoFormDiv'>";
+
+    echo "<form method='post' action='alterarExposicao.inc.php' id='formAlterarExposicao' enctype='multipart/form-data'>";
+    	echo "<span>Titulo </span><input type='text' name='titulo' id='titulo' size='50'/><br/>";
+        echo "<span>Logotipo </span><input type='file' name='logo' id='logo'/><br/>";
+	    echo "<span>Morada </span><input type='text' name='morada' id='morada' size='48'/><br/>";
+        echo "<span>Data Inicio </span><input type='text' name='dataInicio' id='dataInicio' class ='datepicker' size='10'/>";
+        echo "<span id='dataFimSpan'>Data Fim </span><input type='text' name='dataFim' id='dataFim' class ='datepicker' size='10'/><br/>";
+        echo "<span>Excel Classes</span><input type='file' name='excel' id='excel'/><br/>";
+	    echo "<span>Tipo Exposiçao </span>";
+        echo "<select name='tipoExposicao' id='selectCriarExposicao'>";
+        echo "<option value='Clube'>Clube</option>";
+        echo "<option value='Todos'>Associados/Não Associados</option>";
+ 	    echo "<option value='International'>Internacional</option>";
+        echo "</select><br/>";
+        echo "<span id='spanClubes'>Clube </span>";
+        echo "<select name='clubes1' id='selectClubeCriarExposicao'>";
+        echo "<option></option>";
+		    getClubes($dbc);
+        echo "</select>";
+        echo "<input type='button' id='addBtExposicao'  size='5' value='+' onclick='addClube();' /><br/>";
+        echo "<span id='spanClubes2' style='display:none'>Clube 2 </span>";
+        echo "<select name='clubes2' id='selectClubeCriarExposicao2' class='clubesSelect' style='display:none'>";
+        echo "<option></option>";
+            getClubes($dbc);
+        echo "</select>";
+        echo "<span id='spanClubes3' style='display:none'>Clube 3 </span>";
+        echo "<select name='clubes3' id='selectClubeCriarExposicao3' class='clubesSelect' style='display:none'>";
+        echo "<option></option>";
+            getClubes($dbc); 
+        echo "</select><br/>";
+        echo "<span id='spanClubes4' style='display:none'>Clube 4 </span> ";
+        echo "<select name='clubes4' id='selectClubeCriarExposicao4' class='clubesSelect' style='display:none'>";
+        echo "<option></option>";
+            getClubes($dbc); 				
+	    echo "</select><br/>";
+
+        echo "<span id='spanClubes5' style='display:none'>Clube 5 </span> ";
+        echo "<select name='clubes5' id='selectClubeCriarExposicao5' class='clubesSelect' style='display:none'>	";
+        echo "<option></option>";
+            getClubes($dbc); 			
+	    echo "</select><br/>";
+        echo "<span id='spanDescricao'>Descrição </span><textarea name='descricao' id='descricao' cols='47' rows='4'></textarea><br/>";
+        echo "<input type='submit' name='BtCriarExposicao' id='BtCriarExposicao' value='Criar Exposição' /> ";
+
+    echo "</form>";
+    echo "<div id='imgExposicaoDetalhada'>";
+        echo "<img src='$dadosExposicao[logo]' height='300' width='300'/>";
+    echo "</div>";
+
+    echo "</div>";
+
+    
+    ?>
+	<script type="text/javascript">
+
+		var selectTipoExposicao = document.getElementById('selectCriarExposicao');
+
+        var exposicaoDados = <?php echo $dadosExposicao ;?>;
+        
+        document.getElementById('titulo').innerHTML = exposicaoDados[0];
+
+		var spanClubes1 = document.getElementById('spanClubes1');
+		var spanClubes2 = document.getElementById('spanClubes2');
+		var spanClubes3 = document.getElementById('spanClubes3');
+		var spanClubes4 = document.getElementById('spanClubes4');
+		var spanClubes5 = document.getElementById('spanClubes5');
+
+		var selectClube2 = document.getElementById('selectClubeCriarExposicao2');
+		var selectClube3 = document.getElementById('selectClubeCriarExposicao3');
+		var selectClube4 = document.getElementById('selectClubeCriarExposicao4'); 
+		var selectClube5 = document.getElementById('selectClubeCriarExposicao5');
+
+		var removeBt = document.getElementById('removeBtExposicao');
+
+		function addClube(){			
+			if(spanClubes4.style.display == ''){
+				spanClubes5.style.display = '';
+				selectClube5.style.display = '';
+			}
+			if(spanClubes3.style.display == ''){
+				spanClubes4.style.display = '';
+				selectClube4.style.display = '';
+			}
+			if(spanClubes2.style.display == ''){
+				spanClubes3.style.display = '';
+				selectClube3.style.display = '';
+
+			}
+			spanClubes2.style.display = '';
+			selectClube2.style.display = '';
+			removeBt.style.display = '';
+		}
+
+		function removeClube(){			
+			if(spanClubes3.style.display == 'none'){
+				spanClubes2.style.display = 'none';
+				selectClube2.style.display = 'none';
+				removeBt.style.display = 'none';
+			}
+			if(spanClubes4.style.display == 'none'){
+				spanClubes3.style.display = 'none';
+				selectClube3.style.display = 'none';
+			}
+			if(spanClubes5.style.display == 'none'){
+				spanClubes4.style.display = 'none';
+				selectClube4.style.display = 'none';
+
+			}
+			spanClubes5.style.display = 'none';
+			selectClube5.style.display = 'none';
+		}
+	</script>
+
+<?php
+}
+?>
+
+
+
+
+

@@ -1,0 +1,228 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+
+/* Table of Content
+==================================================
+	#Reset & Basics
+	#Basic Styles
+	#Site Styles
+	#Typography
+	#Links
+	#Lists
+	#Images
+	#Buttons
+	#Forms
+	#Misc */
+
+
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+
+
+html{
+	font-family: 'Lato', Arial, sans-serif;
+}
+
+body{
+	background: url("../img/climpek.png") #e0ded8;    
+}
+
+/*login_page*/
+
+#login {
+	width: 650px;
+	height: 300px;
+	background: #ffffff;
+	border: 2px solid #ec8415;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+	margin: 15% auto 0;
+}
+
+h1.logo{
+	margin: 58px 20px 58px 20px;
+	float: left;
+	
+}
+
+h1.logo a{
+	width:300px;
+	height: 183px;
+	display: block;
+	background: url(../img/logo.png) no-repeat 0 0;
+
+	font-size: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+}
+
+#login_form{
+	overflow: auto;
+	background: url("../img/divisor1.png") no-repeat 0 25px;
+	padding: 25px 0 40px 10px;
+}
+
+#login_form h3{
+	padding-top: 25px;
+	text-align: center;
+}
+
+#login_form form{
+	padding: 15px 20px 0 10px;
+}
+
+#login_form form input {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 1px solid #e0ded8;
+  	width: 240px;
+  	border-radius: 3px;
+  	margin: 10px;
+  	padding: 5px;
+  	display: block;
+  	font-size: 18px;
+}
+
+#login_form form input:focus {
+  border: 2px solid #ec8415;
+}
+
+#login_form form input[type="button"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: 0;
+	background-color: #c7c5bf;
+	margin: 30px auto; 
+	padding: 5px 15px;
+	border-radius: 3px;
+	width: 240px;
+	cursor: pointer;
+	font-size: 18px;
+}
+#login_form form input[type="button"]:hover {
+	background-color: #adaba6;
+}
+
+/*Header*/
+#back_pane{
+	width: 1000px;
+	background: #ffffff;
+	border-left: 2px solid #ec8415;
+	border-right: 2px solid #ec8415;
+	margin: 0 auto;
+}
+
+header{
+	height: 130px;
+	margin-bottom: 25px;
+	background: url(../img/background_white40px.png) repeat-x 0 64px,
+				url(../img/background_white5px.png) repeat-x 0 114px,
+				#c7c5bf;
+}
+
+h1.logo_header{
+	padding-top: 5px;
+	height: 183px;
+	float: right;	
+}
+
+h1.logo_header a{
+	width:350px;
+	height: 200px;
+	display: block;
+	background: url(../img/logo_header2.png) no-repeat 0 0;
+
+	font-size: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+}
+
+nav.primary{
+	overflow: auto;
+}
+
+nav.primary ul,
+nav.primary ul li {
+	margin: 0;
+}
+
+nav.primary ul{
+	margin-top: 64px;
+}
+
+nav.primary ul li{
+	position: relative;
+	display: inline;
+}
+
+nav.primary ul li a{
+	display: inline-block;
+	line-height: 40px;
+	padding: 0 14px;
+	color: #000000;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 0.08em;
+}
+
+nav.primary ul li a:hover{
+	height: 41px;
+	background: #ec8415;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}
