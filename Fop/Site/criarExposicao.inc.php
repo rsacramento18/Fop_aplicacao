@@ -100,7 +100,7 @@ if(isset($_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio
 	$file_typeExcel=$_FILES['excel']['type'];
 	$file_extExcel=strtolower(end(explode('.',$_FILES['excel']['name'])));
 
-	$expensionsExcel= array("xls", "xlsx");
+	$expensionsExcel= array("csv");
 
 	if(in_array($file_extExcel,$expensionsExcel)=== false){
 		$errors[]="extension not allowed, please choose a xls.";

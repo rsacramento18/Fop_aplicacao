@@ -1,4 +1,4 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
+<?php include ('header.php'); ?>
 <?php if (login_check($dbc) == true) : ?>
 	<div class="wrapper-content">
 		<div id="loggado">

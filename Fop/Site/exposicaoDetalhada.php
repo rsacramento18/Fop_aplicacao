@@ -2,6 +2,7 @@
 
 require_once('../mysql_config.php');
 require_once('functions.php');
+require_once 'excel_reader2.php';
 sec_session_start();
 if(isset($_POST['source1'])){
 	$idExposicao= $_POST['source1'];
@@ -15,10 +16,20 @@ if($stmt) {
 
 	$dadosExposicao= mysqli_fetch_array($stmt);
 
+    $idExposicao = $dadosExposicao['idExposicao'];
+    
+    $excelData = $dadosExposicao['excel'];
+
+    $excel = new Spreadsheet_Excel_Reader($excelData);
+    $excelData = $excel->sheets;
+    echo '<pre>';
+        var_export($excelData);
+    echo '</pre>';
 
 	echo "<div id='exposicaoFormDiv'>";
 
     echo "<form method='post' action='alterarExposicao.inc.php' id='formAlterarExposicao' enctype='multipart/form-data'>";
+        echo "<input type='hidden' value='$idExposicao' name='idExposicao' ";
     	echo "<span>Titulo </span><input type='text' name='titulo' id='titulo' size='50'/><br/>";
         echo "<span>Logotipo </span><input type='file' name='logo' id='logo'/><br/>";
 	    echo "<span>Morada </span><input type='text' name='morada' id='morada' size='48'/><br/>";
@@ -42,6 +53,8 @@ if($stmt) {
         echo "<option></option>";
             getClubes($dbc);
         echo "</select>";
+        echo "<input type='button' id='removeBtExposicao'  size='5' value='-' onclick='removeClube();' style='display:none' /><br/>";
+
         echo "<span id='spanClubes3' style='display:none'>Clube 3 </span>";
         echo "<select name='clubes3' id='selectClubeCriarExposicao3' class='clubesSelect' style='display:none'>";
         echo "<option></option>";
@@ -59,7 +72,7 @@ if($stmt) {
             getClubes($dbc); 			
 	    echo "</select><br/>";
         echo "<span id='spanDescricao'>Descrição </span><textarea name='descricao' id='descricao' cols='47' rows='4'></textarea><br/>";
-        echo "<input type='submit' name='BtCriarExposicao' id='BtCriarExposicao' value='Criar Exposição' /> ";
+        echo "<input type='submit' name='BtCriarExposicao' id='BtCriarExposicao' value='Alterar Exposição' /> ";
 
     echo "</form>";
     echo "<div id='imgExposicaoDetalhada'>";
@@ -74,9 +87,27 @@ if($stmt) {
 
 		var selectTipoExposicao = document.getElementById('selectCriarExposicao');
 
-        var exposicaoDados = <?php echo $dadosExposicao ;?>;
+        var nomeExposicao = "<?php  echo $dadosExposicao['titulo']; ?>";
+        var morada = "<?php  echo $dadosExposicao['morada']; ?>";
+        var dataInicio= "<?php  echo $dadosExposicao['datainicio']; ?>";
+        var dataFim= "<?php  echo $dadosExposicao['dataFim']; ?>";
+        var clube= "<?php  echo $dadosExposicao['clube1']; ?>";
+        var clube2= "<?php  echo $dadosExposicao['clube2']; ?>";
+        var clube3 = "<?php  echo $dadosExposicao['clube3']; ?>";
+        var clube4 = "<?php  echo $dadosExposicao['clube4']; ?>";
+        var clube5 = "<?php  echo $dadosExposicao['clube5']; ?>";
+        var descricao = "<?php  echo $dadosExposicao['descricao']; ?>";
         
-        document.getElementById('titulo').innerHTML = exposicaoDados[0];
+        document.getElementById('titulo').value = nomeExposicao;
+        document.getElementById('morada').value =morada;
+        document.getElementById('dataInicio').value =dataInicio;
+        document.getElementById('dataFim').value =dataFim;
+        document.getElementById('selectClubeCriarExposicao').value =clube;
+        document.getElementById('selectClubeCriarExposicao2').value =clube2;
+        document.getElementById('selectClubeCriarExposicao3').value =clube3;
+        document.getElementById('selectClubeCriarExposicao4').value =clube4;
+        document.getElementById('selectClubeCriarExposicao5').value =clube5;
+        document.getElementById('descricao').value =descricao;
 
 		var spanClubes1 = document.getElementById('spanClubes1');
 		var spanClubes2 = document.getElementById('spanClubes2');
@@ -89,7 +120,28 @@ if($stmt) {
 		var selectClube4 = document.getElementById('selectClubeCriarExposicao4'); 
 		var selectClube5 = document.getElementById('selectClubeCriarExposicao5');
 
-		var removeBt = document.getElementById('removeBtExposicao');
+        if(clube2 != ''){
+            document.getElementById('spanClubes2').style.display = '';
+            document.getElementById('selectClubeCriarExposicao2').style.display = '';
+            document.getElementById('removeBtExposicao').style.display = '';
+        } 
+        
+        if(clube3 != ''){
+            document.getElementById('spanClubes3').style.display = '';
+            document.getElementById('selectClubeCriarExposicao2').style.display = '';
+        } 
+        
+        if(clube4 != ''){
+            document.getElementById('spanClubes4').style.display = '';
+            document.getElementById('selectClubeCriarExposicao2').style.display = '';
+        } 
+        
+        if(clube5 != ''){
+            document.getElementById('spanClubes5').style.display = '';
+            document.getElementById('selectClubeCriarExposicao2').style.display = '';
+        } 
+        
+        var removeBt = document.getElementById('removeBtExposicao');
 
 		function addClube(){			
 			if(spanClubes4.style.display == ''){
@@ -114,19 +166,23 @@ if($stmt) {
 			if(spanClubes3.style.display == 'none'){
 				spanClubes2.style.display = 'none';
 				selectClube2.style.display = 'none';
+				selectClube2.value = '';
 				removeBt.style.display = 'none';
 			}
 			if(spanClubes4.style.display == 'none'){
 				spanClubes3.style.display = 'none';
 				selectClube3.style.display = 'none';
+				selectClube3.value = '';
 			}
 			if(spanClubes5.style.display == 'none'){
 				spanClubes4.style.display = 'none';
 				selectClube4.style.display = 'none';
+				selectClube4.value = '';
 
 			}
 			spanClubes5.style.display = 'none';
 			selectClube5.style.display = 'none';
+			selectClube5.value = '';
 		}
 	</script>
 

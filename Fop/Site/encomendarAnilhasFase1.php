@@ -9,7 +9,7 @@ if (login_check($dbc) == true) : ?>
 		?>
 	</div>
 	<h1>Anilhas - Encomendar</h1>
-	<?php
+<?php
 	$pedidoEmVigor = $_SESSION['pedidoEmVigor'];
 	echo "<h3>O pedido em vigor é $pedidoEmVigor<h3>";
 	?>

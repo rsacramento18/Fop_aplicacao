@@ -93,16 +93,64 @@ if(isset($_POST['idExposicao'],$_POST['titulo'], $_FILES['logo'], $_POST['morada
 	}
 
 	$pathFile = 'img/img_exposicoes/'.$file_name;
-	
-	if(empty($error_msg)) {
-		 if(empty($errors)==true){
-		 	move_uploaded_file($file_tmp, $pathFile);
-		 }
-		 else {
-		 	print_r($errors);
-		 }
 
-		$query = "UPDATE exposicoes SET titulo = '$titulo', logo = '$pathFile', morada = '$morada', datainicio = '$dataInicio', dataFim = '$dataFim', descricao= '$descricao', tipoExposicao = '$tipoExposicao', clube1= '$clubeEscolhido1', clube2= '$clubeEscolhido2', clube3= '$clubeEscolhido3', clube4= '$clubeEscolhido4', clube5= '$clubeEscolhido5' WHERE idExposicao = '$idExposicao'";
+	$file_nameExcel = $_FILES['excel']['name'];
+	$file_sizeExcel =$_FILES['excel']['size'];
+	$file_tmpExcel =$_FILES['excel']['tmp_name'];
+	$file_typeExcel=$_FILES['excel']['type'];
+	$file_extExcel=strtolower(end(explode('.',$_FILES['excel']['name'])));
+
+	$expensionsExcel= array("csv");
+
+	if(in_array($file_extExcel,$expensionsExcel)=== false){
+		$errors[]="extension not allowed, please choose a xls.";
+	}
+
+	if($file_sizeExcel > 2097152){
+		$errors[]='File size must be excately 2 MB';
+	}
+
+    $pathFileExcel = 'classes/'.$file_nameExcel;
+
+
+    $logo = '';
+    $excel = '';
+    $query = "SELECT logo, excel from exposicoes where id = '$idExposicao'";
+    $stmt = @mysqli_query($dbc, $query);
+    if($stmt) {
+
+	    $uploads= mysqli_fetch_array($stmt);
+        $logo = $uploads['logo'];
+        $excel = $uploads['excel'];
+
+    }
+
+    if($logo != $pathFile){
+        $logoCheck = true;
+    }
+    
+    if($excel!= $pathFileExcel){
+        $excelCheck = true;
+    }
+
+	if(empty($error_msg)) {
+		if(empty($errors)==true && $logoCheck== true){
+		    move_uploaded_file($file_tmp, $pathFile);
+		}
+        else {
+            $pathFile = $logo;
+		 	print_r($errors);
+		}
+        
+        if(empty($errors)==true && $excelCheck== true){
+		 	move_uploaded_file($file_tmp, $pathFileExcel);
+	    }
+		else {
+            $pathFileExcel = $excel;
+		 	print_r($errors);
+		}
+
+		$query = "UPDATE exposicoes SET titulo = '$titulo', logo = '$pathFile', morada = '$morada', datainicio = '$dataInicio', dataFim = '$dataFim', excel= '$pathFileExcel', descricao= '$descricao', tipoExposicao = '$tipoExposicao', clube1= '$clubeEscolhido1', clube2= '$clubeEscolhido2', clube3= '$clubeEscolhido3', clube4= '$clubeEscolhido4', clube5= '$clubeEscolhido5' WHERE idExposicao = '$idExposicao'";
 
 		if($stmt = @mysqli_query($dbc, $query)) {
 

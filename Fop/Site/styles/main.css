@@ -1593,6 +1593,10 @@ form#formAlterarExposicao #dataFim {
 	margin-left: 39px;
 }
 
+form#formAlterarExposicao input#excel{
+    margin-left: 20px;
+}
+
 form#formAlterarExposicao #dataFimSpan{
 	margin-left: 125px;
 }
@@ -1612,7 +1616,7 @@ form#formAlterarExposicao #selectClubeCriarExposicao{
 
 form#formAlterarExposicao #addBtExposicao{
 
-	margin: 0 2px;
+	margin: 0 7px;
 }
 form#formAlterarExposicao #removeBtExposicao{
 
@@ -1634,7 +1638,7 @@ form#formAlterarExposicao #descricao{
 
 #exposicaoSelecionada #imgExposicaoDetalhada{
 	width: 300px;
-	margin:50px;	
+	margin:30px 50px;	
 	float: right;
 
 }
@@ -1667,6 +1671,10 @@ form#formCriarExposicao #dataFim {
 	margin-left: 39px;
 }
 
+form#formCriarExposicao #excel{
+    margin-left: 20px;
+}
+
 form#formCriarExposicao #dataFimSpan{
 	margin-left: 125px;
 }
@@ -1687,11 +1695,10 @@ form#formCriarExposicao #selectClubeCriarExposicao{
 
 form#formCriarExposicao #addBtExposicao{
 
-	margin: 0 2px;
+	margin: 0 4px;
 }
 form#formCriarExposicao #removeBtExposicao{
 
-	margin: 0 2px;
 	padding: 7px 16px;
 }
 
