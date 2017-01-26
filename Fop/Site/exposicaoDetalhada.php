@@ -2,7 +2,6 @@
 
 require_once('../mysql_config.php');
 require_once('functions.php');
-require_once 'excel_reader2.php';
 sec_session_start();
 if(isset($_POST['source1'])){
 	$idExposicao= $_POST['source1'];
@@ -17,14 +16,13 @@ if($stmt) {
 	$dadosExposicao= mysqli_fetch_array($stmt);
 
     $idExposicao = $dadosExposicao['idExposicao'];
-    
-    $excelData = $dadosExposicao['excel'];
 
-    $excel = new Spreadsheet_Excel_Reader($excelData);
-    $excelData = $excel->sheets;
-    echo '<pre>';
-        var_export($excelData);
-    echo '</pre>';
+    $excel = $dadosExposicao['excel'];
+    $dadosExcel = '';
+    if($excel != '') {
+        $dadosExcel = csv_to_array($dadosExposicao['excel']); 
+        utf8_encode_deep($dadosExcel);        
+    }
 
 	echo "<div id='exposicaoFormDiv'>";
 
