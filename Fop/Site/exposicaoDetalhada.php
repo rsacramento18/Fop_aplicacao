@@ -23,9 +23,7 @@ if($stmt) {
         $dadosExcel = csv_to_array($dadosExposicao['excel']); 
         utf8_encode_deep($dadosExcel);        
     }
-    
-    $result = count($dadosExcel); 
-    echo $result;
+
 	echo "<div id='exposicaoFormDiv'>";
 
     echo "<form method='post' action='alterarExposicao.inc.php' id='formAlterarExposicao' enctype='multipart/form-data'>";
@@ -79,6 +77,21 @@ if($stmt) {
         echo "<img src='$dadosExposicao[logo]' height='300' width='300'/>";
     echo "</div>";
 
+    echo "<div id='verExcelClasses'>";
+    echo "<h2>Ver Excel Classes</h2>";
+        echo "<span>Seccao</span><select name='secaoSelect' id='secaoSelect'></select><br/>";
+        echo "<input type='button' name='btVerClasses' id='btVerClasses' value='Ver Classes' onclick='verClasses()' /> ";
+    echo "</div>";
+
+    echo "<div id='myModal' class='modal'> ";
+        echo "<div id='conteudoModal' class='modal-content'>";
+        
+            echo "<span id='closeModal' class='close'>&times;</span>";    
+
+        echo"</div>";
+    
+    echo"</div>";
+
     echo "</div>";
 
     
@@ -109,13 +122,17 @@ if($stmt) {
         document.getElementById('selectClubeCriarExposicao5').value =clube5;
         document.getElementById('descricao').value =descricao;
         
-        var obj = <?php echo json_encode($dadosExcel); ?>;         
+        var dadosExcel= <?php echo json_encode($dadosExcel); ?>;         
         
-        console.log(obj);
+        console.log(dadosExcel);
         
-        var resultObject = search("F2", obj);
-
+        var resultObject = search("F2",dadosExcel);
+        
+        var distinct = searchClassesDistinct(dadosExcel);
+        console.log(distinct); 
         console.log(resultObject);
+
+        criarOptionSecao();
 
 		var spanClubes1 = document.getElementById('spanClubes1');
 		var spanClubes2 = document.getElementById('spanClubes2');
@@ -127,6 +144,19 @@ if($stmt) {
 		var selectClube3 = document.getElementById('selectClubeCriarExposicao3');
 		var selectClube4 = document.getElementById('selectClubeCriarExposicao4'); 
 		var selectClube5 = document.getElementById('selectClubeCriarExposicao5');
+
+        var modal = document.getElementById('myModal');     
+        var close = document.getElementById('closeModal');     
+
+        /* close.onclick function(){ */
+        /*    modal.style.display = "none"; */ 
+        /* } */
+            
+        /* window.onclick = function(event) { */
+        /*     if (event.target == modal) { */
+        /*         modal.style.display = "none"; */
+        /*     } */
+        /* } */
 
         if(clube2 != ''){
             document.getElementById('spanClubes2').style.display = '';
@@ -194,12 +224,56 @@ if($stmt) {
 		}
 
         function search(nameKey, myArray){
-            for (var i=0; i < myArray.length; i++) {
+            var obj = new Array();
+            for (var i=0, j=0; i < myArray.length; i++) {
                 if (myArray[i].secao === nameKey) {
-                    return myArray[i];
+                    obj[j] = myArray[i];
+                    j++;
                 }
             }
+            return obj;
         }    
+
+
+        function searchClassesDistinct(array){
+            var flags = [], output = [], l = array.length, i;
+            for( i=0; i<l; i++) {
+                if( flags[array[i].secao]) continue;
+                flags[array[i].secao] = true;
+                output.push(array[i].secao);
+            } 
+            return output;
+        }
+
+        function criarOptionSecao() {
+
+            var sesaoSelect = document.getElementById('secaoSelect');
+            var opcoes = searchClassesDistinct(dadosExcel);
+            for( var i = 0; i < opcoes.length; i++) {
+                var optionOpcao = document.createElement("option");
+	        	optionOpcao.text = opcoes[i];
+                optionOpcao.value= opcoes[i];
+	        	sesaoSelect.appendChild(optionOpcao); 
+            }
+        }
+
+
+        function verClasses(){
+            var sesaoSelect = document.getElementById('secaoSelect');
+            var valor = sesaoSelect.options[sesaoSelect.selectedIndex].value;
+            var classes = search(valor, dadosExcel);
+            var outputString = '';
+            for (var i = 0; i < classes.length; i++){
+                outputString += classes[i].classe + classes[i].descricao + "\n";
+            }
+            var paragrafh = document.createElement("p");
+            paragrafh.innerHTML= outputString;
+            document.getElementById("conteudoModal").appendChild(paragrafh);
+
+            modal.style.display = "block"; 
+           
+        }
+
 	</script>
 
 <?php
