@@ -23,7 +23,9 @@ if($stmt) {
         $dadosExcel = csv_to_array($dadosExposicao['excel']); 
         utf8_encode_deep($dadosExcel);        
     }
-
+    
+    $result = count($dadosExcel); 
+    echo $result;
 	echo "<div id='exposicaoFormDiv'>";
 
     echo "<form method='post' action='alterarExposicao.inc.php' id='formAlterarExposicao' enctype='multipart/form-data'>";
@@ -106,6 +108,14 @@ if($stmt) {
         document.getElementById('selectClubeCriarExposicao4').value =clube4;
         document.getElementById('selectClubeCriarExposicao5').value =clube5;
         document.getElementById('descricao').value =descricao;
+        
+        var obj = <?php echo json_encode($dadosExcel); ?>;         
+        
+        console.log(obj);
+        
+        var resultObject = search("F2", obj);
+
+        console.log(resultObject);
 
 		var spanClubes1 = document.getElementById('spanClubes1');
 		var spanClubes2 = document.getElementById('spanClubes2');
@@ -182,6 +192,14 @@ if($stmt) {
 			selectClube5.style.display = 'none';
 			selectClube5.value = '';
 		}
+
+        function search(nameKey, myArray){
+            for (var i=0; i < myArray.length; i++) {
+                if (myArray[i].secao === nameKey) {
+                    return myArray[i];
+                }
+            }
+        }    
 	</script>
 
 <?php
