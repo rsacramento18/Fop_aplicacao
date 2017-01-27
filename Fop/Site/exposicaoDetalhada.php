@@ -78,14 +78,16 @@ if($stmt) {
     echo "</div>";
 
     echo "<div id='verExcelClasses'>";
-    echo "<h2>Ver Excel Classes</h2>";
+        echo "<h2>Ver Excel Classes</h2>";
+        $ficheiroEscolhido = explode("/", $dadosExposicao['excel']);
+        echo "<p id='ficheiroEscolhido'>Ficheiro carregado: $ficheiroEscolhido[1]</p><br/>";
         echo "<span>Seccao</span><select name='secaoSelect' id='secaoSelect'></select><br/>";
         echo "<input type='button' name='btVerClasses' id='btVerClasses' value='Ver Classes' onclick='verClasses()' /> ";
     echo "</div>";
 
     echo "<div id='myModal' class='modal'> ";
         echo "<div id='conteudoModal' class='modal-content'>";
-        
+            echo "<h2 id='tituloModal' ></h2>"; 
             echo "<span id='closeModal' class='close'>&times;</span>";    
 
         echo"</div>";
@@ -145,18 +147,10 @@ if($stmt) {
 		var selectClube4 = document.getElementById('selectClubeCriarExposicao4'); 
 		var selectClube5 = document.getElementById('selectClubeCriarExposicao5');
 
-        var modal = document.getElementById('myModal');     
-        var close = document.getElementById('closeModal');     
+        var modal = document.getElementById('myModal');  
+        var span = document.getElementById("closeModal");
 
-        /* close.onclick function(){ */
-        /*    modal.style.display = "none"; */ 
-        /* } */
-            
-        /* window.onclick = function(event) { */
-        /*     if (event.target == modal) { */
-        /*         modal.style.display = "none"; */
-        /*     } */
-        /* } */
+        var tituloModal = document.getElementById('tituloModal');
 
         if(clube2 != ''){
             document.getElementById('spanClubes2').style.display = '';
@@ -262,17 +256,60 @@ if($stmt) {
             var sesaoSelect = document.getElementById('secaoSelect');
             var valor = sesaoSelect.options[sesaoSelect.selectedIndex].value;
             var classes = search(valor, dadosExcel);
-            var outputString = '';
+            
+            tituloModal.innerHTML += "Seccao " + valor;            
+
+
+            var table = document.createElement("table");
+            var trHeader = document.createElement("tr");
+            var thClasse = document.createElement("th");
+            thClasse.innerHTML = "Classe";
+            thClasse.style.width = "1%"; 
+            thClasse.style.textAlign= "center"; 
+            trHeader.appendChild(thClasse);           
+
+            var thDescricao= document.createElement("th");
+            thDescricao.innerHTML = "Descrição";
+            thDescricao.style.textAlign= "center"; 
+
+            trHeader.appendChild(thDescricao);
+
+            table.appendChild(trHeader);
+
             for (var i = 0; i < classes.length; i++){
-                outputString += classes[i].classe + classes[i].descricao + "\n";
+                var tr = document.createElement("tr");
+                var tdClasse = document.createElement("td");
+                tdClasse.innerHTML = classes[i].classe;
+                tdClasse.style.textAlign = "center";                
+
+                var tdDescricao = document.createElement("td");
+                tdDescricao.innerHTML = classes[i].descricao;
+
+                tr.appendChild(tdClasse);
+                tr.appendChild(tdDescricao);
+
+                table.appendChild(tr);
+                
+
             }
-            var paragrafh = document.createElement("p");
-            paragrafh.innerHTML= outputString;
-            document.getElementById("conteudoModal").appendChild(paragrafh);
+
+            document.getElementById("conteudoModal").appendChild(table);
 
             modal.style.display = "block"; 
            
         }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        } 
+
+
 
 	</script>
 
