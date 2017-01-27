@@ -76,14 +76,16 @@ if($stmt) {
     echo "<div id='imgExposicaoDetalhada'>";
         echo "<img src='$dadosExposicao[logo]' height='300' width='300'/>";
     echo "</div>";
-
+    if($dadosExposicao['excel'] != ''){
     echo "<div id='verExcelClasses'>";
         echo "<h2>Ver Excel Classes</h2>";
         $ficheiroEscolhido = explode("/", $dadosExposicao['excel']);
-        echo "<p id='ficheiroEscolhido'>Ficheiro carregado: $ficheiroEscolhido[1]</p><br/>";
+        $ficheiro = $ficheiroEscolhido[1];
+        echo "<p id='ficheiroEscolhido'>Ficheiro carregado: $ficheiro</p><br/>";
         echo "<span>Seccao</span><select name='secaoSelect' id='secaoSelect'></select><br/>";
         echo "<input type='button' name='btVerClasses' id='btVerClasses' value='Ver Classes' onclick='verClasses()' /> ";
-    echo "</div>";
+        echo "</div>";
+    }
 
     echo "<div id='myModal' class='modal'> ";
         echo "<div id='conteudoModal' class='modal-content'>";
