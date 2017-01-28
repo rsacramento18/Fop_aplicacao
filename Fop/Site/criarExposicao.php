@@ -21,6 +21,8 @@
  					<option value="Todos">Associados/Não Associados</option>
  					<option value="International">Internacional</option>
  			</select><br/>
+
+            <br/><br/><span id='spanClubes'><h2>Clubes Organizadores</h2> </span>
  			<span id="spanClubes">Clube </span>
  			<select name="clubes1" id="selectClubeCriarExposicao">
 						<option></option>	

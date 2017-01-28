@@ -40,6 +40,7 @@ if($stmt) {
         echo "<option value='Todos'>Associados/Não Associados</option>";
  	    echo "<option value='International'>Internacional</option>";
         echo "</select><br/>";
+        echo "<br/><br/><span id='spanClubes'><h2>Clubes Organizadores</h2></span>";
         echo "<span id='spanClubes'>Clube </span>";
         echo "<select name='clubes1' id='selectClubeCriarExposicao'>";
         echo "<option></option>";

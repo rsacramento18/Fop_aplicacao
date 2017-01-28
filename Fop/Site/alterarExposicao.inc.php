@@ -4,7 +4,7 @@ require_once('functions.php');
 sec_session_start();
 
 $error_msg = "";
-if(isset($_POST['idExposicao'],$_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['tipoExposicao'], $_POST['clubes1'],$_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
+if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['tipoExposicao'], $_POST['clubes1'],$_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
 
 	$idExposicao= $_POST['idExposicao'];
 
@@ -74,82 +74,67 @@ if(isset($_POST['idExposicao'],$_POST['titulo'], $_FILES['logo'], $_POST['morada
 	else{
 		$descricao = 'null';
 	}	
-
-	$errors = array();
-	$file_name = $_FILES['logo']['name'];
-	$file_size =$_FILES['logo']['size'];
-	$file_tmp =$_FILES['logo']['tmp_name'];
-	$file_type=$_FILES['logo']['type'];
-	$file_ext=strtolower(end(explode('.',$_FILES['logo']['name'])));
-
-	$expensions= array("jpeg","jpg","png");
-
-	if(in_array($file_ext,$expensions)=== false){
-		$errors[]="extension not allowed, please choose a JPEG or PNG file.";
-	}
-
-	if($file_size > 2097152){
-		$errors[]='File size must be excately 2 MB';
-	}
-
-	$pathFile = 'img/img_exposicoes/'.$file_name;
-
-	$file_nameExcel = $_FILES['excel']['name'];
-	$file_sizeExcel =$_FILES['excel']['size'];
-	$file_tmpExcel =$_FILES['excel']['tmp_name'];
-	$file_typeExcel=$_FILES['excel']['type'];
-	$file_extExcel=strtolower(end(explode('.',$_FILES['excel']['name'])));
-
-	$expensionsExcel= array("csv");
-
-	if(in_array($file_extExcel,$expensionsExcel)=== false){
-		$errors[]="extension not allowed, please choose a xls.";
-	}
-
-	if($file_sizeExcel > 2097152){
-		$errors[]='File size must be excately 2 MB';
-	}
-
-    $pathFileExcel = 'classes/'.$file_nameExcel;
-
-
-    $logo = '';
-    $excel = '';
-    $query = "SELECT logo, excel from exposicoes where id = '$idExposicao'";
-    $stmt = @mysqli_query($dbc, $query);
-    if($stmt) {
-
-	    $uploads= mysqli_fetch_array($stmt);
-        $logo = $uploads['logo'];
-        $excel = $uploads['excel'];
-
-    }
-
-    if($logo != $pathFile){
-        $logoCheck = true;
-    }
     
-    if($excel!= $pathFileExcel){
-        $excelCheck = true;
+    
+    $pathFile = '';
+    $pathFileExcel = '';
+
+    $errors = array();
+    if(!empty($_FILES['logo']['name'])){
+	    $file_name = $_FILES['logo']['name'];
+	    $file_size =$_FILES['logo']['size'];
+	    $file_tmp =$_FILES['logo']['tmp_name'];
+	    $file_type=$_FILES['logo']['type'];
+	    $file_ext=strtolower(end(explode('.',$_FILES['logo']['name'])));
+
+	    $expensions= array("jpeg","jpg","png");
+
+	    if(in_array($file_ext,$expensions)=== false){
+		    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+	    }
+
+        $pathFile = 'img/img_exposicoes/'.$file_name;
+    }
+    else {
+        $query =  "Select logo from exposicoes where idExposicao = '$idExposicao'";
+        if($stmt = @mysqli_query($dbc, $query)) {
+		    $row = mysqli_fetch_array($stmt);
+            $pathFile = $row['logo'];
+        }
+    }    
+    if(!empty($_FILES['excel']['name'])){
+	    $file_nameExcel = $_FILES['excel']['name'];
+	    $file_sizeExcel =$_FILES['excel']['size'];
+	    $file_tmpExcel =$_FILES['excel']['tmp_name'];
+	    $file_typeExcel=$_FILES['excel']['type'];
+	    $file_extExcel=strtolower(end(explode('.',$_FILES['excel']['name'])));
+
+	    $expensionsExcel= array("csv");
+
+	    if(in_array($file_extExcel,$expensionsExcel)=== false){
+		    $errors[]="extension not allowed, please choose a csv.";
+	    }
+
+        $pathFileExcel = 'classes/'.$file_nameExcel;
+    }
+    else {
+        $query =  "Select logo from exposicoes where idExposicao = '$idExposicao'";
+        if($stmt = @mysqli_query($dbc, $query)) {
+		    $row = mysqli_fetch_array($stmt);
+            $pathFileExcel = $row['logo'];
+        }
     }
 
 	if(empty($error_msg)) {
-		if(empty($errors)==true && $logoCheck== true){
+		if(empty($errors)==true && !empty($_FILES['logo']['name'])){
 		    move_uploaded_file($file_tmp, $pathFile);
 		}
-        else {
-            $pathFile = $logo;
-		 	print_r($errors);
-		}
         
-        if(empty($errors)==true && $excelCheck== true){
-		 	move_uploaded_file($file_tmp, $pathFileExcel);
+        
+        if(empty($errors)==true && !empty($_FILES['excel']['name'])){
+		 	move_uploaded_file($file_tmpExcel, $pathFileExcel);
 	    }
-		else {
-            $pathFileExcel = $excel;
-		 	print_r($errors);
-		}
-
+		
 		$query = "UPDATE exposicoes SET titulo = '$titulo', logo = '$pathFile', morada = '$morada', datainicio = '$dataInicio', dataFim = '$dataFim', excel= '$pathFileExcel', descricao= '$descricao', tipoExposicao = '$tipoExposicao', clube1= '$clubeEscolhido1', clube2= '$clubeEscolhido2', clube3= '$clubeEscolhido3', clube4= '$clubeEscolhido4', clube5= '$clubeEscolhido5' WHERE idExposicao = '$idExposicao'";
 
 		if($stmt = @mysqli_query($dbc, $query)) {
