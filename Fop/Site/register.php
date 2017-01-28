@@ -2,13 +2,13 @@
 include_once 'register.inc.php';
 include_once 'functions.php';
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
   <title>register</title>
-  <script type="text/JavaScript" src="js/sha512.js"></script> 
-  <script type="text/JavaScript" src="js/form.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="js/sha512.js"></script> 
+  <script type="text/javascript" src="js/form.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=inconsolata' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles/normalize.css" />
   <link rel="stylesheet" href="styles/login_register.css" />
 </head>
@@ -19,17 +19,17 @@ include_once 'functions.php';
   }
   ?>
   <div id="registar">
-    <h1>Registar</h1>
+    <h1>registar</h1>
   </div>
   <div id ="register_div">
-    <form action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="post" name="registration_form">
+    <form action="<?php echo esc_url($_server['php_self']); ?>" method="post" name="registration_form">
       <p>user</p>
       <input type="text" name="user" size="30"  id="primeiro_nome"/>
 
-      <p>Password</p>
+      <p>password</p>
       <input type="password" name="password" size="30"  id="password"/>
 
-      <p>Confirm password</p>
+      <p>confirm password</p>
       <input type="password" name="confirmpwd" id="confirmpwd" size="30" />
 
       <p id = "bt_register">
@@ -39,7 +39,7 @@ include_once 'functions.php';
          this.form.confirmpwd);"/>
        </p>
      </form>
-     <p><a href="login.php">Return to login</a></p>
+     <p><a href="login.php">return to login</a></p>
    </div>
  </body>
  </html>

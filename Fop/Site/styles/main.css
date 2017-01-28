@@ -77,6 +77,16 @@ b{
 	font-weight: bold;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
 /*=============INPUT STYLES==========*/
 
 input[type=text], 
@@ -1778,6 +1788,27 @@ form#formCriarExposicao #descricao{
 }
 
 
+/*======================REGISTAR===================*/
+
+.labelsRegistar{
+	display: none;
+    background: #840101;
+	color: #fff;
+	margin-left: 10px;
+	padding: 3px;
+	font-size: 14px;
+}
+
+#registar #registarNacional input[type="text"]:focus + .labelsRegistar,
+#registar #registarNacional input[type="number"]:focus + .labelRegistar,
+#registar #registarNacional input[type="password"]:focus + .labelRegistar,
+#registar #registarInternacional input[type="text"]:focus + .labelRegistar,
+#registar #registarInternacional input[type="number"]:focus + .labelRegistar,
+#registar #registarInternacional input[type="password"]:focus + .labelRegistar{
+	display: inline;
+}
+
+
 /*=========FOOTER===========*/
 
 
@@ -1803,5 +1834,4 @@ footer{
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-
 }

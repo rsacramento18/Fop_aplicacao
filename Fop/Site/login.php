@@ -39,6 +39,7 @@ if (login_check($dbc) == true) {
                 <input type="password" name="password" id="password" placeholder="Password" size="30"  value=""/>
                 <input type="button" value="Entrar" onclick="formhash(this.form, this.form.password);"/>
             </form>
+            <a href="registar.php">Registar</a>
         </div>
     </div>
 </body>
