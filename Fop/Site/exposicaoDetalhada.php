@@ -33,11 +33,14 @@ if($stmt) {
 	    echo "<span>Morada </span><input type='text' name='morada' id='morada' size='48'/><br/>";
         echo "<span>Data Inicio </span><input type='text' name='dataInicio' id='dataInicio' class ='datepicker' size='10'/>";
         echo "<span id='dataFimSpan'>Data Fim </span><input type='text' name='dataFim' id='dataFim' class ='datepicker' size='10'/><br/>";
+        echo "<span id='dataInicioInscricaoSpan'>Inicio Inscricao </span><input type='text' name='dataInicioInscricao' id='dataInicioInscricao' class ='datepicker' size='10'/>";
+        echo "<span id='dataFimInscricaoSpan'>Fim Inscricao</span><input type='text' name='dataFimInscricao' id='dataFimInscricao' class ='datepicker' size='10'/><br/>";
         echo "<span>Excel Classes</span><input type='file' name='excel' id='excel'/><br/>";
 	    echo "<span>Tipo Exposiçao </span>";
         echo "<select name='tipoExposicao' id='selectCriarExposicao'>";
         echo "<option value='Clube'>Clube</option>";
         echo "<option value='Todos'>Associados/Não Associados</option>";
+        echo "<option value='Todos'>Nacional</option>";
  	    echo "<option value='International'>Internacional</option>";
         echo "</select><br/>";
         echo "<br/><br/><span id='spanClubes'><h2>Clubes Organizadores</h2></span>";
@@ -101,6 +104,7 @@ if($stmt) {
 
     
     ?>
+    <script type="text/JavaScript" src="js/functionsJS.js"></script>
 	<script type="text/javascript">
 
 		var selectTipoExposicao = document.getElementById('selectCriarExposicao');

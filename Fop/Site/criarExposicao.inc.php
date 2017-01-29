@@ -4,7 +4,7 @@ require_once('functions.php');
 sec_session_start();
 
 $error_msg = "";
-if(isset($_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['tipoExposicao'], $_POST['clubes1'], $_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
+if(isset($_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['dataInicioInscricao'], $_POST['dataFimInscricao'], $_POST['tipoExposicao'], $_POST['clubes1'], $_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
 
 
 	if($_POST['titulo'] != ''){
@@ -34,6 +34,22 @@ if(isset($_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio
 	else{
 		$dataFim = '';
 	}
+
+
+    if($_POST['dataInicioInscricao'] != ''){
+		$dataInicioInscricao = $_POST['dataInicioInscricao'];
+	}
+	else{
+		$dataInicioInscricao = '';
+	}
+
+	if($_POST['dataFimInscricao'] != ''){
+		$dataFimInscricao = $_POST['dataFimInscricao'];
+	}
+	else{
+		$dataFimInscricao = '';
+	}
+
 	
 	$tipoExposicao = $_POST['tipoExposicao'];
 
@@ -121,7 +137,7 @@ if(isset($_POST['titulo'], $_FILES['logo'], $_POST['morada'], $_POST['dataInicio
 		 	print_r($errors);
 		 }
 
-         $query = "INSERT INTO exposicoes (titulo, logo, morada, datainicio, dataFim, excel, descricao ,tipoExposicao, clube1, clube2, clube3, clube4, clube5 ) VALUES ('$titulo', '$pathFile', '$morada', '$dataInicio', '$dataFim', '$pathFileExcel' ,'$descricao', '$tipoExposicao','$clubeEscolhido1','$clubeEscolhido2','$clubeEscolhido3','$clubeEscolhido4','$clubeEscolhido5')";
+         $query = "INSERT INTO exposicoes (titulo, logo, morada, datainicio, dataFim, dataInicioInscricao, dataFimInscricao, excel, descricao ,tipoExposicao, clube1, clube2, clube3, clube4, clube5 ) VALUES ('$titulo', '$pathFile', '$morada', '$dataInicio', '$dataFim', '$dataInicioInscricao', '$dataFimInscricao', '$pathFileExcel' ,'$descricao', '$tipoExposicao','$clubeEscolhido1','$clubeEscolhido2','$clubeEscolhido3','$clubeEscolhido4','$clubeEscolhido5')";
 
 		if($stmt = @mysqli_query($dbc, $query)) {
 

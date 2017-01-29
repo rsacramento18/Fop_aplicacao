@@ -1612,7 +1612,7 @@ tr.selected {
 #exposicaoSelecionada #exposicaoFormDiv{	
 
 	margin:0px;
-	height: 750px;	
+	height: 1000px;	
 }
 
 form#formAlterarExposicao {
@@ -1642,6 +1642,12 @@ form#formAlterarExposicao #dataFim {
 	margin-left: 39px;
 }
 
+form#formAlterarExposicao #dataInicioInscricao,
+form#formAlterarExposicao #dataFimInscricao {
+	width: 100px;
+	margin-left: 10px;
+}
+
 form#formAlterarExposicao input#excel{
     margin-left: 20px;
 }
@@ -1649,6 +1655,13 @@ form#formAlterarExposicao input#excel{
 form#formAlterarExposicao #dataFimSpan{
 	margin-left: 125px;
 }
+
+
+form#formAlterarExposicao #dataFimInscricaoSpan{
+	margin-left: 125px;
+}
+
+
 
 form#formAlterarExposicao #selectCriarExposicao{
 	margin-left: 5px;
@@ -1744,11 +1757,21 @@ form#formCriarExposicao #dataFim {
 	margin-left: 39px;
 }
 
+form#formCriarExposicao #dataInicioInscricao,
+form#formCriarExposicao #dataFimInscricao {
+	width: 100px;
+	margin-left: 10px;
+}
+
 form#formCriarExposicao #excel{
     margin-left: 20px;
 }
 
 form#formCriarExposicao #dataFimSpan{
+	margin-left: 125px;
+}
+
+form#formCriarExposicao #dataFimInscricaoSpan{
 	margin-left: 125px;
 }
 

@@ -4,7 +4,7 @@ require_once('functions.php');
 sec_session_start();
 
 $error_msg = "";
-if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['tipoExposicao'], $_POST['clubes1'],$_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
+if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataInicio'], $_POST['dataFim'], $_POST['dataInicioInscricao'], $_POST['dataFimInscricao'], $_POST['tipoExposicao'], $_POST['clubes1'],$_POST['clubes2'], $_POST['clubes3'], $_POST['clubes4'], $_POST['clubes5'], $_POST['descricao'])) {
 
 	$idExposicao= $_POST['idExposicao'];
 
@@ -34,6 +34,21 @@ if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataI
 	}
 	else{
 		$dataFim = '';
+	}
+
+
+    if($_POST['dataInicioInscricao'] != ''){
+		$dataInicioInscricao = $_POST['dataInicioInscricao'];
+	}
+	else{
+		$dataInicioInscricao = '';
+	}
+
+	if($_POST['dataFimInscricao'] != ''){
+		$dataFimInscricao = $_POST['dataFimInscricao'];
+	}
+	else{
+		$dataFimInscricao = '';
 	}
 	
 	$tipoExposicao = $_POST['tipoExposicao'];
@@ -121,7 +136,7 @@ if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataI
         $query =  "Select logo from exposicoes where idExposicao = '$idExposicao'";
         if($stmt = @mysqli_query($dbc, $query)) {
 		    $row = mysqli_fetch_array($stmt);
-            $pathFileExcel = $row['logo'];
+            $pathFileExcel = $row['excel'];
         }
     }
 
@@ -135,7 +150,7 @@ if(isset($_POST['idExposicao'],$_POST['titulo'], $_POST['morada'], $_POST['dataI
 		 	move_uploaded_file($file_tmpExcel, $pathFileExcel);
 	    }
 		
-		$query = "UPDATE exposicoes SET titulo = '$titulo', logo = '$pathFile', morada = '$morada', datainicio = '$dataInicio', dataFim = '$dataFim', excel= '$pathFileExcel', descricao= '$descricao', tipoExposicao = '$tipoExposicao', clube1= '$clubeEscolhido1', clube2= '$clubeEscolhido2', clube3= '$clubeEscolhido3', clube4= '$clubeEscolhido4', clube5= '$clubeEscolhido5' WHERE idExposicao = '$idExposicao'";
+		$query = "UPDATE exposicoes SET titulo = '$titulo', logo = '$pathFile', morada = '$morada', datainicio = '$dataInicio', dataFim = '$dataFim', dataInicioInscricao = '$dataInicioInscricao', dataFimInscricao = '$dataInicioInscricao', excel= '$pathFileExcel', descricao= '$descricao', tipoExposicao = '$tipoExposicao', clube1= '$clubeEscolhido1', clube2= '$clubeEscolhido2', clube3= '$clubeEscolhido3', clube4= '$clubeEscolhido4', clube5= '$clubeEscolhido5' WHERE idExposicao = '$idExposicao'";
 
 		if($stmt = @mysqli_query($dbc, $query)) {
 

@@ -14,6 +14,8 @@
 			<span>Morada </span><input type="text" name="morada" id="morada" size="48"/><br/>
 			<span>Data Inicio </span><input type="text" name="dataInicio" id="dataInicio" class ="datepicker" size="10"/>
 			<span id="dataFimSpan">Data Fim </span><input type="text" name="dataFim" id="dataFim" class ="datepicker" size="10"/><br/>
+            <span id='dataInicioInscricaoSpan'>Inicio Inscricao </span><input type='text' name='dataInicioInscricao' id='dataInicioInscricao' class ='datepicker' size="10"/>
+            <span id='dataFimInscricaoSpan'>Fim Inscricao</span><input type='text' name='dataFimInscricao' id='dataFimInscricao' class ='datepicker' size="10"/><br/>
 			<span>Excel Classes</span><input type="file" name="excel" id="excel"/><br/>
 			<span>Tipo Exposiçao </span>
 			<select name="tipoExposicao" id="selectCriarExposicao">
