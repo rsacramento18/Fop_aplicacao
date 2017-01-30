@@ -1812,6 +1812,27 @@ form#formCriarExposicao #descricao{
 
 
 /*======================REGISTAR===================*/
+.wrapper-contentRegistar{
+	width: 1000px;
+	margin: 30px auto;
+	background:url(../img/highlight.png) no-repeat 75px 180px;
+}
+
+
+#registar {
+    width: 850px;
+    margin: 50px auto;
+    vertical-align: middle;
+
+}
+
+#labelsRegistarSelect{
+    background: #840101;
+	color: #fff;
+	margin-left: 10px;
+	padding: 3px;
+	font-size: 14px;
+}
 
 .labelsRegistar{
 	display: none;
@@ -1822,13 +1843,21 @@ form#formCriarExposicao #descricao{
 	font-size: 14px;
 }
 
-#registar #registarNacional input[type="text"]:focus + .labelsRegistar,
-#registar #registarNacional input[type="number"]:focus + .labelRegistar,
-#registar #registarNacional input[type="password"]:focus + .labelRegistar,
-#registar #registarInternacional input[type="text"]:focus + .labelRegistar,
-#registar #registarInternacional input[type="number"]:focus + .labelRegistar,
-#registar #registarInternacional input[type="password"]:focus + .labelRegistar{
-	display: inline;
+#registar select {
+    margin: 10px 0;
+    width: 150px;
+}
+
+#registar #registarNacionalForm input,
+#registar #registarInternacionalForm input{
+    margin: 10px 0;
+    width: 280px;
+
+}
+
+#registar #registarNacionalForm input:focus +.labelsRegistar,
+#registar #registarInternacionalForm input:focus +.labelsRegistar {
+    display :inline;
 }
 
 

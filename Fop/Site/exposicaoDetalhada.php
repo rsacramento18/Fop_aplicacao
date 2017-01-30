@@ -113,6 +113,8 @@ if($stmt) {
         var morada = "<?php  echo $dadosExposicao['morada']; ?>";
         var dataInicio= "<?php  echo $dadosExposicao['datainicio']; ?>";
         var dataFim= "<?php  echo $dadosExposicao['dataFim']; ?>";
+        var dataInicioInscricao= "<?php  echo $dadosExposicao['dataInicioInscricao']; ?>";
+        var dataFimInscricao = "<?php  echo $dadosExposicao['dataFimInscricao']; ?>";
         var clube= "<?php  echo $dadosExposicao['clube1']; ?>";
         var clube2= "<?php  echo $dadosExposicao['clube2']; ?>";
         var clube3 = "<?php  echo $dadosExposicao['clube3']; ?>";
@@ -124,6 +126,8 @@ if($stmt) {
         document.getElementById('morada').value =morada;
         document.getElementById('dataInicio').value =dataInicio;
         document.getElementById('dataFim').value =dataFim;
+        document.getElementById('dataInicioInscricao').value =dataInicioInscricao;
+        document.getElementById('dataFimInscricao').value =dataFimInscricao;
         document.getElementById('selectClubeCriarExposicao').value =clube;
         document.getElementById('selectClubeCriarExposicao2').value =clube2;
         document.getElementById('selectClubeCriarExposicao3').value =clube3;
