@@ -104,24 +104,28 @@ verificarDataPedido($dbc);
                 
             </li>
             <?php endif; ?>
-            <?php if( login_fop_check($dbc) == true || login_clube_check($dbc) == true) :?>
+            <?php if( (login_fop_check($dbc) == true) || (login_clube_check($dbc) == true)  || (login_colegio_check($dbc) == true)):?>
             <li class=<?php if (basename($_SERVER['PHP_SELF'])=="exposicoes.php") : ?>"current-item"<?php endif;?>><a href="#">Exposições<span class="arrow"> &#9660;</span></a>
                 <ul class="sub-menu">
-                    <?php if( login_fop_check($dbc) == true || ($_SESSION['user'] == 'admin' || $_SESSION['user'] == 'teste2')) :?>
+                    <?php if( (login_fop_check($dbc) == true) ||  (login_colegio_check($dbc) == true) ||  (login_clube_check($dbc) == true) ) :?>
                         <li><a href="todasExposicoes.php">Todas as Exposiçoes</a></li>
+                    <?php endif; ?>
+                    
+                    <?php if( login_fop_check($dbc) == true ) :?>
                         <li><a href="criarExposicao.php">Criar Exposição</a></li>
                     <?php endif; ?>
+                   
                 </ul>
             </li>
             <?php endif; ?>
             <?php if( login_colegio_check($dbc) == true) :?>
-                <li class=<?php if ((basename($_SERVER['PHP_SELF'])=="editarClasses.php") || 
-                    (basename($_SERVER['PHP_SELF'])=="novaListagemClasses.php")) : ?>"current-item"
-                <?php endif;?>><a href="#">Secções e Classes<span class="arrow"> &#9660;</span></a>
+                <li class=<?php if ((basename($_SERVER['PHP_SELF'])=="criarFichaJulgamento.php") || 
+                    (basename($_SERVER['PHP_SELF'])=="#")) : ?>"current-item"
+                <?php endif;?>><a href="#">Fichas de Julgamentos<span class="arrow"> &#9660;</span></a>
 
                     <ul class="sub-menu">
-                        <li><a href="editarClasses.php">Editar Classes</a></li>
-                        <li><a href="novaListagemClasses">Nova Listagem</a></li>
+                        <li><a href="criarFichaJulgamento.php">Criar FIcha</a></li>
+                        <li><a href="#">Nova Listagem</a></li>
                     </ul>
 
                 </li>
