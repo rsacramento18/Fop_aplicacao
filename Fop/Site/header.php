@@ -27,7 +27,7 @@ verificarDataPedido($dbc);
 </head>
 <body>
     <?php
-    if (login_check($dbc) == false) : ?>
+    if (login_check($dbc) == false && login_checkSocios($dbc) == false && login_socioEstrangeiros == false ) : ?>
     <p>
         <span class="error">You are not authorized to access this page.</span> Please <a href="login.php">login</a>.
     </p>

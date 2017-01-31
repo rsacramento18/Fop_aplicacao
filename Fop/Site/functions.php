@@ -86,6 +86,126 @@ function login ($user, $password, $dbc){
 		}	
 	}
 
+function login_socio ($user, $password, $dbc){
+	
+	$query = "SELECT privilegio, password, salt, block
+	FROM contasSocio
+	WHERE stamContaSocio = ?
+	LIMIT 1";
+
+	if($stmt = mysqli_prepare($dbc, $query)) {
+
+		mysqli_stmt_bind_param($stmt, 's', $user);
+			$stmt->execute();    // Execute the prepared query.
+			$stmt->store_result();
+
+			$stmt->bind_result($privilegio, $db_password, $salt, $block);
+			$stmt->fetch();
+			if($stmt->num_rows == 1){
+				// hash the password with the unique salt.
+				$password = hash('sha512', $password . $salt);
+
+				if($stmt->num_rows == 1){
+					if($block == 'Nao'){
+						if(checkbrute($user, $dbc) == true){
+							echo "erro checkbrute";
+							return 'false';
+						}
+						else {
+
+							if($db_password == $password){
+		        				// Password is correct!
+		                    	// Get the user-agent string of the user.
+								$user_browser = $_SERVER['HTTP_USER_AGENT'];
+		        				// XSS protection as we might print this value
+								$_SESSION['user'] = $user;
+								$_SESSION['privilegio'] = $privilegio;
+								$_SESSION['clube'] = '';
+								$_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+								return 'true';
+							}
+							else {
+		        				// Password is not correct
+		                    	// We record this attempt in the database
+								$now = time();
+								$dbc->query("INSERT INTO login_attempts(user_id , time) VALUES ('$user_id', '$now')");
+								return 'false';
+							}
+						}
+					}
+					else {
+						return 'contaBlock';
+					}
+				}
+				else {
+	        		//no user exists.
+					return 'false';
+				} 
+			}
+		}	
+	}
+
+function login_socioEstrangeiro ($user, $password, $dbc){
+	
+	$query = "SELECT privilegio, password, salt, block
+	FROM contasEstrangeiro
+	WHERE stam = ?
+	LIMIT 1";
+
+	if($stmt = mysqli_prepare($dbc, $query)) {
+
+		mysqli_stmt_bind_param($stmt, 's', $user);
+			$stmt->execute();    // Execute the prepared query.
+			$stmt->store_result();
+
+			$stmt->bind_result($privilegio, $db_password, $salt, $block);
+			$stmt->fetch();
+			if($stmt->num_rows == 1){
+				// hash the password with the unique salt.
+				$password = hash('sha512', $password . $salt);
+
+				if($stmt->num_rows == 1){
+					if($block == 'Nao'){
+						if(checkbrute($user, $dbc) == true){
+							echo "erro checkbrute";
+							return 'false';
+						}
+						else {
+
+							if($db_password == $password){
+		        				// Password is correct!
+		                    	// Get the user-agent string of the user.
+								$user_browser = $_SERVER['HTTP_USER_AGENT'];
+		        				// XSS protection as we might print this value
+								$_SESSION['user'] = $user;
+								$_SESSION['privilegio'] = $privilegio;
+								$_SESSION['clube'] = '';
+								$_SESSION['login_string'] = hash('sha512', $password.$user_browser);
+								return 'true';
+							}
+							else {
+		        				// Password is not correct
+		                    	// We record this attempt in the database
+								$now = time();
+								$dbc->query("INSERT INTO login_attempts(user_id , time) VALUES ('$user_id', '$now')");
+								return 'false';
+							}
+						}
+					}
+					else {
+						return 'contaBlock';
+					}
+				}
+				else {
+	        		//no user exists.
+					return 'false';
+				} 
+			}
+		}	
+	}
+
+
+
 	function checkbrute($user, $dbc){
 		$now = time();
 
@@ -151,6 +271,97 @@ function login_check($dbc) {
         	return false;
         }
     }
+
+function login_checkSocios($dbc) {
+	if(isset($_SESSION['user'],
+		$_SESSION['privilegio'],
+		$_SESSION['login_string'])) {
+
+		$user = $_SESSION['user'];
+	$privilegio = $_SESSION['privilegio'];
+	$login_string = $_SESSION['login_string'];
+	
+	$user_browser = $_SERVER['HTTP_USER_AGENT'];
+
+	if ($stmt = $dbc->prepare("SELECT password 
+		FROM contasSocio
+		WHERE stamContaSocio = ? LIMIT 1")) {
+            	// Bind "$user_id" to parameter. 
+		$stmt->bind_param('s', $user);
+            	$stmt->execute();   // Execute the prepared query.
+            	$stmt->store_result();
+
+            	if ($stmt->num_rows == 1) {
+
+	                // If the user exists get variables from result.
+            		$stmt->bind_result($password);
+            		$stmt->fetch();
+            		$login_check = hash('sha512', $password . $user_browser);
+
+            		if ($login_check == $login_string) {
+                    	// Logged In!!!! 
+            			return true;
+            		} else {
+                    	// Not logged in 
+            			return false;
+            		}
+
+            	} else{
+            		return false;
+            	}
+            } else {
+            	return false;
+            }
+        } else {
+        	return false;
+        }
+    }
+
+
+function login_checkEstrangeiros ($dbc) {
+	if(isset($_SESSION['user'],
+		$_SESSION['privilegio'],
+		$_SESSION['login_string'])) {
+
+		$user = $_SESSION['user'];
+	$privilegio = $_SESSION['privilegio'];
+	$login_string = $_SESSION['login_string'];
+	
+	$user_browser = $_SERVER['HTTP_USER_AGENT'];
+
+	if ($stmt = $dbc->prepare("SELECT password 
+		FROM contasEstrangeiro WHERE stam = ? LIMIT 1")) {
+            	// Bind "$user_id" to parameter. 
+		$stmt->bind_param('s', $user);
+            	$stmt->execute();   // Execute the prepared query.
+            	$stmt->store_result();
+
+            	if ($stmt->num_rows == 1) {
+
+	                // If the user exists get variables from result.
+            		$stmt->bind_result($password);
+            		$stmt->fetch();
+            		$login_check = hash('sha512', $password . $user_browser);
+
+            		if ($login_check == $login_string) {
+                    	// Logged In!!!! 
+            			return true;
+            		} else {
+                    	// Not logged in 
+            			return false;
+            		}
+
+            	} else{
+            		return false;
+            	}
+            } else {
+            	return false;
+            }
+        } else {
+        	return false;
+        }
+    }
+
 
     function login_fop_check($dbc) {
     	if(isset($_SESSION['user']) ){

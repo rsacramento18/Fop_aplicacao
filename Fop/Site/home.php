@@ -1,5 +1,5 @@
 <?php include ("header.php"); ?>
-<?php if (login_check($dbc) == true) : ?>
+<?php if (login_check($dbc) == true || login_checkSocios($dbc) == true || login_checkEstrangeiros($dbc) == true) : ?>
 	<div class="wrapper-content">
 		<div id="loggado">
 			<?php 

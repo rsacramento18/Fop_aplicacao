@@ -44,7 +44,7 @@ include_once 'functions.php';
 						this.form.passwordConfirmarRegistar); "/>
 
     </form>
-    <form action"registarInternacional.inc" method="post" name="registarInternacionalForm" id="registarInternacionalForm" style="display:none">
+    <form action="registarInternacional.inc.php" method="post" name="registarInternacionalForm" id="registarInternacionalForm" style="display:none">
 
         <input type="text" name="nomeRegistar" id="nomeRegistar" size="30" placeholder="Name"/>
         <span class="labelsRegistar">Insert a name for the account.</span><br />
@@ -67,7 +67,7 @@ include_once 'functions.php';
 						this.form.paisRegistarInternacional,
 						this.form.addressRegistarInternacional,
 						this.form.passwordRegistarInternacional,
-						this.form.passwordConfirmarRegistarInternacional); "/>
+                        this.form.passwordConfirmarRegistarInternacional); "/>
 
     </form>
   </div>

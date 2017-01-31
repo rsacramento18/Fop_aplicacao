@@ -76,7 +76,7 @@ if(isset($_POST['stamRegistar'], $_POST['biRegistar'], $_POST['p'] )) {
             mysqli_stmt_execute($insert_stmt);
             $affected_rows = mysqli_stmt_affected_rows($insert_stmt);
             if (! $affected_rows == 1) {
-                header('Location: error2.php?err=Registration failure: INSERT');
+                header('location: error2.php?err=Houve um erro na insercao dos dados na base de dados. Por favor tente novamente.');
             }
             else{
                 header('Location: register_success.php');
@@ -84,7 +84,8 @@ if(isset($_POST['stamRegistar'], $_POST['biRegistar'], $_POST['p'] )) {
         }
     }
     else {
-            header('location: error2.php?err=registration failure: insert2');
+          
+            header('location: error2.php?err='.$error_msg);
     }
 }
 
