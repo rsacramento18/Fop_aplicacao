@@ -2,6 +2,9 @@
 require_once '../mysql_config.php';
 
 $error_msg = "";
+
+
+
 if(isset($_POST['stamRegistar'], $_POST['biRegistar'], $_POST['p'] )) {
 
     $stamRegistar = filter_input(INPUT_POST, 'stamRegistar', FILTER_SANITIZE_STRING);
@@ -13,51 +16,78 @@ if(isset($_POST['stamRegistar'], $_POST['biRegistar'], $_POST['p'] )) {
         	// If it's not, something really odd has happened
         $error_msg .= '<p class="error">Invalid password configuration.</p>';
     }
+    
+    $stamRegistar = strtoupper($stamRegistar);
 
-        $prep_stmt = "SELECT user_id FROM users WHERE user_id = ? LIMIT 1";
-        $stmt = $dbc->prepare($prep_stmt);
+    if (!preg_match(
+    '/^            # Start of string
+    (?=.*\p{Lu}.*\p{Lu})   # at least one uppercase letter
+    (?=.*\d.*\d)   # at least two digits
+    .{4}           # exactly 8 characters
+    $              # End of string
+    /xu',     
+    $stamRegistar)) $error_msg .= '<p class"error">O stam Indicado nao tem o formato AA11.</p>';
 
-        if($stmt){
-          $stmt->bind_param('s', $user);
-          $stmt->execute();
-          $stmt->store_result();
+    $stamRegistar .= '-FOP';
 
-          if($stmt->num_rows == 1 ) {
-            $error_msg .= '<p class="error">A user with this email address already exists.</p>';
-            $stmt->close();
+
+    $query = "SELECT stam FROM socios WHERE stam = '$stamRegistar' LIMIT 1";
+	$stamExistente = '';
+	if($stmt = @mysqli_query($dbc, $query)) {
+		$row = mysqli_fetch_array($stmt);
+		$stamExistente =  $row['stam'];
+        if($stamExistente != $stamRegistar) $error_msg .= '<p class="error">O stam indicado nao existe na base  de dados. Escolha Outro</p>';
+        $query = "SELECT stamContaSocio FROM contasSocio WHERE stamContaSocio = '$stamRegistar' LIMIT 1";
+        if($stmt = @mysqli_query($dbc, $query)) {
+            $row = mysqli_fetch_array($stmt);
+            $stamExistente = $row['stamContaSocio'];
+            if($stamExistente == $stamRegistar) $error_msg .= '<p class="error">O stam indicado ja existe noutra conta Indique outro stam.</p>';
         }
+	}
 
-    }
-    else {
-      $error_msg .= '<p class="error">Database error Line 39</p>';
-      $stmt->close();
-  }
 
-  if(empty($error_msg)) {
-      $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
-      
-      $password = hash('sha512', $password . $random_salt);
+    $query = "SELECT bi FROM socios WHERE bi = '$biRegistar' LIMIT 1";
+	$biExistente = '';
+	if($stmt = @mysqli_query($dbc, $query)) {
+		$row = mysqli_fetch_array($stmt);
+		$biExistente=  $row['bi'];
+        if($biExistente != $biRegistar) $error_msg .= '<p class="error">O bi indicado nao existe na base  de dados. Escolha Outro.</p>';
+        $query = "SELECT bi FROM contasSocio WHERE bi = '$biRegistar' LIMIT 1";
+        if($stmt = @mysqli_query($dbc, $query)) {
+            $row = mysqli_fetch_array($stmt);
+            $biExistente= $row['bi'];
+            if($biExistente== $biRegistar) $error_msg .= '<p class="error">O bi indicado ja existe noutra conta Indique outro stam.</p>';
+        }
+	}
 
-      $query = "INSERT INTO users ( user_id , privilegio, password, salt, clube) 
-      VALUES ( ?, ?, ?, ?, ?)";
-      if ($insert_stmt = mysqli_prepare($dbc, $query)){
         
-        mysqli_stmt_bind_param($insert_stmt, 'sssss', $user, $privilegio, 
-            $password, $random_salt, $clube);
+    echo $error_msg;
+    if(empty($error_msg)) {
+        $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+      
+        $password = hash('sha512', $password . $random_salt);
+
+        $query = "INSERT INTO contasSocio( stamContaSocio ,bi , password, salt) VALUES ( ?, ?, ?, ?)";
+        if ($insert_stmt = mysqli_prepare($dbc, $query)){
+        
+            mysqli_stmt_bind_param($insert_stmt, 'ssss', $stamRegistar, $biRegistar, 
+            $password, $random_salt);
                 // Execute the prepared query.
-        mysqli_stmt_execute($insert_stmt);
-        $affected_rows = mysqli_stmt_affected_rows($insert_stmt);
-        if (! $affected_rows == 1) {
-            header('Location: error.php?err=Registration failure: INSERT');
+            mysqli_stmt_execute($insert_stmt);
+            $affected_rows = mysqli_stmt_affected_rows($insert_stmt);
+            if (! $affected_rows == 1) {
+                header('Location: error2.php?err=Registration failure: INSERT');
+            }
+            else{
+                header('Location: register_success.php');
+            }   
         }
-        else{
-            header('Location: register_success.php');
-        }   
     }
     else {
-        header('Location: error.php?err=Registration failure: INSERT2');
+            header('location: error2.php?err=registration failure: insert2');
     }
 }
-}
 
-?
+
+
+?>

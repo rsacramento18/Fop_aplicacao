@@ -37,7 +37,11 @@ include_once 'functions.php';
         <span class="labelsRegistar">Introduza uma passord a sua escolha para a conta.</span><br />
         <input type="password" name="passwordConfirmarRegistar" id="passwordConfirmarRegistar" size="30" placeholder="Confirmar Password"/> 
         <span class="labelsRegistar">Confirme a sua password.</span><br />
-        <input type="submit" id="btRegistarNacional" name="btRegistarNacional" value="Registar Conta"/>
+        <input type="button" id="btRegistarNacional" name="btRegistarNacional" value="Registar Conta" onclick="return regformhashRegistarNacional(this.form,
+						this.form.stamRegistar,
+						this.form.biRegistar,
+                        this.form.passwordRegistar,
+						this.form.passwordConfirmarRegistar); "/>
 
     </form>
     <form action"registarInternacional.inc" method="post" name="registarInternacionalForm" id="registarInternacionalForm" style="display:none">
@@ -56,7 +60,14 @@ include_once 'functions.php';
         <span class="labelsRegistar">Insert a password for you account.</span><br />
         <input type="password" name="passwordConfirmarRegistarInternacional" id="passwordConfirmarRegistarInternacional" size="30" placeholder="Confirm Password"/> 
         <span class="labelsRegistar">Confirm your password.</span><br />
-        <input type="submit" id="btRegistarInternacional" name="btRegistarInternacional" value="Register Account"/>
+        <input type="button" id="btRegistarInternacional" name="btRegistarInternacional" value="Register Account" onclick="return regformhashRegistarInternacional(this.form,
+						this.form.nomeRegistar,
+						this.form.stamRegistarInternacional,
+						this.form.idRegistarInternacional,
+						this.form.paisRegistarInternacional,
+						this.form.addressRegistarInternacional,
+						this.form.passwordRegistarInternacional,
+						this.form.passwordConfirmarRegistarInternacional); "/>
 
     </form>
   </div>
