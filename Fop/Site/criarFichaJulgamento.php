@@ -9,13 +9,13 @@
 		</div>
         <h1>Criar Ficha de Julgamento</h1>
         <div id="divCriarFichaJulgamento">
-           <form action="#" method="post" name="formCriarFichaJulgamento" id="formCriarFichaJulgamento">
-                
+           <form action="criarFichaJulgamento.inc.php" method="post" name="formCriarFichaJulgamento" id="formCriarFichaJulgamento">
                 <input type ="text" name="nomeFicha" id="nomeFicha" placeHolder="Nome da Ficha" style="margin:10px"/><br /> 
 
                 <input type="text" name="topicoNome1" id="topicoNome1" placeholder="Nome Topico" style="margin:10px; width:300px"/>
-                <input type="number" name="pontucaoTopico1" id="pontucaoTopico1" style="margin:10px; width:70px"/>
+                <input type="number" name="pontuacaoTopico1" id="pontuacaoTopico1" style="margin:10px; width:70px"/>
                 <input type="button" name="btAdicionarTopico" id="btAdicionarTopico" value="+" onclick="adicionarTopico();"/><br />
+                <input type="button" name="btCriarFicha" id="btCriarFicha" value="Criar Ficha" onclick="formSubmit(); "/>
             </form> 
         </div>
     </div>
@@ -77,6 +77,17 @@
                 formFicha.innerHTML += "<br />";
                 console.log(counter);
             }
+        }
+
+
+        function formSubmit(){
+            var hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = "counterTopico";
+            hidden.value = counter;
+            formFicha.appendChild(hidden);
+            formFicha.submit();
+
         }
 
 
