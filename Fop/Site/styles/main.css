@@ -903,23 +903,23 @@ form#registration_form select#privilegio {
 	margin-top: 20px;
 }
 
-#membroDetalhadoTable{
+#membroDetalhado Table{
 
 	margin: 0 auto;
 	border: none;
 }
 
-#membroDetalhadoTable th {
+#membroDetalhado Table th {
 	border-bottom: 1px solid #212121;
 	text-align: left;
 }
 
-#membroDetalhadoTable tr {
+#membroDetalhado Table tr {
 	border: none;
 }
 
 
-#membroDetalhadoTable tr:hover{
+#membroDetalhado Table tr:hover{
 	background: #212121; 
 	color: #FFF;
 	border: none;
@@ -1860,10 +1860,96 @@ form#formCriarExposicao #descricao{
     display :inline;
 }
 
-/*=========CRIAR FICHAS DE JULGAMENTO===========*/
+/*=========VER FICHAS DE JULGAMENTO===========*/
 
+#gestaoFichaJulgamento{
+	padding-bottom: 20px;
+}
 
+#buttons{
+	margin: 0 auto;
+	width: 500px;
+	text-align: center;
+	padding: 10px 0
+}
 
+#divFichasJulgamento{
+	height: 500px;
+	padding: 10px 35px;
+	margin: 0 auto;
+}
+
+.fichaQuadrado{
+	border: 1px solid #212121;
+	float: left;
+	padding: 10px 0 0 10px;
+	padding-right: 10px;
+	margin: 5px;
+	width: 200px;
+	height: 75px;
+}
+
+.fichaQuadrado .id_ficha{
+	text-align: right;
+}
+
+.fichaQuadrado:hover {
+	background-color: #212121;
+	color: #ffffff;
+}
+
+.fichaQuadrado ul li{
+	padding: 10px 0 0 10px;
+}
+
+.fichaQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+.fichaQuadrado:hover li:before{
+
+    color: #ffffff;
+}
+
+.fichaQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+#fichaDetalhada{
+	padding: 20px;
+	margin: 10px;
+}
+
+.spanTopicosHeader{
+    display: inline-block;
+    width: 200px;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.spanTopicos {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
+#fichaNomeHeader{
+    font-size: 20pt;
+    margin-bottom: 10px;
+}
+
+#dadosFichaDiv > div:nth-of-type(odd) { 
+	background: #eeeeee; 
+	border: none;:w
+    
+}
 
 
 /*=========FOOTER===========*/

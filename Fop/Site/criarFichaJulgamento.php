@@ -13,9 +13,9 @@
                 <input type ="text" name="nomeFicha" id="nomeFicha" placeHolder="Nome da Ficha" style="margin:10px"/><br /> 
 
                 <input type="text" name="topicoNome1" id="topicoNome1" placeholder="Nome Topico" style="margin:10px; width:300px"/>
-                <input type="number" name="pontuacaoTopico1" id="pontuacaoTopico1" style="margin:10px; width:70px"/>
+                <input type="number" name="pontuacaoTopico1" id="pontuacaoTopico1" style="margin:10px; width:110px" placeholder="Pontuacao"/>
                 <input type="button" name="btAdicionarTopico" id="btAdicionarTopico" value="+" onclick="adicionarTopico();"/><br />
-                <input type="button" name="btCriarFicha" id="btCriarFicha" value="Criar Ficha" onclick="formSubmit(); "/>
+                <input type="button" name="btCriarFicha" id="btCriarFicha" value="Criar Ficha" onclick="formSubmit(); " style="margin:10px"/>
             </form> 
         </div>
     </div>
@@ -25,6 +25,7 @@
         var counter = 1;
         var formFicha = document.getElementById("formCriarFichaJulgamento");
         var btAdicionarTopico = document.getElementById("btAdicionarTopico");
+        var btCriarFicha = document.getElementById("btCriarFicha");
 
         function removerTopico(){
             if(counter > 1){    
@@ -50,8 +51,10 @@
         }
 
         function adicionarTopico(){
-                counter += 1;
-                if(counter <= 10){ 
+            counter += 1;
+            if(counter <= 10){ 
+                var newDiv = document.createElement("div");
+                newDiv.id = "divLinha"+counter;
                 var input = document.createElement("input");
                 input.type = "text";
                 input.name = "topicoNome" + counter;
@@ -65,16 +68,19 @@
                 input2.name = "pontuacaoTopico" + counter;
                 input2.id = "pontuacaoTopico" + counter;
                 input2.style.margin= "14px";
-                input2.style.width=  "70px";
+                input2.style.width=  "110px";
+                input2.placeholder = "Pontuacao";
+                
+                btCriarFicha.before(newDiv)
 
-                formFicha.appendChild(input);
-                formFicha.appendChild(input2);
+                newDiv.appendChild(input);
+                newDiv.appendChild(input2);
 
                 if(counter == 2){
 
-                    formFicha.innerHTML += "<input type='button' name='btRemoverTopico' id='btRemoverTopico' value='-' onclick='removerTopico();'/>";
+                    newDiv.innerHTML += "<input type='button' name='btRemoverTopico' id='btRemoverTopico' value='-' onclick='removerTopico();'/>";
                 }
-                formFicha.innerHTML += "<br />";
+                newDiv.innerHTML += "<br />";
                 console.log(counter);
             }
         }
@@ -86,7 +92,18 @@
             hidden.name = "counterTopico";
             hidden.value = counter;
             formFicha.appendChild(hidden);
-            formFicha.submit();
+            pontuacaoTotal = 0;
+            for(var i = 1;  i < counter+1; i++ ){
+                var pontuacao = document.getElementById("pontuacaoTopico"+i);
+                pontuacaoTotal += pontuacao.value;
+                console.log(pontuacao);
+            }
+            if(pontuacao == 100){
+                formFicha.submit();
+            }
+            else{
+                alert("A pontuacao total de todos os topicos e " + pontuacao.value + ". A pontuacao total tem que dar 100.");
+            }
 
         }
 

@@ -120,12 +120,12 @@ verificarDataPedido($dbc);
             <?php endif; ?>
             <?php if( login_colegio_check($dbc) == true) :?>
                 <li class=<?php if ((basename($_SERVER['PHP_SELF'])=="criarFichaJulgamento.php") || 
-                    (basename($_SERVER['PHP_SELF'])=="#")) : ?>"current-item"
+                    (basename($_SERVER['PHP_SELF'])=="verFichasJulgamento.php")) : ?>"current-item"
                 <?php endif;?>><a href="#">Fichas de Julgamentos<span class="arrow"> &#9660;</span></a>
 
                     <ul class="sub-menu">
-                        <li><a href="criarFichaJulgamento.php">Criar FIcha</a></li>
-                        <li><a href="#">Nova Listagem</a></li>
+                        <li><a href="criarFichaJulgamento.php">Criar Ficha</a></li>
+                        <li><a href="verFichasJulgamento.php">Ver Fichas</a></li>
                     </ul>
 
                 </li>

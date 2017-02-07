@@ -16,7 +16,9 @@ if(isset($_POST['nomeFicha'], $_POST['counterTopico'])) {
         if(isset($_POST['topicoNome'.$j], $_POST['pontuacaoTopico'.$j])){
             $topicosNome[$i] = $_POST['topicoNome'.$j];
             $topicosPontuacao[$i] = $_POST['pontuacaoTopico'.$j];
-            
+            echo $topicosNome[$i];
+            echo $topicosPontuacao[$i];
+                
         }
         $j++;
     }
@@ -32,58 +34,62 @@ if(isset($_POST['nomeFicha'], $_POST['counterTopico'])) {
             $nomeFicha .= " Copia";
         }
     }
-		/* $stamExistente =  $row['stam']; */
-    /*     if($stamExistente != $stamRegistar) $error_msg .= '<p class="error">O stam indicado nao existe na base  de dados. Escolha Outro</p>'; */
-    /*     $query = "SELECT stamContaSocio FROM contasSocio WHERE stamContaSocio = '$stamRegistar' LIMIT 1"; */
-    /*     if($stmt = @mysqli_query($dbc, $query)) { */
-    /*         $row = mysqli_fetch_array($stmt); */
-    /*         $stamExistente = $row['stamContaSocio']; */
-    /*         if($stamExistente == $stamRegistar) $error_msg .= '<p class="error">O stam indicado ja existe noutra conta Indique outro stam.</p>'; */
-    /*     } */
-	/* } */
-
-
-    /* $query = "SELECT bi FROM socios WHERE bi = '$biRegistar' LIMIT 1"; */
-	/* $biExistente = ''; */
-	/* if($stmt = @mysqli_query($dbc, $query)) { */
-		/* $row = mysqli_fetch_array($stmt); */
-		/* $biExistente=  $row['bi']; */
-    /*     if($biExistente != $biRegistar) $error_msg .= '<p class="error">O bi indicado nao existe na base  de dados. Escolha Outro.</p>'; */
-    /*     $query = "SELECT bi FROM contasSocio WHERE bi = '$biRegistar' LIMIT 1"; */
-    /*     if($stmt = @mysqli_query($dbc, $query)) { */
-    /*         $row = mysqli_fetch_array($stmt); */
-    /*         $biExistente= $row['bi']; */
-    /*         if($biExistente== $biRegistar) $error_msg .= '<p class="error">O bi indicado ja existe noutra conta Indique outro stam.</p>'; */
-    /*     } */
-	/* } */
-
+	
+    $query = "SELECT MAX(idTopico) as idTopico from topicosJulgamento";
+    $last_idTopico =0;
+    if($stmt = @mysqli_query($dbc, $query)){
+        $row = mysqli_fetch_array($stmt);
+        $last_idTopico = $row['idTopico'];
+    }
+   
+    $query = "SELECT MAX(idFicha) as idFicha from fichasJulgamento";
+    $last_idFicha =0;
+    if($stmt = @mysqli_query($dbc, $query)){
+        $row = mysqli_fetch_array($stmt);
+        $last_idFicha = $row['idFicha'];
+    }
         
-    /* echo $error_msg; */
-    /* if(empty($error_msg)) { */
-    /*     $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true)); */
-      
-    /*     $password = hash('sha512', $password . $random_salt); */
+    $query = "INSERT INTO topicosJulgamento(topico, pontuacao) VALUES ";
+echo"<br />";
+    echo $query;
+    for ($i =0; $i< $counterTopico; $i++){
+        $topico = $topicosNome[$i];
+        $pontuacao = $topicosPontuacao[$i];
+        $query .= "('$topico', '$pontuacao')";
+        if($i != $counterTopico -1){
+            $query .= ",";
+        }
+    }
+    echo"<br />";
+    echo $query;
+    if($stmt = @mysqli_query($dbc, $query)) {
+        $query = "INSERT INTO fichasJulgamento(nomeFicha) VALUES('$nomeFicha')";
+        if($stmt = @mysqli_query($dbc, $query)){
+            $last_idFicha +=1;
+            $last_idTopico +=1;
+            $query = "INSERT INTO fichasTopicosJulgamento VALUES";
+            for($i = 0; $i < $counterTopico; $i++){
 
-    /*     $query = "INSERT INTO contasSocio( stamContaSocio ,bi , password, salt) VALUES ( ?, ?, ?, ?)"; */
-    /*     if ($insert_stmt = mysqli_prepare($dbc, $query)){ */
-        
-    /*         mysqli_stmt_bind_param($insert_stmt, 'ssss', $stamRegistar, $biRegistar, */ 
-    /*         $password, $random_salt); */
-    /*             // Execute the prepared query. */
-    /*         mysqli_stmt_execute($insert_stmt); */
-    /*         $affected_rows = mysqli_stmt_affected_rows($insert_stmt); */
-    /*         if (! $affected_rows == 1) { */
-    /*             header('location: error2.php?err=Houve um erro na insercao dos dados na base de dados. Por favor tente novamente.'); */
-    /*         } */
-    /*         else{ */
-    /*             header('Location: register_success.php'); */
-    /*         } */   
-    /*     } */
-    /* } */
-    /* else { */
-          
-    /*         header('location: error2.php?err='.$error_msg); */
-    /* } */
+                $query .= "('$last_idFicha', '$last_idTopico')";
+                $last_idTopico +=1;
+                
+                if($i != $counterTopico -1){
+                    $query .= ",";
+                }
+            }
+            if($stmt = @mysqli_query($dbc, $query)){
+                echo "success";
+            }
+        }
+        else {
+
+            header('location: error2.php?err=Houve um erro na insercao dos dados na base de dados. Por favor tente novamente.');
+        }
+    }
+    else{
+        header('Location: verFichasJulgamento.php');
+    }
+       
 }
 else {
     echo "nao deu";
