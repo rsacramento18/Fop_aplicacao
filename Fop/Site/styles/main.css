@@ -1952,6 +1952,66 @@ form#formCriarExposicao #descricao{
 }
 
 
+/*=========Criar Juiz===========*/
+
+form#formCriarJuiz {
+	padding: 20px;
+}
+
+form#formCriarJuiz input[type="text"],
+form#formCriarJuiz input[type="email"],
+form#formCriarJuiz input[type="number"] {
+	margin: 10px 0;
+	margin-left: 70px;
+	width: 435px;
+}
+
+form#formCriarJuiz input[type='file']{
+	margin: 20px 0;
+	margin-left: 90px;
+}
+
+form#formCriarJuiz #nomeJuiz{
+	margin-left: 55px;
+}
+
+
+form#formCriarJuiz #emailJuiz{
+	margin-left: 80px;
+}
+
+form#formCriarJuiz #biJuiz{
+	margin-left: 85px;
+}
+
+form#formCriarJuiz #paisJuiz{
+	margin-left: 90px;
+}
+
+form#formCriarJuiz #regiaoJuiz{
+	margin-left: 72px;
+}
+
+form#formCriarJuiz #moradaJuiz{
+	margin-left: 65px;
+}
+
+form#formCriarJuiz #cod_postalJuiz{
+	margin-left: 27px;
+}
+
+form#formCriarJuiz #LocalidadeJuiz{
+	margin-left: 45px;
+}
+
+form#formCriarJuiz #telefone1Juiz{
+	margin-left: 55px;
+}
+
+
+form#formCriarJuiz #telefone2Juiz{
+	margin-left: 55px;
+
 /*=========FOOTER===========*/
 
 
