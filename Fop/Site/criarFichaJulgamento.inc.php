@@ -16,8 +16,6 @@ if(isset($_POST['nomeFicha'], $_POST['counterTopico'])) {
         if(isset($_POST['topicoNome'.$j], $_POST['pontuacaoTopico'.$j])){
             $topicosNome[$i] = $_POST['topicoNome'.$j];
             $topicosPontuacao[$i] = $_POST['pontuacaoTopico'.$j];
-            echo $topicosNome[$i];
-            echo $topicosPontuacao[$i];
                 
         }
         $j++;
@@ -50,8 +48,6 @@ if(isset($_POST['nomeFicha'], $_POST['counterTopico'])) {
     }
         
     $query = "INSERT INTO topicosJulgamento(topico, pontuacao) VALUES ";
-echo"<br />";
-    echo $query;
     for ($i =0; $i< $counterTopico; $i++){
         $topico = $topicosNome[$i];
         $pontuacao = $topicosPontuacao[$i];
@@ -60,8 +56,6 @@ echo"<br />";
             $query .= ",";
         }
     }
-    echo"<br />";
-    echo $query;
     if($stmt = @mysqli_query($dbc, $query)) {
         $query = "INSERT INTO fichasJulgamento(nomeFicha) VALUES('$nomeFicha')";
         if($stmt = @mysqli_query($dbc, $query)){
@@ -78,7 +72,8 @@ echo"<br />";
                 }
             }
             if($stmt = @mysqli_query($dbc, $query)){
-                echo "success";
+                header('Location: verFichasJulgamento.php');
+
             }
         }
         else {
@@ -87,7 +82,8 @@ echo"<br />";
         }
     }
     else{
-        header('Location: verFichasJulgamento.php');
+        header('location: error2.php?err=Houve um erro na insercao dos dados na base de dados. Por favor tente novamente.');
+
     }
        
 }

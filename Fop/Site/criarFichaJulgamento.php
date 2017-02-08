@@ -95,10 +95,11 @@
             pontuacaoTotal = 0;
             for(var i = 1;  i < counter+1; i++ ){
                 var pontuacao = document.getElementById("pontuacaoTopico"+i);
-                pontuacaoTotal += pontuacao.value;
+                pontuacaoTotal += parseInt(pontuacao.value);
                 console.log(pontuacao);
             }
-            if(pontuacao == 100){
+            console.log(pontuacaoTotal);
+            if(pontuacaoTotal == 100){
                 formFicha.submit();
             }
             else{
