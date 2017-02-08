@@ -129,6 +129,17 @@ verificarDataPedido($dbc);
                     </ul>
 
                 </li>
+
+                <li class=<?php if ((basename($_SERVER['PHP_SELF'])=="criarJuiz.php") || 
+                    (basename($_SERVER['PHP_SELF'])=="#")) : ?>"current-item"
+                <?php endif;?>><a href="#">Juizes<span class="arrow"> &#9660;</span></a>
+
+                    <ul class="sub-menu">
+                        <li><a href="criarJuiz.php">Criar Juiz</a></li>
+                        <li><a href="verFichasJulgamento.php">Ver Juizes</a></li>
+                    </ul>
+
+                </li>
             <?php endif; ?>
 
             <li><a href="logout.php">Sair</a></li>

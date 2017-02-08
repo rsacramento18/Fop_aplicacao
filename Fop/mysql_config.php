@@ -2,7 +2,7 @@
 ini_set('default_charset', 'UTF-8');
 
 define('BD_USER', 'root');
-define('BD_PASSWORD', '');
+define('BD_PASSWORD', 'Agaporni1991');
 define('BD_HOST', 'localhost');
 define("BD_NAME", 'fop_aplicacao');
 

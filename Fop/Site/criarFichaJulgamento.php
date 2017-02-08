@@ -30,23 +30,14 @@
         function removerTopico(){
             if(counter > 1){    
 
-                var input = document.getElementById('topicoNome' + counter);
-                var input2 = document.getElementById('pontuacaoTopico'+ counter);
-                                
-                input.parentNode.removeChild( input );
-                input2.parentNode.removeChild( input2 );
+                var div = document.getElementById('divLinha'+counter);
+                
+               console.log(div.id); 
 
-                
-                
-                if(counter == 2){
-                    var input3 = document.getElementById("btRemoverTopico");
-                
-                    input3.parentNode.removeChild( input3 );
-                }
-                
-                formFicha.removeChild(formFicha.lastChild); 
+                div.parentNode.removeChild( div );
+                    
                 counter -= 1;
-                console.log(counter);
+
             }
         }
 
@@ -82,6 +73,9 @@
                 }
                 newDiv.innerHTML += "<br />";
                 console.log(counter);
+            }
+            else {
+                counter -=1;
             }
         }
 
