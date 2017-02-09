@@ -17,6 +17,8 @@ if($stmt) {
 
     $idExposicao = $dadosExposicao['idExposicao'];
 
+    $idJuiz = $dadosExposicao['idJuiz'];
+
     $excel = $dadosExposicao['excel'];
     $dadosExcel = '';
     if($excel != '') {
@@ -85,10 +87,41 @@ if($stmt) {
         echo "<h2>Ver Excel Classes</h2>";
         $ficheiroEscolhido = explode("/", $dadosExposicao['excel']);
         $ficheiro = $ficheiroEscolhido[1];
-        echo "<p id='ficheiroEscolhido'>Ficheiro carregado: $ficheiro</p><br/>";
+        echo "<p id='ficheiroEscolhido'><u>Ficheiro carregado</u>: $ficheiro</p><br/>";
         echo "<span>Seccao</span><select name='secaoSelect' id='secaoSelect'></select><br/>";
         echo "<input type='button' name='btVerClasses' id='btVerClasses' value='Ver Classes' onclick='verClasses()' /> ";
         echo "</div>";
+    }
+    
+    if( login_colegio_check($dbc) == true){ 
+
+        
+        echo "<div id='divSelecionarJuizExposicao'>";
+            echo "<h2>Selecionar Juiz</h2>";
+            if($idJuiz != 0){
+                $nomeJuiz = '';
+                $query = "SELECT nome FROM juizes WHERE idJuiz = '$idJuiz'";
+
+                if($stmt = @mysqli_query($dbc, $query)) {
+                    $row = mysqli_fetch_array($stmt);
+                    $nomeJuiz = $row['nome'];
+                }
+                echo "<p id='juizEscolhido'><u>Juiz Escolhido</u>: $nomeJuiz</p><br/>";
+            }
+            else {
+                echo "<p id='juizEscolhido'><u>Nao existe juiz escolhido para esta exposição</u></p><br/>";
+            }
+            echo "<form method='post' action='inserirJuizExposicao.php' id='formInserirJuizExposicao' name='inserirJuizExposicao'>";
+                echo "<input type='hidden' name='idExposicao' value='$idExposicao'/>";
+                echo "<span>Juiz</span><select id='selectjuizes' name='selectJuizes'>";
+                   getJuizes($dbc); 
+                echo "</select><br />";
+                echo "<input type='submit' id='btSubmitJuizExposicao' value='inserir'/>";
+            echo"</form>";
+
+        echo "</div>";
+        
+
     }
 
     echo "<div id='myModal' class='modal'> ";

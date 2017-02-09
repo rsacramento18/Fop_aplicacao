@@ -8,7 +8,8 @@
 			?>
 		</div>
 		<?php
-		$query = "SELECT count(*) as maxNumber from fichasJulgamento";
+		$clube = $_SESSION['clube']; 
+		$query = "SELECT count(*) as maxNumber from juizes ";
 		$max = 0;
 		if($stmt = @mysqli_query($dbc, $query)) {
 			$row = mysqli_fetch_array($stmt);
@@ -20,23 +21,23 @@
 				$(function() {
 					$.ajax({
 						type: 'post',
-			            url: 'gestaoClube.inc.php', //assumes file is in root dir//
+			            url: 'verJuizes.inc.php', //assumes file is in root dir//
 			            data: {source1: str1},
 			            success: function(response) {
-			                $("#divFichasJulgamento").html(response); //inserts echoed data into div//
+			                $("#divJuizes").html(response); //inserts echoed data into div//
 			            }
 			        });
 				});
 			}
 
-			function fichaDetalhada(str1) {
+			function juizDetalhado(str1) {
 				$(function() {
 					$.ajax({
 						type: 'post',
-			            url: 'fichaDetalhada.php', //assumes file is in root dir//
+			            url: 'juizDetalhado.php', //assumes file is in root dir//
 			            data: {source1: str1},
 			            success: function(response) {
-			                $("#fichaDetalhada").html(response); //inserts echoed data into div//
+			                $("#juizDetalhado").html(response); //inserts echoed data into div//
 			            }
 			        });
 				});
@@ -44,28 +45,28 @@
 			var max = <?php echo json_encode($max); ?>;
 			max = parseInt(max);
 		</script>
-		<h1>Ver Fichas de Julgamento</h1>
-		<div id="gestaoFichaJulgamento">
+		<h1>Ver Juizes</h1>
+		<div id="gestaoJuiz">
 
-			<div id="fichaDetalhada">
+			<div id="juizDetalhado">
 			</div>
 			<div id="buttons">
 				<input type='button' value='anterior <' id='btRetroceder'/>
-				<input type="text" name="procurarFichas" id="procurarFichas" placeholder="Pesquisar"/>
+				<input type="text" name="procurarJuiz" id="procurarJuiz" placeholder="Pesquisar"/>
 				<input type='button' value='> seguinte' id='btAvancar'/>
 			</div>
 
-			<div id="divFichasJulgamento">
+			<div id="divJuizes">
 				<?php
-				$query = "SELECT idFicha,nomeFicha FROM fichasJulgamento ORDER BY idFicha ASC LIMIT 0,20";
+				$query = "SELECT  nome, idJuiz from juizes ORDER BY idJuiz ASC LIMIT 0,20";
 				$max = 0;
 				if($stmt = @mysqli_query($dbc, $query)) {
 					
 					while($row = mysqli_fetch_array($stmt)) {
-						echo "<div class='fichaQuadrado'>";
-						echo "<p class='id_ficha'>". $row['idFicha'] ."</p>";
+						echo "<div class='juizQuadrado'>";
+						echo "<p class='id_juiz'>". $row['idJuiz'] ."</p>";
 						echo "<ul>";
-						echo "<li>". $row['nomeFicha'] ."</li>";
+						echo "<li>". $row['nome'] ."</li>";
 						echo "</ul>";
 						echo "</div>";
 					}
@@ -86,7 +87,7 @@
 			btRetroceder.onclick = function () {
 				if(counter >= 20){
 					counter -= 20;
-					document.getElementById('divFichasJulgamento').innerHTML = "";
+					document.getElementById('divJuizes').innerHTML = "";
 					getNext(counter);
 				}
 			};
@@ -94,39 +95,39 @@
 			btAvancar.onclick = function() {
 				if(counter+20 < max){
 					counter += 20;
-					document.getElementById('divFichasJulgamento').innerHTML = "";
+					document.getElementById('divJuizes').innerHTML = "";
 					getNext(counter);
 				}
 				
 			};
 
-			$('#divFichasJulgamento').on("click", ".fichaQuadrado", function(){
+			$('#divJuizes').on("click", ".juizQuadrado", function(){
 				var quadrado = this.getElementsByTagName('ul')[0];
-				var ficha = this.getElementsByTagName('p')[0];
-				console.log(ficha.innerHTML);
-				document.getElementById('fichaDetalhada').style.borderBottom = '1px solid #810101'; 
-				fichaDetalhada(ficha.innerHTML);
+				var juiz = this.getElementsByTagName('p')[0];
+				console.log(juiz.innerHTML);
+				document.getElementById('juizDetalhado').style.borderBottom = '1px solid #810101'; 
+				juizDetalhado(juiz.innerHTML);
 				$('html, body').animate({scrollTop: $("#loggado").offset().top}, 1000);
 			});
 
-			$('#buttons').on("input", "#procurarFichas", function(){
-				var divFichasJulgamento= document.getElementById('divFichasJulgamento');
-				divFichasJulgamento.innerHTML = '';
+			$('#buttons').on("input", "#procurarJuiz", function(){
+				var divJuizes = document.getElementById('divJuizes');
+				divJuizes.innerHTML = '';
 
-                if(this.value ==''){
+				if(this.value ==''){
 					<?php
 
 					$inner = "";
 
-					$query = "SELECT idFicha,nomeFicha FROM fichasJulgamento ORDER BY idFicha ASC LIMIT 0,20";
+					$query = "SELECT nome, idJuiz from juizes ORDER BY idJuiz ASC LIMIT 0,20";
 					$max = 0;
 					if($stmt = @mysqli_query($dbc, $query)) {
 						
 						while($row = mysqli_fetch_array($stmt)) {
-							$inner .= "<div class='fichaQuadrado'>";
-							$inner .= "<p class='id_ficha'>". $row['idFicha'] ."</p>";
+							$inner .= "<div class='juizQuadrado'>";
+							$inner .= "<p class='id_juiz'>". $row['idJuiz'] ."</p>";
 							$inner .= "<ul>";
-							$inner .= "<li>". $row['nomeFicha'] ."</li>";
+							$inner .= "<li>". $row['nome'] ."</li>";
 							$inner .= "</ul>";
 							$inner .= "</div>";
 						}
@@ -136,17 +137,17 @@
 					}
 					?>
 					var inner = "<?php echo "$inner" ?>";
-					divFichasJulgamento.innerHTML = inner;
+					divJuizes.innerHTML = inner;
 				}
 				else{
-                    str1 = this.value;
+					str1 = this.value;
 					$(function() {
 				        $.ajax({
 				            type: 'post',
-				            url: 'procurarFichaDinamica.php', //assumes file is in root dir//
+				            url: 'procurarJuizDinamico.php', //assumes file is in root dir//
 				            data: {source1: str1},
 				            success: function(response) {
-				                $("#divFichasJulgamento").html(response); //inserts echoed data into div//
+                                $("#divJuizes").html(response); //inserts echoed data into div//
 				            }
 				        });
 				    });

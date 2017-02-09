@@ -4,9 +4,11 @@ require_once('functions.php');
 sec_session_start();
 
 $error_msg = "";
-if(isset($_POST['nomeJuiz'], $_POST['emailJuiz'],$_POST['biJuiz'], 
+if(isset($_POST['idJuiz'], $_POST['nomeJuiz'], $_POST['emailJuiz'],$_POST['biJuiz'], 
     $_POST['paisJuiz'] , $_POST['regiaoJuiz'], $_POST['moradaJuiz'], $_POST['cod_postalJuiz'], $_POST['LocalidadeJuiz'], 
     $_POST['telefone1Juiz'])) {
+
+    $idJuiz = $_POST['idJuiz'];
 
     $nome = filter_input(INPUT_POST, 'nomeJuiz', FILTER_SANITIZE_STRING);
 if($_POST['emailJuiz']!=""){
@@ -32,20 +34,8 @@ $bi = filter_input(INPUT_POST, 'biJuiz', FILTER_SANITIZE_NUMBER_INT);
 
 
 
-if($bi > 1000000 && $bi < 9999999999) {
-    $query = "SELECT bi FROM juizes WHERE bi LIKE '%$bi%' LIMIT 1";
-
-    if($stmt = @mysqli_query($dbc, $query)){ 
-
-        if($stmt->num_rows == 1 ) {
-           $error_msg .= '<p class="error">Um utilizador com este bilhete de identidade já existe.</p>';
-           $biVerificar = "true";
-       }
-       else {
-        $biVerificar = "false";
-    }
-
-}
+if(!($bi > 1000000 && $bi < 9999999999)) {
+    $error_msg .= '<p class="error">Um utilizador com este bilhete de identidade já existe.</p>';
 }
 
 $pais = filter_input(INPUT_POST, 'paisJuiz', FILTER_SANITIZE_STRING);
@@ -75,36 +65,50 @@ if($telefone2 < 100000000 || $telefone2 > 999999999 ){
 }
 
 $errors = array();
-$file_name = $_FILES['foto']['name'];
-$file_size =$_FILES['foto']['size'];
-$file_tmp =$_FILES['foto']['tmp_name'];
-$file_type=$_FILES['foto']['type'];
-$file_ext=strtolower(end(explode('.',$_FILES['foto']['name'])));
 
-$expensions= array("jpeg","jpg","png");
+$pathFile = '';
 
-if(in_array($file_ext,$expensions)=== false){
-    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+if(!empty($_FILES['foto']['name'])){
+    $file_name = $_FILES['foto']['name'];
+    $file_size =$_FILES['foto']['size'];
+    $file_tmp =$_FILES['foto']['tmp_name'];
+    $file_type=$_FILES['foto']['type'];
+    $file_ext=strtolower(end(explode('.',$_FILES['foto']['name'])));
+
+    $expensions= array("jpeg","jpg","png");
+
+    if(in_array($file_ext,$expensions)=== false){
+        $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+    }
+
+    if($file_size > 2097152){
+        $errors[]='File size must be excately 2 MB';
+    }
+
+    $pathFile = 'img/img_juizes/'.$file_name;
 }
-
-if($file_size > 2097152){
-    $errors[]='File size must be excately 2 MB';
-}
-
-$pathFile = 'img/img_juizes/'.$file_name;
+else {
+    $query =  "Select foto from juizes where idJuiz = '$idJuiz'";
+    if($stmt = @mysqli_query($dbc, $query)) {
+        $row = mysqli_fetch_array($stmt);
+        $pathFile = $row['foto'];
+    }
+} 
 
 
 
 if(empty($error_msg)) {
-    if(empty($errors)==true){
+    if(empty($errors)==true && !empty($_FILES['foto']['name'])){
         move_uploaded_file($file_tmp, $pathFile);
     }
     else {
         print_r($errors);
     }
 
-    $query = "INSERT INTO juizes (nome, foto, email, bi, pais, regiao, morada, cod_postal, Localidade, telefone1, telefone2) VALUES ('$nome', '$pathFile','$email', $bi, '$pais',
-  ' $regiao', '$morada', '$cod', '$localidade', $telefone1, $telefone2 )";
+    $query = "UPDATE juizes SET nome='$nome', foto='$pathFile', email = '$email', bi = $bi, pais = '$pais', regiao = '$regiao', 
+    morada = '$morada', cod_postal = '$cod', Localidade = '$localidade',
+    telefone1 = $telefone1, telefone2 = $telefone2 
+    WHERE idJuiz = '$idJuiz'";
 
     if($stmt = @mysqli_query($dbc, $query)) {
         $_SESSION['biJuizInserido'] = $bi;

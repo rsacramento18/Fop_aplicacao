@@ -1726,6 +1726,25 @@ form#formAlterarExposicao #descricao{
     margin: 20px 0;
 }
 
+#divSelecionarJuizExposicao {
+    width: 300px;
+	margin:30px 50px;	
+	float: right;
+    text-align: center;
+
+}
+
+#divSelecionarJuizExposicao select{
+    margin: 10px;
+    margin-left: 30px;
+    width: 230px;
+}
+
+#divSelecionarJuizExposicao input{
+    margin: 10px;
+}
+
+
 
 
 
@@ -2011,6 +2030,173 @@ form#formCriarJuiz #telefone1Juiz{
 
 form#formCriarJuiz #telefone2Juiz{
 	margin-left: 55px;
+}
+
+/*=========VER Juizes===========*/
+
+#gestaoJuiz{
+	padding-bottom: 20px;
+}
+
+#buttons{
+	margin: 0 auto;
+	width: 500px;
+	text-align: center;
+	padding: 10px 0
+}
+
+#divJuizes{
+	height: 500px;
+	padding: 10px 35px;
+	margin: 0 auto;
+}
+
+.juizQuadrado{
+	border: 1px solid #212121;
+	float: left;
+	padding: 10px 0 0 10px;
+	padding-right: 10px;
+	margin: 5px;
+	width: 200px;
+	height: 75px;
+}
+
+.juizQuadrado .id_juiz{
+	text-align: right;
+}
+
+.juizQuadrado:hover {
+	background-color: #212121;
+	color: #ffffff;
+}
+
+.juizQuadrado ul li{
+	padding: 10px 0 0 10px;
+}
+
+.juizQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+.juizQuadrado:hover li:before{
+
+    color: #ffffff;
+}
+
+.juizQuadrado li:before{
+
+	content: "• ";
+    color: #810101;
+}
+
+#juizDetalhado{
+	padding: 20px;
+	margin: 10px;
+}
+
+.spanTopicosHeader{
+    display: inline-block;
+    width: 200px;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.spanTopicos {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
+/*=========Juiz Detalhado===========*/
+
+#dadosJuiz {
+    height: 400px;
+}
+
+#tableJuizDetalhado {
+    width: 500px;
+    display:inline-block;
+}
+
+#dadosJuiz #imgExposicaoDetalhada{
+	width: 300px;
+	margin:30px 50px;	
+	/* float: right; */
+    display: inline-block;
+
+}
+
+#btShowForm, #eliminarJuiz, #btVoltar, #alterarDadosBT {
+    margin: 10px;
+
+}
+
+/*=========Alterar Juiz===========*/
+
+form#formAlterarJuiz {
+	padding: 20px;
+}
+
+form#formAlterarJuiz input[type="text"],
+form#formAlterarJuiz input[type="email"],
+form#formAlterarJuiz input[type="number"] {
+	margin: 10px 0;
+	margin-left: 70px;
+	width: 435px;
+}
+
+form#formAlterarJuiz input[type='file']{
+	margin: 20px 0;
+	margin-left: 90px;
+}
+
+form#formAlterarJuiz #nomeJuiz{
+	margin-left: 55px;
+}
+
+
+form#formAlterarJuiz #emailJuiz{
+	margin-left: 80px;
+}
+
+form#formAlterarJuiz #biJuiz{
+	margin-left: 85px;
+}
+
+form#formAlterarJuiz #paisJuiz{
+	margin-left: 90px;
+}
+
+form#formAlterarJuiz #regiaoJuiz{
+	margin-left: 72px;
+}
+
+form#formAlterarJuiz #moradaJuiz{
+	margin-left: 65px;
+}
+
+form#formAlterarJuiz #cod_postalJuiz{
+	margin-left: 27px;
+}
+
+form#formAlterarJuiz #LocalidadeJuiz{
+	margin-left: 45px;
+}
+
+form#formAlterarJuiz #telefone1Juiz{
+	margin-left: 55px;
+}
+
+
+form#formAlterarJuiz #telefone2Juiz{
+	margin-left: 55px;
+}
+
 
 /*=========FOOTER===========*/
 

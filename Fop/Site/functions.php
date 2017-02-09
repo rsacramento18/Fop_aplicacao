@@ -538,6 +538,20 @@ function login_checkEstrangeiros ($dbc) {
     		}
     	}		
     }
+    
+    function getJuizes($dbc){
+
+    	$query = "SELECT idJuiz, nome FROM juizes
+    	GROUP BY idJuiz asc";
+
+    	$stmt = @mysqli_query($dbc, $query);
+    	if($stmt){
+    		
+    		while ($row= mysqli_fetch_array($stmt)) {
+    			echo "<option value='".$row['idJuiz']."'>". $row['nome']. "</option>";
+    		}
+    	}		
+    }
 
     function verificarDataPedido($dbc){
     	
