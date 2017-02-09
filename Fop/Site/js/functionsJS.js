@@ -8,12 +8,12 @@ $(document).ready(function() {
         });
     });
 
-    var docHeight = $( window ).height() + 20;
-    var footerHeight = $('footer').height();
-    var footerTop = $('footer').position().top + footerHeight;  
-    if (footerTop < docHeight) {
-        $('footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
-    }
+    // var docHeight = $( window ).height() + 20;
+    // var footerHeight = $('footer').height();
+    // var footerTop = $('footer').position().top + footerHeight;  
+    // if (footerTop < docHeight) {
+    //     $('footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
+    // }
 
     $("#table tr").click(function(){
         $(this).addClass('selected').siblings().removeClass('selected');    

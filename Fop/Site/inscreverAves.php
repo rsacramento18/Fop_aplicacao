@@ -6,7 +6,6 @@ sec_session_start();
 if(isset($_POST['source1'])){
 	$idExposicao= $_POST['source1'];
 }
-echo "ola";
 
 $query = "SELECT * from exposicoes where idExposicao = '$idExposicao'";
 
@@ -25,7 +24,11 @@ if($stmt) {
         $dadosExcel = csv_to_array($dadosExposicao['excel']); 
         utf8_encode_deep($dadosExcel);        
     }
-    
+
+    echo "<div id='adicionarAves'>";
+        echo "<span>Seccao</span><select name='selectAdicionarAves' id='selectAdicionarAves'></select>";
+        echo "<input type='number' id='classeInput' name='classeInput' placeholder='Classe' size='3'/>";
+    echo "</div>";
     if($dadosExposicao['excel'] != ''){
         echo "<div id='verExcelClasses'>";
             echo "<h2>Ver Excel Classes</h2>";
@@ -62,6 +65,7 @@ if($stmt) {
         console.log(resultObject);
 
         criarOptionSecao();
+        criarOptionSecao2();
 
         var modal = document.getElementById('myModal');  
         var span = document.getElementById("closeModal");
@@ -93,6 +97,18 @@ if($stmt) {
         function criarOptionSecao() {
 
             var sesaoSelect = document.getElementById('secaoSelect');
+            var opcoes = searchClassesDistinct(dadosExcel);
+            for( var i = 0; i < opcoes.length; i++) {
+                var optionOpcao = document.createElement("option");
+	        	optionOpcao.text = opcoes[i];
+                optionOpcao.value= opcoes[i];
+	        	sesaoSelect.appendChild(optionOpcao); 
+            }
+        }
+        
+        function criarOptionSecao2() {
+
+            var sesaoSelect = document.getElementById('selectAdicionarAves');
             var opcoes = searchClassesDistinct(dadosExcel);
             for( var i = 0; i < opcoes.length; i++) {
                 var optionOpcao = document.createElement("option");

@@ -144,7 +144,7 @@ verificarDataPedido($dbc);
             
             <?php if( login_checkSocios($dbc) == true || login_checkEstrangeiros($dbc) == true) :?>
 
-                <li class=<?php if (basename($_SERVER['PHP_SELF'])=="#") : ?>"current-item"<?php endif;?>><a href="home.php">Inscrever Aves</a></li>
+                <li class=<?php if (basename($_SERVER['PHP_SELF'])=="selecionarExposicao.php") : ?>"current-item"<?php endif;?>><a href="selecionarExposicao.php">Inscrever Aves</a></li>
 
             <?php endif; ?>
 
