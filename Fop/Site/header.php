@@ -27,7 +27,7 @@ verificarDataPedido($dbc);
 </head>
 <body>
     <?php
-    if (login_check($dbc) == false && login_checkSocios($dbc) == false && login_socioEstrangeiros == false ) : ?>
+    if (login_check($dbc) == false && login_checkSocios($dbc) == false && login_checkEstrangeiros($dbc) == false ) : ?>
     <p>
         <span class="error">You are not authorized to access this page.</span> Please <a href="login.php">login</a>.
     </p>
@@ -141,6 +141,14 @@ verificarDataPedido($dbc);
 
                 </li>
             <?php endif; ?>
+            
+            <?php if( login_checkSocios($dbc) == true || login_checkEstrangeiros($dbc) == true) :?>
+
+                <li class=<?php if (basename($_SERVER['PHP_SELF'])=="#") : ?>"current-item"<?php endif;?>><a href="home.php">Inscrever Aves</a></li>
+
+            <?php endif; ?>
+
+
 
             <li><a href="logout.php">Sair</a></li>
         </ul>
