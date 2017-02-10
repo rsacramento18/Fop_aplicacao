@@ -2198,6 +2198,41 @@ form#formAlterarJuiz #telefone2Juiz{
 }
 
 
+
+/*=========INSCREVER AVES===========*/
+
+#verExcelClasses2 {
+    text-align: center;
+}
+
+#verExcelClasses2 select,
+#verExcelClasses2 input {
+
+    margin: 10px;
+}
+
+#adicionarAves {
+    margin: 10px;
+}
+
+#adicionarAves select,
+#adicionarAves #classeInput{
+    margin:10px;
+    width: 100px;
+}
+
+#adicionarAves #descricaoClasse{
+    width: 600px;
+}
+#adicionarAves #btAdicionarAve {
+
+    margin: 10px;
+}
+
+#avesInscritas {
+    margin: 10px;
+}
+
 /*=========FOOTER===========*/
 
 

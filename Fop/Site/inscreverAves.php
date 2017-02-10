@@ -16,6 +16,8 @@ if($stmt) {
 
     $idExposicao = $dadosExposicao['idExposicao'];
 
+    $numGaiola = $dadosExposicao['numGaiola'];
+
     $idJuiz = $dadosExposicao['idJuiz'];
 
     $excel = $dadosExposicao['excel'];
@@ -24,29 +26,33 @@ if($stmt) {
         $dadosExcel = csv_to_array($dadosExposicao['excel']); 
         utf8_encode_deep($dadosExcel);        
     }
-
-    echo "<div id='adicionarAves'>";
-        echo "<span>Seccao</span><select name='selectAdicionarAves' id='selectAdicionarAves'></select>";
-        echo "<input type='number' id='classeInput' name='classeInput' placeholder='Classe' size='3'/>";
-    echo "</div>";
     if($dadosExposicao['excel'] != ''){
-        echo "<div id='verExcelClasses'>";
-            echo "<h2>Ver Excel Classes</h2>";
-            $ficheiroEscolhido = explode("/", $dadosExposicao['excel']);
-            $ficheiro = $ficheiroEscolhido[1];
-            echo "<p id='ficheiroEscolhido'><u>Ficheiro carregado</u>: $ficheiro</p><br/>";
-            echo "<span>Seccao</span><select name='secaoSelect' id='secaoSelect'></select><br/>";
+        echo "<div id='verExcelClasses2'>";
+            echo "<h2>Ver Classes</h2>";
+            echo "<span>Seccao </span><select name='secaoSelect' id='secaoSelect'></select>";
             echo "<input type='button' name='btVerClasses' id='btVerClasses' value='Ver Classes' onclick='verClasses()' /> ";
         echo "</div>";
     }
+
+    echo "<div id='adicionarAves'>";
+        echo "<h2>Inscrever Aves</h2>";
+        echo "<span>Seccao</span><select name='selectAdicionarAves' id='selectAdicionarAves'></select>";
+        echo "<input type='number' id='classeInput' name='classeInput' placeholder='Classe' oninput='mostrarDescricao();' size='3'/>";
+        echo "<input type='text' id='descricaoClasse' name='descricaoClasse' placeholder='Descricao' disabled='true'/>";
+        echo "<input type='button' id='btAdicionarAve' name='btAdicionarAve' value='+' onclick='adicionarAveFunction();'/>";
+    echo "</div>";
+
+    echo "<div id='avesInscritas'>";
+        echo "<h2>Aves inscritas</h2>";
+    
+    echo "</div>";
+    
 	
     echo "<div id='myModal' class='modal'> ";
         echo "<div id='conteudoModal' class='modal-content'>";
             echo "<h2 id='tituloModal' ></h2>"; 
             echo "<span id='closeModal' class='close'>&times;</span>";    
-
         echo"</div>";
-    
     echo"</div>";
 
     ?>
@@ -55,6 +61,7 @@ if($stmt) {
 
 		        
         var dadosExcel= <?php echo json_encode($dadosExcel); ?>;         
+        var descricaoClasse = document.getElementById('descricaoClasse');
         
         console.log(dadosExcel);
         
@@ -82,6 +89,16 @@ if($stmt) {
             }
             return obj;
         }    
+
+        function searchSecaoClasse(nameKey, nameKey2, myArray){
+            var obj =  "";
+            for (var i=0, j=0; i < myArray.length; i++) {
+                if (myArray[i].secao === nameKey && myArray[i].classe === nameKey2) {
+                    obj = myArray[i].descricao;
+                }
+            }
+            return obj;
+        } 
 
 
         function searchClassesDistinct(array){
@@ -173,8 +190,15 @@ if($stmt) {
         window.onclick = function(event) {
             if (event.target == modal) {
             modal.style.display = "none";
-        }
+            }
         } 
+        
+        function mostrarDescricao (){
+            var seccao = document.getElementById('selectAdicionarAves').value;
+            var classe = classeInput.value;
+            console.log(searchSecaoClasse(seccao, classe, dadosExcel));
+            descricaoClasse.value = searchSecaoClasse(seccao, classe, dadosExcel); 
+        }
 
 
 
