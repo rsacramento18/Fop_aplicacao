@@ -2233,6 +2233,69 @@ form#formAlterarJuiz #telefone2Juiz{
     margin: 10px;
 }
 
+
+#tableAvesInscritas{
+
+	border: none;
+}
+
+#tableAvesInscritas th {
+	border-bottom: 1px solid #212121;
+	text-align: left;
+}
+
+#tableAvesInscritas tr {
+	border: none;
+}
+
+
+#tableAvesInscritas tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
+
+#tableAvesInscritas tr .seccao ,
+#tableAvesInscritas  tr .classe{
+    width: 10%;
+    text-align: center;
+    
+}
+
+#tableAvesInscritas tr .descricao {
+    width: 70%;
+}
+
+#tableAvesInscritas tr .gaiola {
+    width: 5%;
+    text-align: center;
+}
+
+#tableAvesInscritas tr .ano,
+#tableAvesInscritas  tr .preco{
+    width: 10%;
+    text-align: center;
+    
+}
+
+#tableAvesInscritas tr .ano:hover,
+#tableAvesInscritas  tr .preco:hover{
+    width: 10%;
+    text-align: center;
+    color: #000;
+    
+}
+
+#tableAvesInscritas tr td #anoAve,
+#tableAvesInscritas tr td #precoAve{
+    width: 75px;
+}
+
+#tableAvesInscritas tr td #anoAve:hover,
+#tableAvesInscritas tr td #precoAve:hover{
+    color: black;
+}
+
 /*=========FOOTER===========*/
 
 

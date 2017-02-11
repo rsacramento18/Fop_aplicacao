@@ -80,15 +80,19 @@
 									echo "<li id='dataFim'>Fim&nbsp;&nbsp;&nbsp;". $row['dataFim'] ."</li>";
 									echo "<li>Tipo Exposição&nbsp;&nbsp;&nbsp;". $row['tipoExposicao'] ."</li>";
 									echo "</ul>";
-								echo "</div>";
+                                   								echo "</div>";
 							echo "</div>";
 						}
 					}
 				}
 
+                echo "<form action='inscreverAves.php' method='post' id='inscreverAvesForm' name='formInscreverAves'>";
+                    echo "<input type='hidden' name='source1' id='hiddenInscreverAves'/>";
+                echo "</form>";
 
 				?>
-			</div>
+            </div>
+            
 		</div>
 
 	</div>
@@ -96,9 +100,11 @@
 		$('#todasExposicoes').on("click", ".exposicaoQuadrado", function(){
 			var quadrado = this.getElementsByTagName('div')[1];
 			var membro = quadrado.getElementsByTagName('p')[0];
-			document.getElementById('exposicaoSelecionada').style.borderBottom = '1px solid #810101'; 
-			exposicaoSelecionadaFunction(membro.innerHTML);
-			$('html, body').animate({scrollTop: $("#loggado").offset().top}, 1000);
+            var form = document.getElementById('inscreverAvesForm');
+            var hidden = document.getElementById('hiddenInscreverAves');
+            hidden .value = membro.innerHTML;
+            form.submit();
+
 		});
 
 	</script>

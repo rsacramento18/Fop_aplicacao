@@ -1,8 +1,14 @@
+<?php include ('header.php'); ?>
+<?php if (login_checkSocios($dbc) == true || login_checkEstrangeiros($dbc) == true ) : ?>
+	<div class="wrapper-content">
+		<div id="loggado">
+			<?php 
+			echo "<p>" . $_SESSION['user'] . "-" . $_SESSION['privilegio'] . "</p>";
+			echo "<p>" . $_SESSION['clube'] . "</p>";
+			?>
+		</div>
 <?php
 
-require_once('../mysql_config.php');
-require_once('functions.php');
-sec_session_start();
 if(isset($_POST['source1'])){
 	$idExposicao= $_POST['source1'];
 }
@@ -44,6 +50,9 @@ if($stmt) {
 
     echo "<div id='avesInscritas'>";
         echo "<h2>Aves inscritas</h2>";
+        echo "<table id='tableAvesInscritas'>";
+            echo "<tr><th class='seccao'>Seccao</th><th class='classe'>Classe</th><th class='descricao'>Descricao</th><th class='gaiola'>Gaiola</th><th class='ano'>Ano</th><th class='preco'>Preco</th></tr>";
+        echo "</table>";
     
     echo "</div>";
     
@@ -62,6 +71,8 @@ if($stmt) {
 		        
         var dadosExcel= <?php echo json_encode($dadosExcel); ?>;         
         var descricaoClasse = document.getElementById('descricaoClasse');
+        
+        var numGaiola= <?php echo $numGaiola; ?>; 
         
         console.log(dadosExcel);
         
@@ -196,8 +207,35 @@ if($stmt) {
         function mostrarDescricao (){
             var seccao = document.getElementById('selectAdicionarAves').value;
             var classe = classeInput.value;
-            console.log(searchSecaoClasse(seccao, classe, dadosExcel));
             descricaoClasse.value = searchSecaoClasse(seccao, classe, dadosExcel); 
+        }
+
+        function adicionarAveFunction(){
+            var seccao = document.getElementById('selectAdicionarAves').value;
+            var classe = document.getElementById('classeInput').value;
+            var descricao = descricaoClasse.value;
+            var table = document.getElementById('tableAvesInscritas');
+            
+            if(seccao != '' && classe != '' && descricao != ''){
+                if(classe % 2 == 1 ){
+                    numGaiola++;        
+            
+                    var tableRow =  "<tr><td>" + seccao + "</td><td>" + classe + "</td><td>" + descricao + "</td><td>" + numGaiola + "</td><td><input type='text' id='anoAve'/></td><td><input type='number' id='precoAve'/></td></tr>";
+
+                    table.innerHTML += tableRow;
+                }
+                else {
+                   
+                    for(var i = 0; i < 5; i++){
+                        numGaiola++;
+                        
+                        var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='gaiola'>" + numGaiola + "</td><td class='ano'><input type='text' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/></td></tr>";
+
+                        table.innerHTML += tableRow;
+                    }
+                }
+            }
+
         }
 
 
@@ -207,3 +245,5 @@ if($stmt) {
 <?php
 }
 ?>
+<?php endif;?>
+<?php include ("footer.php"); ?>
