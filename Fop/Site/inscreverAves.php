@@ -22,10 +22,6 @@ if($stmt) {
 
     $idExposicao = $dadosExposicao['idExposicao'];
 
-    $numGaiola = $dadosExposicao['numGaiola'];
-
-    $idJuiz = $dadosExposicao['idJuiz'];
-
     $excel = $dadosExposicao['excel'];
     $dadosExcel = '';
     if($excel != '') {
@@ -50,10 +46,16 @@ if($stmt) {
 
     echo "<div id='avesInscritas'>";
         echo "<h2>Aves inscritas</h2>";
-        echo "<table id='tableAvesInscritas'>";
-            echo "<tr><th class='seccao'>Seccao</th><th class='classe'>Classe</th><th class='descricao'>Descricao</th><th class='gaiola'>Gaiola</th><th class='ano'>Ano</th><th class='preco'>Preco</th></tr>";
-        echo "</table>";
-    
+        if(isset($_SESSION['tableAves'])){
+            echo "ola";
+            echo $_SESSION['tableAves'];
+        }
+        else {
+            echo "<table id='tableAvesInscritas'>";
+                echo "<tr><th class='seccao'>Seccao</th><th class='classe'>Classe</th><th class='descricao'>Descricao</th><th class='anilha'>Anilha</th><th class='ano'>Ano</th><th class='preco'>Preco</th><th></th></tr>";
+            echo "</table>";
+        }
+        echo $_SESSION['tableAves'];
     echo "</div>";
     
 	
@@ -66,13 +68,12 @@ if($stmt) {
 
     ?>
     <script type="text/JavaScript" src="js/functionsJS.js"></script>
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-		        
         var dadosExcel= <?php echo json_encode($dadosExcel); ?>;         
         var descricaoClasse = document.getElementById('descricaoClasse');
         
-        var numGaiola= <?php echo $numGaiola; ?>; 
+        var numGaiola= 0; 
         
         console.log(dadosExcel);
         
@@ -217,29 +218,80 @@ if($stmt) {
             var table = document.getElementById('tableAvesInscritas');
             
             if(seccao != '' && classe != '' && descricao != ''){
-                if(classe % 2 == 1 ){
+                if(classe % 2 == 0 ){
                     numGaiola++;        
             
-                    var tableRow =  "<tr><td>" + seccao + "</td><td>" + classe + "</td><td>" + descricao + "</td><td>" + numGaiola + "</td><td><input type='text' id='anoAve'/></td><td><input type='number' id='precoAve'/></td></tr>";
+                    var tableRow =  "<tr id='row"+ numGaiola + "'><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/><p>€</p></td><td><input type='button' class='btRemoverSingle' value='-' /></tr>";
 
                     table.innerHTML += tableRow;
                 }
                 else {
                    
-                    for(var i = 0; i < 5; i++){
+                    for(var i = 0; i < 4; i++){
                         numGaiola++;
-                        
-                        var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='gaiola'>" + numGaiola + "</td><td class='ano'><input type='text' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/></td></tr>";
+
+                        if(i==0){ 
+                            var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'/><input type='number' id='precoAve'/><p>€</p><td><input type='button' class='btRemoverEquipa' value='-' /></td></td></tr>";
+                        }
+                        else {
+                            var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/><p>€</p><td></td></td></tr>";
+
+                        } 
+                        $.ajax({
+                            type:'POST',
+                            url:'update.php',
+                            data: {tableAves: table.innerHTML},
+                            success:function(response){
+                            }
+                        }); 
 
                         table.innerHTML += tableRow;
                     }
                 }
+                
+                console.log(table);
+                window.scrollTo(0,document.body.scrollHeight);
             }
 
         }
+        
+        
+        
+        window.onkeypress = function(event) {
+            if (event.keyCode == 13) {
+               adicionarAveFunction(); 
+            }
+        }
 
+        window.onkeypress = function(event) {
+            if (event.keyCode == 49 ) {
+                var input = document.getElementById('classeInput');
+                input.value = null;
+                input.focus();
+                input.scrollIntoView(); 
+            }
+        }
 
+        $('#tableAvesInscritas').on("click", '.btRemoverSingle', function(){
 
+            var tr = this.parentNode.parentNode.parentNode;
+            tr.parentNode.removeChild( tr ); 
+
+        }); 
+        
+        $('#tableAvesInscritas').on("click", '.btRemoverEquipa', function(){
+
+            var tr1 = this.parentNode.parentNode.parentNode;
+            var tr2 = tr1.nextSibling;
+            var tr3 = tr2.nextSibling;
+            var tr4 = tr3.nextSibling;
+            
+            tr1.parentNode.removeChild( tr1 ); 
+            tr2.parentNode.removeChild( tr2 ); 
+            tr3.parentNode.removeChild( tr3 ); 
+            tr4.parentNode.removeChild( tr4 ); 
+        }); 
+        
 	</script>
 
 <?php

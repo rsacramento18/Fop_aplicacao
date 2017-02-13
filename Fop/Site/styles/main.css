@@ -144,6 +144,12 @@ select:focus{
     border: 1px solid #840101;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 input[type=submit], input[type=button]{
     background: #840101;
     padding: 7px 15px 7px 15px;
@@ -2235,13 +2241,14 @@ form#formAlterarJuiz #telefone2Juiz{
 
 
 #tableAvesInscritas{
-
+    width: 100%;
 	border: none;
 }
 
 #tableAvesInscritas th {
 	border-bottom: 1px solid #212121;
 	text-align: left;
+    padding: 5px;
 }
 
 #tableAvesInscritas tr {
@@ -2255,45 +2262,58 @@ form#formAlterarJuiz #telefone2Juiz{
 	border: none;
 }
 
+
 #tableAvesInscritas tr .seccao ,
 #tableAvesInscritas  tr .classe{
-    width: 10%;
+    width: 5%;
     text-align: center;
     
 }
 
 #tableAvesInscritas tr .descricao {
-    width: 70%;
+    width: 71%;
 }
 
-#tableAvesInscritas tr .gaiola {
+#tableAvesInscritas tr .anilha {
     width: 5%;
     text-align: center;
 }
 
-#tableAvesInscritas tr .ano,
-#tableAvesInscritas  tr .preco{
-    width: 10%;
-    text-align: center;
+
+#tableAvesInscritas tr td #numAnilha{
     
+    width:50px;
+    color:#000;
+
 }
 
-#tableAvesInscritas tr .ano:hover,
-#tableAvesInscritas  tr .preco:hover{
-    width: 10%;
+#tableAvesInscritas tr .ano{
+
+    width:5%;
     text-align: center;
-    color: #000;
-    
 }
+
+#tableAvesInscritas  tr th.preco{
+    width: 9%;
+    padding: 7px;
+}
+
+#tableAvesInscritas tr td.preco p{
+    display: inline-block;
+    padding: 0 2px;
+}
+
 
 #tableAvesInscritas tr td #anoAve,
 #tableAvesInscritas tr td #precoAve{
-    width: 75px;
+    width: 50px;
+    color: #000;
 }
 
 #tableAvesInscritas tr td #anoAve:hover,
+#tableAvesInscritas tr td #gaiola:hover,
 #tableAvesInscritas tr td #precoAve:hover{
-    color: black;
+    color: #000;
 }
 
 /*=========FOOTER===========*/
