@@ -558,6 +558,7 @@ function login_checkEstrangeiros ($dbc) {
     	date_default_timezone_set('Portugal');
     	$dataHoje = date('Y-m-d', time());
 
+        $pedidoNum = '';
     	$query = "SELECT pedidoNum  FROM pedidoEmVigor";
     	if ($stmt = @mysqli_query($dbc, $query)){
 
@@ -572,12 +573,12 @@ function login_checkEstrangeiros ($dbc) {
 
     			$row2 = mysqli_fetch_array($stmt2);
     			$dataPedidoX = $row2['data'];
-    			$_SESSION['pedidoEmVigor'] = $pedidoNum;
-
+    			
     			if($dataPedidoX<$dataHoje){
     				if($pedidoNum == 6) {//se for igual ao max pedidos;
     					$query3 = "UPDATE pedidoEmVigor SET pedidoNum='1' 
     					WHERE id = '1'";
+                        $pedidoNum = 1;
     				}
     				else {
     					$pedidoNum = $pedidoNum + 1;
@@ -590,7 +591,8 @@ function login_checkEstrangeiros ($dbc) {
     			}
 
     		}
-    	}
+        }
+        $_SESSION['pedidoEmVigor'] = $pedidoNum;
     }
 
     function algorimoStams($dbc){

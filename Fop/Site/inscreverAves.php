@@ -28,6 +28,7 @@ if($stmt) {
         $dadosExcel = csv_to_array($dadosExposicao['excel']); 
         utf8_encode_deep($dadosExcel);        
     }
+    echo "<h1>Inscrever Aves</h1>";
     if($dadosExposicao['excel'] != ''){
         echo "<div id='verExcelClasses2'>";
             echo "<h2>Ver Classes</h2>";
@@ -37,25 +38,28 @@ if($stmt) {
     }
 
     echo "<div id='adicionarAves'>";
-        echo "<h2>Inscrever Aves</h2>";
+        echo "<h2>Adicionar Aves</h2>";
         echo "<span>Seccao</span><select name='selectAdicionarAves' id='selectAdicionarAves'></select>";
         echo "<input type='number' id='classeInput' name='classeInput' placeholder='Classe' oninput='mostrarDescricao();' size='3'/>";
         echo "<input type='text' id='descricaoClasse' name='descricaoClasse' placeholder='Descricao' disabled='true'/>";
-        echo "<input type='button' id='btAdicionarAve' name='btAdicionarAve' value='+' onclick='adicionarAveFunction();'/>";
+        echo "<input type='button' id='btAdicionarAve' name='btAdicionarAve' value='+' onclick='adicionarAveFunction();' />";
     echo "</div>";
 
     echo "<div id='avesInscritas'>";
-        echo "<h2>Aves inscritas</h2>";
-        if(isset($_SESSION['tableAves'])){
-            echo "ola";
-            echo $_SESSION['tableAves'];
+        echo "<h2>Aves a inscrever</h2>";
+        if(isset($_SESSION["tableAves"])){
+            echo "<table id='tableAvesInscritas'>";
+                echo $_SESSION["tableAves"];
+            echo "</table>";
         }
         else {
             echo "<table id='tableAvesInscritas'>";
                 echo "<tr><th class='seccao'>Seccao</th><th class='classe'>Classe</th><th class='descricao'>Descricao</th><th class='anilha'>Anilha</th><th class='ano'>Ano</th><th class='preco'>Preco</th><th></th></tr>";
             echo "</table>";
         }
-        echo $_SESSION['tableAves'];
+        echo "<form method='post' action='inscreverAves.inc.php' id='formInscreverAves'>";
+        echo "<input type='button' id='btInscreverAves'  value='Inscrever Aves' onclick='validarAves();' />";
+        echo "</form>";
     echo "</div>";
     
 	
@@ -80,8 +84,6 @@ if($stmt) {
         var resultObject = search("F2",dadosExcel);
         
         var distinct = searchClassesDistinct(dadosExcel);
-        console.log(distinct); 
-        console.log(resultObject);
 
         criarOptionSecao();
         criarOptionSecao2();
@@ -211,6 +213,8 @@ if($stmt) {
             descricaoClasse.value = searchSecaoClasse(seccao, classe, dadosExcel); 
         }
 
+        
+
         function adicionarAveFunction(){
             var seccao = document.getElementById('selectAdicionarAves').value;
             var classe = document.getElementById('classeInput').value;
@@ -221,40 +225,58 @@ if($stmt) {
                 if(classe % 2 == 0 ){
                     numGaiola++;        
             
-                    var tableRow =  "<tr id='row"+ numGaiola + "'><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/><p>€</p></td><td><input type='button' class='btRemoverSingle' value='-' /></tr>";
+                    var tableRow =  "<tr class='singleRow'><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input class='guardarDados' type='number' id='numAnilha' /></td><td class='ano'><input class='guardarDados' type='number' id='anoAve'/></td><td class='preco'><input class='guardarDados' type='number' id='precoAve'/><p>€</p></td><td><input type='button' class='btRemoverSingle' value='-' /></tr>";
 
                     table.innerHTML += tableRow;
                 }
                 else {
-                   
+                    var tableRow = '';
                     for(var i = 0; i < 4; i++){
                         numGaiola++;
+                        
 
                         if(i==0){ 
-                            var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'/><input type='number' id='precoAve'/><p>€</p><td><input type='button' class='btRemoverEquipa' value='-' /></td></td></tr>";
+                            tableRow +=  "<tr class='equipaRow'><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input  class='guardarDados' type='number' id='numAnilha'/></td><td class='ano'><input class='guardarDados' type='number' id='anoAve'/></td><td class='preco'/><input class='guardarDados' type='number' id='precoAve'/><p>€</p><td><input type='button' class='btRemoverSingle' value='-' /></td></td></tr>";
                         }
                         else {
-                            var tableRow =  "<tr><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input type='number' id='numAnilha'/></td><td class='ano'><input type='number' id='anoAve'/></td><td class='preco'><input type='number' id='precoAve'/><p>€</p><td></td></td></tr>";
+                            tableRow +=  "<tr class='equipaRow'><td class='seccao'>" + seccao + "</td><td class='classe'>" + classe + "</td><td class='descricao'>" + descricao + "</td><td class='anilha'><input class='guardarDados' type='number' id='numAnilha'/></td><td class='ano'><input class='guardarDados' type='number' id='anoAve'/></td><td class='preco'><input class='guardarDados' type='number' id='precoAve'/><p>€</p><td></td></td></tr>";
 
                         } 
-                        $.ajax({
-                            type:'POST',
-                            url:'update.php',
-                            data: {tableAves: table.innerHTML},
-                            success:function(response){
-                            }
-                        }); 
-
-                        table.innerHTML += tableRow;
+                        
                     }
+                    var tbody = document.createElement('tbody');
+                    tbody.innerHTML = tableRow ;
+                        
+
+                    table.appendChild(tbody);
+                    console.log(table);
                 }
-                
-                console.log(table);
+                $.ajax({
+                    type:'POST',
+                    url:'update.php',
+                    data: {tableAves: table.innerHTML},
+                    success:function(response){
+                    }
+                }); 
                 window.scrollTo(0,document.body.scrollHeight);
             }
 
         }
         
+        $('#tableAvesInscritas').on("change paste keyup", '.guardarDados', function(){
+            this.setAttribute("value", this.value);
+            var table = document.getElementById('tableAvesInscritas');
+            $.ajax({
+                    type:'POST',
+                    url:'update.php',
+                    data: {tableAves: table.innerHTML},
+                    success:function(response){
+                    }
+                }); 
+
+
+        }); 
+
         
         
         window.onkeypress = function(event) {
@@ -264,33 +286,97 @@ if($stmt) {
         }
 
         window.onkeypress = function(event) {
-            if (event.keyCode == 49 ) {
+            if (event.keyCode == 13 && event.shiftKey ) {
                 var input = document.getElementById('classeInput');
                 input.value = null;
                 input.focus();
                 input.scrollIntoView(); 
             }
         }
+        
 
         $('#tableAvesInscritas').on("click", '.btRemoverSingle', function(){
-
+            var table = document.getElementById('tableAvesInscritas');
             var tr = this.parentNode.parentNode.parentNode;
-            tr.parentNode.removeChild( tr ); 
+            tr.parentNode.removeChild( tr );
+            $.ajax({
+                type:'POST',
+                url:'update.php',
+                data: {tableAves: table.innerHTML},
+                success:function(response){
+                }
+            }); 
+            console.log(table.innerHTML)
 
         }); 
         
-        $('#tableAvesInscritas').on("click", '.btRemoverEquipa', function(){
 
-            var tr1 = this.parentNode.parentNode.parentNode;
-            var tr2 = tr1.nextSibling;
-            var tr3 = tr2.nextSibling;
-            var tr4 = tr3.nextSibling;
+        function validarAves(){
+            var currentYear = new Date().getFullYear();
+            var avesParaInscrever = document.getElementById('tableAvesInscritas').children;
+            var aves = new Array();
+
+            for (var i = 1, j = 0; i < avesParaInscrever.length; i++){
+                if(avesParaInscrever[i].children.length == 1){
+                    if(isNaN(avesParaInscrever[i].children[0].children[3].children[0].valueAsNumber)){
+                        alert("Nao introduziu nenhum valor no campo Anilha.");
+                        return;
+  
+                    }
+                    if(parseInt(avesParaInscrever[i].children[0].children[4].children[0].valueAsNumber) > parseInt(currentYear) || isNaN(avesParaInscrever[i].children[0].children[4].children[0].valueAsNumber)  ){
+                        alert("Nao introduziu nenhum valor no campo ano ou o ano da ave e superior ao ano actual.");
+                        return;
+                    }
+                    if(!isNaN(avesParaInscrever[i].children[0].children[5].children[0].valueAsNumber)){
+                        if(parseInt(avesParaInscrever[i].children[0].children[5].children[0].valueAsNumber) < 0  ){
+                            alert("O preco tem que ser um valor positivo");
+                            return;
+                        }
+                    }
+                    
+                    var ave = new Array();
+                    ave[0] = avesParaInscrever[i].children[0].children[0].innerHTML;
+                    ave[1] = avesParaInscrever[i].children[0].children[1].innerHTML;
+                    ave[2] = avesParaInscrever[i].children[0].children[3].children[0].valueAsNumber;
+                    ave[3] = avesParaInscrever[i].children[0].children[4].children[0].valueAsNumber;
+                    ave[4] = avesParaInscrever[i].children[0].children[5].children[0].valueAsNumber;
+                    aves[j] = ave;
+                    j++;
+                }
+                else {
+                    for(var h = 0; h < 4; h++){
+                        if(isNaN(avesParaInscrever[i].children[0].children[3].children[0].valueAsNumber)){
+                            alert("Nao introduziu nenhum valor no campo Anilha.");
+                            return;
+  
+                        }
+                        if(parseInt(avesParaInscrever[i].children[0].children[4].children[0].valueAsNumber) > parseInt(currentYear) || isNaN(avesParaInscrever[i].children[0].children[4].children[0].valueAsNumber)  ){
+                            alert("Nao introduziu nenhum valor no campo Ano ou o Ano da ave e superior ao ano actual");
+                            return;
+                        }
+                        if(!isNaN(avesParaInscrever[i].children[0].children[5].children[0].valueAsNumber)){
+                            if(parseInt(avesParaInscrever[i].children[0].children[5].children[0].valueAsNumber) < 0  ){
+                                alert("O preco tem que ser um valor positivo");
+                                return;
+                            }
+                        }
+
+                        var ave = new Array();
+                        ave[0] = avesParaInscrever[i].children[h].children[0].innerHTML;
+                        ave[1] = avesParaInscrever[i].children[h].children[1].innerHTML;
+                        ave[2] = avesParaInscrever[i].children[h].children[3].children[0].valueAsNumber;
+                        ave[3] = avesParaInscrever[i].children[h].children[4].children[0].valueAsNumber;
+                        ave[4] = avesParaInscrever[i].children[h].children[5].children[0].valueAsNumber;
+                        aves[j] = ave;
+                        j++;
+
+                    }
+                }    
+            }
             
-            tr1.parentNode.removeChild( tr1 ); 
-            tr2.parentNode.removeChild( tr2 ); 
-            tr3.parentNode.removeChild( tr3 ); 
-            tr4.parentNode.removeChild( tr4 ); 
-        }); 
+            console.log(aves);
+            
+        }
         
 	</script>
 

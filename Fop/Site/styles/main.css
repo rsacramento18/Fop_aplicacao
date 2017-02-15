@@ -342,10 +342,7 @@ table {
 	width: 90%;
 }
 
-tr:nth-of-type(odd) { 
-	background: #eeeeee; 
-	border: none;
-}
+
 
 th { 
 	background: #FFFFFF; 
@@ -916,7 +913,6 @@ form#registration_form select#privilegio {
 }
 
 #membroDetalhado Table th {
-	border-bottom: 1px solid #212121;
 	text-align: left;
 }
 
@@ -924,6 +920,10 @@ form#registration_form select#privilegio {
 	border: none;
 }
 
+#membroDetalhado Table tr:nth-last-of-type(odd){
+    background: #eeeeee;
+    border:none;
+}
 
 #membroDetalhado Table tr:hover{
 	background: #212121; 
@@ -931,6 +931,30 @@ form#registration_form select#privilegio {
 	border: none;
 }
 
+#tableMembroDetalhado{
+
+	margin: 0 auto;
+	border: none;
+}
+
+#tableMembroDetalhado th {
+	text-align: left;
+}
+
+#tableMembroDetalhado tr {
+	border: none;
+}
+
+#tableMembroDetalhado tr:nth-last-of-type(odd){
+    background: #eeeeee;
+    border:none;
+}
+
+#tableMembroDetalhado tr:hover{
+	background: #212121; 
+	color: #FFF;
+	border: none;
+}
 /*=========QUOTAS===========*/
 
 #dadosMembro{
@@ -952,6 +976,10 @@ form#registration_form select#privilegio {
 	float: left;
 }
 
+#formAlterarDadosAssociadoClube #alterarDadosBT{
+    margin: 0 10px;
+}
+
 #formEliminarAssociadoClube{
 	margin: 20px;
 }
@@ -961,10 +989,27 @@ form#registration_form select#privilegio {
 	margin: 10px;
 	max-height: 200px;
 	overflow: hidden;
+    width: 100%
 }
+
+
 
 #clubeDiv:hover{
 	overflow-y: auto; 
+}
+
+#clubeDiv #tableMembroClubes {
+    margin: 0 auto;
+}
+
+#clubeDiv #tableMembroClubes th {
+    border-bottom: 1px solid #000;
+	text-align: left;
+}
+
+#pagarQuotasDiv #clubeDiv #tableMembroClubes tr:nth-last-child(odd) {
+    background-color: #eeeeee;
+    border: none;
 }
 
 #pagarQuotas{
@@ -1067,7 +1112,6 @@ form#registration_form select#privilegio {
 	color: white;
 	padding: 7px 7px 7px 7px;
 	position: relative;
-	top: 1px;
 	line-height: 1.1em;
 }
 
@@ -2129,6 +2173,12 @@ form#formCriarJuiz #telefone2Juiz{
     display:inline-block;
 }
 
+#tableJuizDetalhado tr:nth-of-type(odd){
+    background-color: #eeeeee;
+    border: none;
+}
+
+
 #dadosJuiz #imgExposicaoDetalhada{
 	width: 300px;
 	margin:30px 50px;	
@@ -2245,6 +2295,16 @@ form#formAlterarJuiz #telefone2Juiz{
 	border: none;
 }
 
+.equipaRow {
+    background-color: #eeeeee;
+}
+
+.singleRow {
+    background-color: #FFFFFF;
+}
+
+
+
 #tableAvesInscritas th {
 	border-bottom: 1px solid #212121;
 	text-align: left;
@@ -2271,7 +2331,7 @@ form#formAlterarJuiz #telefone2Juiz{
 }
 
 #tableAvesInscritas tr .descricao {
-    width: 71%;
+    width: 66%;
 }
 
 #tableAvesInscritas tr .anilha {
@@ -2282,7 +2342,7 @@ form#formAlterarJuiz #telefone2Juiz{
 
 #tableAvesInscritas tr td #numAnilha{
     
-    width:50px;
+    width:60px;
     color:#000;
 
 }
@@ -2294,7 +2354,7 @@ form#formAlterarJuiz #telefone2Juiz{
 }
 
 #tableAvesInscritas  tr th.preco{
-    width: 9%;
+    width: 13%;
     padding: 7px;
 }
 
@@ -2306,7 +2366,7 @@ form#formAlterarJuiz #telefone2Juiz{
 
 #tableAvesInscritas tr td #anoAve,
 #tableAvesInscritas tr td #precoAve{
-    width: 50px;
+    width: 60px;
     color: #000;
 }
 
@@ -2315,6 +2375,11 @@ form#formAlterarJuiz #telefone2Juiz{
 #tableAvesInscritas tr td #precoAve:hover{
     color: #000;
 }
+
+#formInscreverAves #btInscreverAves {
+    margin: 10px 0;
+}
+
 
 /*=========FOOTER===========*/
 

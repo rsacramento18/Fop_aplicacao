@@ -93,7 +93,7 @@ if($stmt) {
 
 	echo "<div id='clubeDiv'>";
 	echo "<h2 id='headerClube'>Clube</h2>";
-	echo "<table id='membroDetalhadoTable'>";
+	echo "<table id='tableMembroClubes'>";
 	echo "<tr><th>Associado No.</th><th>Clube</th><th>Data de Adesão</th></tr>";
 
 	$query = "SELECT * from socios_clubes where stam = '$stam'";
