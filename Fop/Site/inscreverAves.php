@@ -17,6 +17,12 @@ $userStam = $_SESSION['user'];
 
 $query = "SELECT * from exposicoes where idExposicao = '$idExposicao'";
 
+if(isset($_SESSION['idExposicao'])){
+    if($_SESSION['idExposicao']!= $idExposicao){
+        $_SESSION['tableAves'] = '';
+    }
+}
+
 $stmt = @mysqli_query($dbc, $query);
 if($stmt) {
 
@@ -33,7 +39,7 @@ if($stmt) {
     echo "<h1>Inscrever Aves</h1>";
     
     if($dadosExposicao['tipoExposicao'] != 'Clube'){
-        echo "<span>Selecionar clube pelo qual pretende inscrever as aves</span><select id='inscreverAvePeloClube'>";
+        echo "<h2>Selecionar Clube</h2><select id='inscreverAvePeloClube'>";
         
         $query = "SELECT * from socios_clubes  where stam = '$userStam'";
 
@@ -44,6 +50,26 @@ if($stmt) {
                 $clube = $row['clube'];
 
                 echo "<option value='$clube'>$clube</option>";
+            }
+        }
+        
+        echo "</select>";
+    }
+    else{
+         echo "<h2>Selecionar Clube</h2><select id='inscreverAvePeloClube'>";
+        
+        $query = "SELECT * from socios_clubes  where stam = '$userStam'";
+
+        $stmt = @mysqli_query($dbc, $query);
+        if($stmt) {
+
+            while ( $row = mysqli_fetch_array($stmt)){;
+                $clube = $row['clube'];
+                
+                if($clube == $dadosExposicao['clube1'] || $clube == $dadosExposicao['clube2'] || $clube == $dadosExposicao['clube3'] || $clube == $dadosExposicao['clube4'] || $clube == $dadosExposicao['clube5']){ 
+
+                    echo "<option value='$clube'>$clube</option>";
+                }
             }
         }
         
@@ -80,6 +106,10 @@ if($stmt) {
             echo "</table>";
         }
         echo "<form method='post' action='inscreverAves.inc.php' id='formInscreverAves'>";
+
+        echo "<input type='hidden' value='nao ha clube' name='clubeInscreverAves' id='clubeInscreverAves'/>";
+        echo "<input type='hidden' value='$userStam' name='stamInscreverAves' id='stamInscreverAves'/>";
+        
         echo "<input type='button' id='btInscreverAves'  value='Inscrever Aves' onclick='validarAves();' />";
         echo "</form>";
     echo "</div>";
@@ -98,6 +128,7 @@ if($stmt) {
 
         var dadosExcel= <?php echo json_encode($dadosExcel); ?>;         
         var descricaoClasse = document.getElementById('descricaoClasse');
+        var idExposicao = <?php echo $idExposicao ?>;
         
         var numGaiola= 0; 
         
@@ -186,7 +217,7 @@ if($stmt) {
             thClasse.innerHTML = "Classe";
             thClasse.style.width = "1%"; 
             thClasse.style.textAlign= "center"; 
-            trHeader.appendChild(thClasse);           
+            trHeader.appendChild(thClasse);           80
 
             var thDescricao= document.createElement("th");
             thDescricao.innerHTML = "Descrição";
@@ -243,6 +274,7 @@ if($stmt) {
             var descricao = descricaoClasse.value;
             var table = document.getElementById('tableAvesInscritas');
             
+            
             if(seccao != '' && classe != '' && descricao != ''){
                 if(classe % 2 == 0 ){
                     numGaiola++;        
@@ -276,7 +308,7 @@ if($stmt) {
                 $.ajax({
                     type:'POST',
                     url:'update.php',
-                    data: {tableAves: table.innerHTML},
+                    data: {tableAves: table.innerHTML, exposicao: idExposicao},
                     success:function(response){
                     }
                 }); 
@@ -291,7 +323,7 @@ if($stmt) {
             $.ajax({
                     type:'POST',
                     url:'update.php',
-                    data: {tableAves: table.innerHTML},
+                    data: {tableAves: table.innerHTML, exposicao: idExposicao},
                     success:function(response){
                     }
                 }); 
@@ -324,7 +356,7 @@ if($stmt) {
             $.ajax({
                 type:'POST',
                 url:'update.php',
-                data: {tableAves: table.innerHTML},
+                data: {tableAves: table.innerHTML, exposicao: idExposicao},
                 success:function(response){
                 }
             }); 
@@ -334,9 +366,19 @@ if($stmt) {
         
 
         function validarAves(){
+            var formInscreverAves = document.getElementById('formInscreverAves');
             var currentYear = new Date().getFullYear();
             var avesParaInscrever = document.getElementById('tableAvesInscritas').children;
             var aves = new Array();
+
+            var clubeInscreverAves = document.getElementById('clubeInscreverAves');
+
+            var e = document.getElementById("inscreverAvePeloClube");
+            var strUser = e.options[e.selectedIndex].value; 
+            
+            clubeInscreverAves.value = strUser;
+
+            console.log(clubeInscreverAves.value);            
 
             for (var i = 1, j = 0; i < avesParaInscrever.length; i++){
                 if(avesParaInscrever[i].children.length == 1){
@@ -395,7 +437,18 @@ if($stmt) {
                     }
                 }    
             }
+           $.ajax({
+                type:'POST',
+                url:'update2.php',
+                data: {avesphp: aves},
+                success:function(response){
+                }
+            }); 
+
             
+
+           formInscreverAves.submit(); 
+
             console.log(aves);
             
         }
