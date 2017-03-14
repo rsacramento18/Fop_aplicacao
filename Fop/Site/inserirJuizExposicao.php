@@ -7,7 +7,7 @@ if(isset($_POST['selectJuizes'], $_POST['idExposicao'])){
     $idJuiz = $_POST['selectJuizes'];
     $idExposicao = $_POST['idExposicao'];
 
-    $query = "UPDATE exposicoes SET  idJuiz = '$idJuiz' WHERE idExposicao = '$idExposicao'";
+    $query = "INSERT INTO juizes_exposicao (exposicao, juiz) values( '$idExposicao', '$idJuiz')";
 
     if($stmt = @mysqli_query($dbc, $query)) {
         header('Location: todasExposicoes.php');

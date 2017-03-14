@@ -13,6 +13,8 @@ if(isset($_POST['source1'])){
 	$idExposicao= $_POST['source1'];
 }
 
+$userStam = $_SESSION['user'];
+
 $query = "SELECT * from exposicoes where idExposicao = '$idExposicao'";
 
 $stmt = @mysqli_query($dbc, $query);
@@ -29,6 +31,26 @@ if($stmt) {
         utf8_encode_deep($dadosExcel);        
     }
     echo "<h1>Inscrever Aves</h1>";
+    
+    if($dadosExposicao['tipoExposicao'] != 'Clube'){
+        echo "<span>Selecionar clube pelo qual pretende inscrever as aves</span><select id='inscreverAvePeloClube'>";
+        
+        $query = "SELECT * from socios_clubes  where stam = '$userStam'";
+
+        $stmt = @mysqli_query($dbc, $query);
+        if($stmt) {
+
+            while ( $row = mysqli_fetch_array($stmt)){;
+                $clube = $row['clube'];
+
+                echo "<option value='$clube'>$clube</option>";
+            }
+        }
+        
+        echo "</select>";
+    }
+
+
     if($dadosExposicao['excel'] != ''){
         echo "<div id='verExcelClasses2'>";
             echo "<h2>Ver Classes</h2>";

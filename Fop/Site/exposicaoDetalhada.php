@@ -17,8 +17,6 @@ if($stmt) {
 
     $idExposicao = $dadosExposicao['idExposicao'];
 
-    $idJuiz = $dadosExposicao['idJuiz'];
-
     $excel = $dadosExposicao['excel'];
     $dadosExcel = '';
     if($excel != '') {
@@ -95,7 +93,14 @@ if($stmt) {
     
     if( login_colegio_check($dbc) == true){ 
 
-        
+        $query = "SELECT idJuiz_exposicao, idJuiz  FROM juizes_exposicao INNER JOIN exposicoes ON juizes_exposicao.exposicao = exposicoes.idExposicao 
+                    INNER JOIN juizes ON juizes_exposicao.juiz=juizes.idJuiz where exposicoes.idExposicao = '$idExposicao' Order by idJuiz_exposicao desc limit 1";
+        $idJuiz = 0;
+        if($stmt = @mysqli_query($dbc, $query)) {
+            $row = mysqli_fetch_array($stmt);
+            $idJuiz = $row['idJuiz'];
+        }
+
         echo "<div id='divSelecionarJuizExposicao'>";
             echo "<h2>Selecionar Juiz</h2>";
             if($idJuiz != 0){
@@ -106,7 +111,7 @@ if($stmt) {
                     $row = mysqli_fetch_array($stmt);
                     $nomeJuiz = $row['nome'];
                 }
-                echo "<p id='juizEscolhido'><u>Juiz Escolhido</u>: $nomeJuiz</p><br/>";
+                echo "<p id='juizEscolhido'><u>Ultimo juiz Escolhido</u>: $nomeJuiz</p><br/>";
             }
             else {
                 echo "<p id='juizEscolhido'><u>Nao existe juiz escolhido para esta exposição</u></p><br/>";
@@ -118,6 +123,36 @@ if($stmt) {
                 echo "</select><br />";
                 echo "<input type='submit' id='btSubmitJuizExposicao' value='inserir'/>";
             echo"</form>";
+            
+            echo "<input type='button' name='btVerJuizes' id='btVerJuizes' value='Ver todos os juizes' onclick='verJuizes()' /> ";
+            
+            echo "<div id='myModal' class='modal'> ";
+                echo "<div id='conteudoModal2' class='modal-content'>";
+                    echo "<h2 id='tituloModal' >Juizes Inscritos</h2>"; 
+                    echo "<span id='closeModal' class='close'>&times;</span>";    
+
+                    $query = "SELECT nome, foto  FROM juizes_exposicao INNER JOIN exposicoes ON juizes_exposicao.exposicao = exposicoes.idExposicao 
+                    INNER JOIN juizes ON juizes_exposicao.juiz=juizes.idJuiz where exposicoes.idExposicao = '$idExposicao' Order by idJuiz_exposicao asc";
+
+                    echo "<table id='verJuizesTables'>";
+
+
+                    $idJuiz = 0;
+                    if($stmt = @mysqli_query($dbc, $query)) {
+                        while($row = mysqli_fetch_array($stmt)){
+                            $nome = $row['nome'];
+                            echo "<tr>";
+                            echo "<td>$nome</td>";
+                            echo "</tr>";
+                        }
+                        $idJuiz = $row['idJuiz'];
+                    }
+
+                    echo "</table>";
+
+                echo"</div>";
+    
+            echo"</div>";
 
         echo "</div>";
         
@@ -341,6 +376,10 @@ if($stmt) {
 
             modal.style.display = "block"; 
            
+        }
+
+        function verJuizes() {
+            modal.style.display = "block"; 
         }
 
         span.onclick = function() {
