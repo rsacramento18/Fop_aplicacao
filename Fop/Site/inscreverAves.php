@@ -109,6 +109,7 @@ if($stmt) {
 
         echo "<input type='hidden' value='nao ha clube' name='clubeInscreverAves' id='clubeInscreverAves'/>";
         echo "<input type='hidden' value='$userStam' name='stamInscreverAves' id='stamInscreverAves'/>";
+        echo "<input type='hidden' value='$idExposicao' name='idExposicaoInscreverAves' id='idExposicaoInscreverAves'/>";
         
         echo "<input type='button' id='btInscreverAves'  value='Inscrever Aves' onclick='validarAves();' />";
         echo "</form>";
