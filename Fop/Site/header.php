@@ -1,9 +1,13 @@
 <?php
 include_once '../mysql_config.php';
 include_once 'functions.php';
+require_once 'Mobile-Detect/Mobile_Detect.php';
 date_default_timezone_set('UTC');
 sec_session_start();
 verificarDataPedido($dbc);
+
+$detect = new Mobile_Detect;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,6 +37,7 @@ verificarDataPedido($dbc);
     </p>
     <p>Return to <a href="login.php">login page</a></p>
 <?php else : ?>
+<?php if(!($detect->isTablet()) && !($detect->isMobile()) ) : ?> 
 
     <header>
         <div class="logo-div clearfix">
@@ -154,4 +159,5 @@ verificarDataPedido($dbc);
         </ul>
     </nav>
 </div> 
+<?php endif;?>
 <?php endif;?>             
