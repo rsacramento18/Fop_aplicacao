@@ -37,7 +37,6 @@ $detect = new Mobile_Detect;
     </p>
     <p>Return to <a href="login.php">login page</a></p>
 <?php else : ?>
-<?php if(!($detect->isTablet()) && !($detect->isMobile()) ) : ?> 
 
     <header>
         <div class="logo-div clearfix">
@@ -49,6 +48,9 @@ $detect = new Mobile_Detect;
     <div class="menu-wrap">
      <nav class="menu">
         <ul class="clearfix">
+        
+        <?php if(!($detect->isTablet()) && !($detect->isMobile()) ) : ?> 
+
             <li class=<?php if (basename($_SERVER['PHP_SELF'])=="home.php") : ?>"current-item"<?php endif;?>><a href="home.php">Home</a></li>
             <?php if( login_fop_check($dbc) == true || login_clube_check($dbc) == true) :?>
             <li class=<?php if ((basename($_SERVER['PHP_SELF'])=="pesquisarSocio.php") || 
@@ -157,8 +159,20 @@ $detect = new Mobile_Detect;
 
 
             <li><a href="logout.php">Sair</a></li>
+        <?php endif;?>
+
+        <?php if($detect->isTablet() ) : ?>
+
+        <?php if( login_colegio_check($dbc) == true) :?>
+
+                <li class=<?php if (basename($_SERVER['PHP_SELF'])=="julgamentos.php") : ?>"current-item"<?php endif;?>><a href="julgamentos.php">Julgamentos</a></li>
+
+        <?php endif; ?>
+
+
+
+        <?php endif;?>
         </ul>
     </nav>
 </div> 
-<?php endif;?>
 <?php endif;?>             

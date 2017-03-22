@@ -35,16 +35,21 @@ if(isset($_SESSION["aves"])){
 
 
     }
-
-    echo $query;
 }
 
 
 if($stmt = @mysqli_query($dbc, $query)) {
+    
+
+	unset($_SESSION['aves']);
+	unset($_SESSION['tableAves']);
+
+
     ?>
     <script type="text/javascript">location.href = 'registoSucesso.php';</script>
     <?php
 }
+
 else {
 	echo "nao deu insercao";
 }
