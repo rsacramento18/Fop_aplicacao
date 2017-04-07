@@ -4,9 +4,9 @@ require_once('functions.php');
 sec_session_start();
 
 $error_msg = "";
-if(isset($_POST['nomeJuiz'], $_POST['emailJuiz'],$_POST['biJuiz'], 
+if(isset($_POST['userJuiz'], $_POST['nomeJuiz'], $_POST['emailJuiz'],$_POST['biJuiz'], 
     $_POST['paisJuiz'] , $_POST['regiaoJuiz'], $_POST['moradaJuiz'], $_POST['cod_postalJuiz'], $_POST['LocalidadeJuiz'], 
-    $_POST['telefone1Juiz'])) {
+    $_POST['telefone1Juiz'], $_POST['p'])) {
 
     $nome = filter_input(INPUT_POST, 'nomeJuiz', FILTER_SANITIZE_STRING);
 if($_POST['emailJuiz']!=""){
@@ -93,6 +93,15 @@ if($file_size > 2097152){
 
 $pathFile = 'img/img_juizes/'.$file_name;
 
+$user = $_POST['userJuiz'];
+
+
+$password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
+if (strlen($password) != 128) {
+    // The hashed pwd should be 128 characters long.
+    // If it's not, something really odd has happened
+    $error_msg .= '<p class="error">Invalid password configuration.</p>';
+}
 
 
 if(empty($error_msg)) {
@@ -103,8 +112,13 @@ if(empty($error_msg)) {
         print_r($errors);
     }
 
-    $query = "INSERT INTO juizes (nome, foto, email, bi, pais, regiao, morada, cod_postal, Localidade, telefone1, telefone2) VALUES ('$nome', '$pathFile','$email', $bi, '$pais',
-  ' $regiao', '$morada', '$cod', '$localidade', $telefone1, $telefone2 )";
+
+    $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
+      
+    $password = hash('sha512', $password . $random_salt);
+
+    $query = "INSERT INTO juizes (user, nome, foto, email, bi, pais, regiao, morada, cod_postal, Localidade, telefone1, telefone2, password, salt) VALUES ('$user', '$nome', '$pathFile','$email', $bi, '$pais',
+  ' $regiao', '$morada', '$cod', '$localidade', $telefone1, $telefone2, '$password', '$random_salt' )";
 
     if($stmt = @mysqli_query($dbc, $query)) {
         $_SESSION['biJuizInserido'] = $bi;

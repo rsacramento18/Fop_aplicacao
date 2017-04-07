@@ -31,7 +31,7 @@ $detect = new Mobile_Detect;
 </head>
 <body>
     <?php
-    if (login_check($dbc) == false && login_checkSocios($dbc) == false && login_checkEstrangeiros($dbc) == false ) : ?>
+    if (login_check($dbc) == false && login_checkSocios($dbc) == false && login_checkEstrangeiros($dbc) == false && login_checkJuiz($dbc) == false ) : ?>
     <p>
         <span class="error">You are not authorized to access this page.</span> Please <a href="login.php">login</a>.
     </p>
@@ -156,23 +156,23 @@ $detect = new Mobile_Detect;
 
             <?php endif; ?>
 
-
-
-            <li><a href="logout.php">Sair</a></li>
         <?php endif;?>
 
-        <?php if($detect->isTablet() ) : ?>
+        <?php if($detect->isTablet() ) : ?> 
 
-        <?php if( login_colegio_check($dbc) == true) :?>
+        <?php if( login_checkJuiz($dbc) == true) :?>
 
                 <li class=<?php if (basename($_SERVER['PHP_SELF'])=="julgamentos.php") : ?>"current-item"<?php endif;?>><a href="julgamentos.php">Julgamentos</a></li>
 
         <?php endif; ?>
 
-
-
         <?php endif;?>
-        </ul>
+ 
+
+            <li><a href="logout.php">Sair</a></li>
+        
+
+       </ul>
     </nav>
 </div> 
 <?php endif;?>             

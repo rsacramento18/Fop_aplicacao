@@ -28,6 +28,9 @@ if(isset($_POST['username'], $_POST['p'])) {
     else if(login_socioEstrangeiro($username, $password, $dbc)== 'true') {
         header('Location: home.php');
     }
+    else if(login_juiz($username, $password, $dbc)== 'true') {
+        header('Location: home.php');
+    }
 	else {
 		header('Location: login.php?error=1');
 	}		

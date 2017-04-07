@@ -24,8 +24,46 @@ if($stmt) {
         utf8_encode_deep($dadosExcel);        
     }
 
+    
+    if( login_colegio_check($dbc) == true){
+
+        echo "<div id='juizesExposicao'>";
+
+            echo "<h2>Inscrever Juizes</h2>";
+            echo "<table id='juizesInscritosTable'>";
+            echo "<tr><th>Nome Juiz</th><th>Remover Juiz</th></tr>"; 
+            $query = "SELECT idJuiz_exposicao, idJuiz  FROM juizes_exposicao INNER JOIN exposicoes ON juizes_exposicao.exposicao = exposicoes.idExposicao 
+                    INNER JOIN juizes ON juizes_exposicao.juiz=juizes.idJuiz where exposicoes.idExposicao = '$idExposicao' Order by idJuiz_exposicao desc";
+            if($stmt = @mysqli_query($dbc, $query)) {
+                    while($row = mysqli_fetch_array($stmt)){
+                        $idJuiz = $row['idJuiz'];
+                        $query2 = "SELECT nome FROM juizes WHERE idJuiz = '$idJuiz'";
+
+                        if($stmt2 = @mysqli_query($dbc, $query2)) {
+                            $row2 = mysqli_fetch_array($stmt2);
+                            $nomeJuiz = $row2['nome'];
+                            echo "<tr><td>$nomeJuiz</td><td><input type='button' class='removerJuiz' value='X'/><input type='hidden' value='$idJuiz'/></tr>"; 
+                        }
+                    }
+            }
+
+            echo "</table>";
+            echo "<eledct2>Inserir Juiz</h2>";
+            echo "<form method='post' action='inserirJuizExposicao.php' id='formInserirJuizExposicao' name='inserirJuizExposicao'>";
+                echo "<input type='hidden' name='idExposicao' value='$idExposicao'/>";
+                echo "<span>Juiz</span><select id='selectjuizes' name='selectJuizes'>";
+                   getJuizes($dbc); 
+                echo "</select><br />";
+                echo "<input type='submit' id='btSubmitJuizExposicao' value='inserir'/>";
+            echo"</form>";
+
+        echo "</div>";
+
+    } 
+
 	echo "<div id='exposicaoFormDiv'>";
 
+    echo "<h2> Alterar dados Exposicao</h2>";
     echo "<form method='post' action='alterarExposicao.inc.php' id='formAlterarExposicao' enctype='multipart/form-data'>";
         echo "<input type='hidden' value='$idExposicao' name='idExposicao' ";
     	echo "<span>Titulo </span><input type='text' name='titulo' id='titulo' size='50'/><br/>";
@@ -91,74 +129,7 @@ if($stmt) {
         echo "</div>";
     }
     
-    if( login_colegio_check($dbc) == true){ 
-
-        $query = "SELECT idJuiz_exposicao, idJuiz  FROM juizes_exposicao INNER JOIN exposicoes ON juizes_exposicao.exposicao = exposicoes.idExposicao 
-                    INNER JOIN juizes ON juizes_exposicao.juiz=juizes.idJuiz where exposicoes.idExposicao = '$idExposicao' Order by idJuiz_exposicao desc limit 1";
-        $idJuiz = 0;
-        if($stmt = @mysqli_query($dbc, $query)) {
-            $row = mysqli_fetch_array($stmt);
-            $idJuiz = $row['idJuiz'];
-        }
-
-        echo "<div id='divSelecionarJuizExposicao'>";
-            echo "<h2>Selecionar Juiz</h2>";
-            if($idJuiz != 0){
-                $nomeJuiz = '';
-                $query = "SELECT nome FROM juizes WHERE idJuiz = '$idJuiz'";
-
-                if($stmt = @mysqli_query($dbc, $query)) {
-                    $row = mysqli_fetch_array($stmt);
-                    $nomeJuiz = $row['nome'];
-                }
-                echo "<p id='juizEscolhido'><u>Ultimo juiz Escolhido</u>: $nomeJuiz</p><br/>";
-            }
-            else {
-                echo "<p id='juizEscolhido'><u>Nao existe juiz escolhido para esta exposição</u></p><br/>";
-            }
-            echo "<form method='post' action='inserirJuizExposicao.php' id='formInserirJuizExposicao' name='inserirJuizExposicao'>";
-                echo "<input type='hidden' name='idExposicao' value='$idExposicao'/>";
-                echo "<span>Juiz</span><select id='selectjuizes' name='selectJuizes'>";
-                   getJuizes($dbc); 
-                echo "</select><br />";
-                echo "<input type='submit' id='btSubmitJuizExposicao' value='inserir'/>";
-            echo"</form>";
-            
-            echo "<input type='button' name='btVerJuizes' id='btVerJuizes' value='Ver todos os juizes' onclick='verJuizes()' /> ";
-            
-            echo "<div id='myModal' class='modal'> ";
-                echo "<div id='conteudoModal2' class='modal-content'>";
-                    echo "<h2 id='tituloModal' >Juizes Inscritos</h2>"; 
-                    echo "<span id='closeModal' class='close'>&times;</span>";    
-
-                    $query = "SELECT nome, foto  FROM juizes_exposicao INNER JOIN exposicoes ON juizes_exposicao.exposicao = exposicoes.idExposicao 
-                    INNER JOIN juizes ON juizes_exposicao.juiz=juizes.idJuiz where exposicoes.idExposicao = '$idExposicao' Order by idJuiz_exposicao asc";
-
-                    echo "<table id='verJuizesTables'>";
-
-
-                    $idJuiz = 0;
-                    if($stmt = @mysqli_query($dbc, $query)) {
-                        while($row = mysqli_fetch_array($stmt)){
-                            $nome = $row['nome'];
-                            echo "<tr>";
-                            echo "<td>$nome</td>";
-                            echo "</tr>";
-                        }
-                        $idJuiz = $row['idJuiz'];
-                    }
-
-                    echo "</table>";
-
-                echo"</div>";
     
-            echo"</div>";
-
-        echo "</div>";
-        
-
-    }
-
     echo "<div id='myModal' class='modal'> ";
         echo "<div id='conteudoModal' class='modal-content'>";
             echo "<h2 id='tituloModal' ></h2>"; 

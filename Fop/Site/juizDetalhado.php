@@ -20,6 +20,7 @@ if($stmt) {
 	echo "<div id='dadosJuiz' style='display:block'>";
 	echo "<table id='tableJuizDetalhado'>";
 
+	echo "<tr><th>User</th><td id='user'>" . $dadosJuiz['user'] . "</td></tr>";
 	echo "<tr><th>Nome</th><td id='nome'>" . $dadosJuiz['nome'] . "</td></tr>";
 	echo "<tr><th>Email</th><td id='email'>" . $dadosJuiz['email'] . "</td></tr>";
 	echo "<tr><th>Bi/CC</th><td id='bi'>" . $dadosJuiz['bi'] . "</td></tr>";
