@@ -25,7 +25,7 @@ if($stmt) {
     }
 
     
-    if( login_colegio_check($dbc) == true){
+    if( login_colegio_check($dbc) == true) {
 
         echo "<div id='juizesExposicao'>";
 
@@ -48,7 +48,7 @@ if($stmt) {
             }
 
             echo "</table>";
-            echo "<eledct2>Inserir Juiz</h2>";
+            echo "<h2>Inserir Juiz</h2>";
             echo "<form method='post' action='inserirJuizExposicao.php' id='formInserirJuizExposicao' name='inserirJuizExposicao'>";
                 echo "<input type='hidden' name='idExposicao' value='$idExposicao'/>";
                 echo "<span>Juiz</span><select id='selectjuizes' name='selectJuizes'>";

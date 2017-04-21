@@ -1655,6 +1655,23 @@ tr.selected {
 
 /*=========Exposição Detalhada===========*/
 
+#juizesInscritosTable{
+    margin: 20px 0;
+    width: 100%;
+}
+
+#juizesInscritosTable tr th{
+    text-align: left;
+}
+
+#juizesInscritosTable tr > th {
+    width: 75%;
+}
+
+#formInserirJuizExposicao #selectJuizes{
+    margin-left: 10px;
+}
+
 #exposicaoSelecionada{
 	margin-bottom: 20px;
 }
