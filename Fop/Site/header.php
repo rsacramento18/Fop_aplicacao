@@ -158,7 +158,6 @@ $detect = new Mobile_Detect;
 
         <?php endif;?>
 
-        <?php if($detect->isTablet() ) : ?> 
 
         <?php if( login_checkJuiz($dbc) == true) :?>
 
@@ -166,7 +165,6 @@ $detect = new Mobile_Detect;
 
         <?php endif; ?>
 
-        <?php endif;?>
  
 
             <li><a href="logout.php">Sair</a></li>
