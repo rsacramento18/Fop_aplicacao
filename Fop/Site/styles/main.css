@@ -2405,7 +2405,7 @@ form#formAlterarJuiz #telefone2Juiz{
 /*=========JULGAMENTOS===========*/
 
 #julgarAvesDiv{
-    min-height: 300px;
+    min-height: 500px;
 }
 
 
@@ -2426,8 +2426,31 @@ form#formAlterarJuiz #telefone2Juiz{
     font-size: 30pt;
 }
 
+
+
 .avesBoxSelected {
+    top:50%;
+    width: 600px;
+    height: 200px;
     border: 2px solid #840101;
+    display: block
+}
+
+.avesBoxSelected p{
+    right: 25%;
+    top: 40%;
+    
+}
+
+.avesBoxSelected input[type=button]{
+    display:block;
+    top: 25%;
+    left: 80%;
+    margin-bottom: 20px;
+    margin-left: 350px;
+    width: 200px;
+    height: 50px;
+
 }
 
 

@@ -88,6 +88,17 @@ $user = $_SESSION['user'];
             /* } */
             /* } */
         /* } */
+        echo "<div id='myModal' class='modal'> ";
+            echo "<div id='conteudoModal' class='modal-content'>";
+                echo "<h2 id='tituloModal' ></h2>"; 
+                echo "<span id='closeModal' class='close'>&times;</span>";    
+                echo "<table id='modalContentTable'>";
+                echo "<tr><th>Stam</th><th>Seccao</th><th>Classe</th><th>Anilha</th><th>Ano</th><th>Preco</th></tr>";
+                echo "</table>";
+
+            echo"</div>";
+    
+        echo"</div>";
 
     }
     else{
@@ -98,11 +109,67 @@ echo "</div>";
 ?>
 
 <script type="text/javascript">
+var avesInscritas = <?php echo json_encode($avesInscritas); ?>;
+var span = document.getElementById("closeModal");
+var modal = document.getElementById("myModal");
 
-$('#todasExposicoes').on("click", ".exposicaoQuadrado", function(){
+console.log(avesInscritas);
+
+$('#julgarAvesDiv').on("click", ".avesBox", function(){
+    var elems = document.querySelectorAll(".avesBoxSelected");
+
+    [].forEach.call(elems, function(el) {
+        el.classList.remove("avesBoxSelected");
+    });
+    var elems = document.querySelectorAll(".buttonsAveBox");
+
+    [].forEach.call(elems, function(el) {
+        el.classList.remove("avesBoxSelected");
+        el.parentNode.removeChild(el);
+    });
+    this.classList.add("avesBoxSelected");
+    var seccao = this.childNodes[0].innerHTML;
+    this.innerHTML += "<div class='buttonsAveBox'><input type='button' value='Ver Aves' onclick='verAvesSeccao("+ '"' + seccao + '"' + ");'/><input type='button' value='julgar' onclick='julgarAves("+ '"' + seccao + '"' + ");'/>";
+
+});
+
+    function julgarAves(seccao){
+        $.ajax({
+            type:'POST',
+            url:'julgar.php',
+            data: {seccao: seccao},
+            success:function(response){
+            }
+        }); 
+
+    }
     
 
-}
+    function verAvesSeccao(seccao){
+        
+        
+        var modalContent = document.getElementById("modalContentTable");
+        for (var i=0; i< avesInscritas.length; i++){
+           if(avesInscritas[i][4] == seccao){
+
+                modalContent.childNodes[0].innerHTML += "<tr><td>" + avesInscritas[i][2] + "</td><td>" + avesInscritas[i][3] + "</td><td>" + avesInscritas[i][4] + "</td><td>" + avesInscritas[i][5] + "</td><td>" + avesInscritas[i][6] + avesInscritas[i][7] + "</td><td>" +  avesInscritas[i][8] + "</td></tr>";
+            } 
+
+            
+        }
+        modal.style.display = "block";
+    }
+
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    } 
 	
 </script>
 
